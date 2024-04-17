@@ -4,6 +4,7 @@ export default {
   COLOR_MAIN_SKYBLUE: "#adc1ed",
 
   COLOR_WHITE_BACKGROUND: "#ffffff",
+  COLOR_GRAY_BACKGROUND: "#AEAEAE",
 
   COLOR_RECORD_DARK: "#000",
   COLOR_RECORD_LIGHT: "#535353",
@@ -11,4 +12,9 @@ export default {
   COLOR_RECORD_LINE: "#4a4a4a",
 
   COLOR_TRANSPARENT_WHITE: "rgba(255, 255, 255, 0.3)",
+
+  COLOR_WHITE_BORDER: "#ffffff",
+  COLOR_GRAY_BORDER: "#AEAEAE",
+
+  COLOR_GRAY_TEXT: "#7D7D7D",
 };
