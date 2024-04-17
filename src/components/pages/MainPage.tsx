@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 import { MainLayout } from "../common";
-import { AlbumCard } from "../molecules";
 import { HomePostList } from "../organisms";
+import { AlbumCarousel } from "../organisms/album";
 
 import { useMediaQueries } from "../../hooks";
 
@@ -11,7 +11,7 @@ const MainPage = () => {
 
   return (
     <MainLayout>
-      <AlbumCard />
+      <AlbumCarousel />
 
       <PostListWrapper style={isPc ? { flexDirection: "row" } : {}}>
         <HomePostList text="음악 추천 게시판" />
@@ -24,7 +24,7 @@ const MainPage = () => {
 export default MainPage;
 
 const PostListWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 2rem;
   width: 100%;
   display: flex;
   flex-direction: column;

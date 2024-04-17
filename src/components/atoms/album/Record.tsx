@@ -57,7 +57,7 @@ const Container = styled.div`
     ${color.COLOR_RECORD_LIGHT},
     ${color.COLOR_RECORD_DARK}
   );
-  animation: ${rotate} 5s linear infinite;
+  animation: ${rotate} 7s linear infinite;
 `;
 
 const InnerCircle = styled.div`

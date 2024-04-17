@@ -1,7 +1,14 @@
 import styled from "styled-components";
 
+import color from "../../../styles/color";
+
 const AlbumRating = () => {
-  return <div>4.5</div>;
+  return <Container>4.5</Container>;
 };
 
 export default AlbumRating;
+
+const Container = styled.div`
+  font-size: 0.8rem;
+  color: ${color.COLOR_GRAY_TEXT};
+`;

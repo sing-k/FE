@@ -37,12 +37,12 @@ export default AlbumInfo;
 const Container = styled.div`
   width: 100%;
   background-color: ${color.COLOR_TRANSPARENT_WHITE};
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 0.5rem;
+  padding: 0.6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 0.6rem;
 `;
 
 const Wrapper = styled.div`
