@@ -15,7 +15,7 @@ const CoverRecord = () => {
 export default CoverRecord;
 
 const Container = styled.div`
-  aspect-ratio: 3 / 2;
   width: 100%;
+  aspect-ratio: 3 / 2;
   position: relative;
 `;

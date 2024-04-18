@@ -17,5 +17,6 @@ export default PostLikeNum;
 const Container = styled.div``;
 
 const Text = styled.span`
+  font-size: 0.7rem;
   color: ${color.COLOR_GRAY_TEXT};
 `;

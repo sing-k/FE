@@ -5,9 +5,13 @@ import AlbumInfo from "./AlbumInfo";
 
 import color from "../../../styles/color";
 
-const AlbumCard = () => {
+type Props = {
+  width?: string;
+};
+
+const AlbumCard = ({ width }: Props) => {
   return (
-    <Container>
+    <Container style={width ? { width } : {}}>
       <CoverRecord />
 
       <AlbumInfo />
@@ -19,13 +23,14 @@ export default AlbumCard;
 
 const Container = styled.div`
   background-color: ${color.COLOR_TRANSPARENT_WHITE};
-  width: 300px;
-  border-radius: 10px;
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  padding: 15px;
+  gap: 0.7rem;
+  padding: 0.7rem;
   cursor: pointer;
 `;

@@ -7,6 +7,6 @@ const AlbumName = () => {
 export default AlbumName;
 
 const StyledName = styled.p`
-  font-weight: bold;
-  font-size: 1.3rem;
+  font-weight: 700;
+  font-size: 0.8rem;
 `;

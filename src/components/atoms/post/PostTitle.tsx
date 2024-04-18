@@ -9,6 +9,6 @@ const PostTitle = () => {
 export default PostTitle;
 
 const Title = styled.p`
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-weight: 500;
+  font-size: 1rem;
 `;
