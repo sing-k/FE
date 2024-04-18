@@ -6,6 +6,9 @@ import { AlbumCard } from "../../molecules";
 
 import { useMediaQueries } from "../../../hooks";
 
+import color from "../../../styles/color";
+
+const GAP_REM = 1.5;
 const data = [...new Array(10).fill(0)];
 
 const AlbumCarousel = () => {
@@ -14,14 +17,39 @@ const AlbumCarousel = () => {
 
   const itemRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLDivElement>(null);
 
   const { isPc, isTablet, isMobile } = useMediaQueries();
+
+  const handleClickPrev = () => {
+    if (currentIdx === 0) setCurrentIdx(9);
+    else setCurrentIdx(currentIdx - 1);
+  };
+  const handleClickNext = () => {
+    if (currentIdx === 9) setCurrentIdx(0);
+    else setCurrentIdx(currentIdx + 1);
+  };
 
   const handleResize = () => {
     if (itemRef.current === null) return;
 
     setItemWidth(itemRef.current.offsetWidth);
   };
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      let value = `calc(-${itemWidth * currentIdx}px - ${
+        GAP_REM * currentIdx
+      }rem)`;
+      carouselRef.current.style.transform = `translateX(${value})`;
+    }
+
+    if (indicatorRef.current) {
+      const value = Math.floor(currentIdx / 3) * 3;
+
+      indicatorRef.current.style.transform = `translateX(-${value}rem)`;
+    }
+  }, [currentIdx]);
 
   useEffect(() => {
     handleResize();
@@ -52,6 +80,23 @@ const AlbumCarousel = () => {
           </CardWrapper>
         ))}
       </Carousel>
+
+      <IndicatorWrapper>
+        <div onClick={handleClickPrev}>prev</div>
+
+        <div style={{ overflow: "hidden" }}>
+          <Indicator ref={indicatorRef}>
+            {data.map((_, idx) => (
+              <Dot
+                key={`${idx}indicator`}
+                className={idx === currentIdx ? "focused" : "none"}
+              />
+            ))}
+          </Indicator>
+        </div>
+
+        <div onClick={handleClickNext}>next</div>
+      </IndicatorWrapper>
     </Container>
   );
 };
@@ -64,10 +109,9 @@ const Container = styled.div`
 `;
 
 const Carousel = styled.div`
-  width: 100%;
   display: flex;
   transition: 0.5s;
-  gap: 1rem;
+  gap: ${GAP_REM}rem;
 
   &:hover {
     animation-play-state: paused;
@@ -77,4 +121,33 @@ const Carousel = styled.div`
 const CardWrapper = styled.div`
   width: 100%;
   flex-shrink: 0;
+`;
+
+const IndicatorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+`;
+
+const Indicator = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 2.5rem;
+  transition: 0.5s;
+`;
+
+const Dot = styled.div`
+  aspect-ratio: 1 / 1;
+  width: 0.5rem;
+  flex-shrink: 0;
+  background-color: ${color.COLOR_TRANSPARENT_WHITE};
+  border-radius: 50%;
+  transition: 0.5s;
+
+  &.focused {
+    background-color: ${color.COLOR_WHITE_BACKGROUND};
+  }
 `;
