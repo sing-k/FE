@@ -9,6 +9,6 @@ const AlbumType = () => {
 export default AlbumType;
 
 const Container = styled.div`
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: ${color.COLOR_GRAY_TEXT};
 `;

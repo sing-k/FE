@@ -48,7 +48,7 @@ const Contents = styled.div`
   //   background-color: ${color.COLOR_TRANSPARENT_WHITE};
   background-color: rgba(255, 255, 255, 0.2);
   width: 100%;
-  padding: 0.6rem 0.8rem;
+  padding: 0.5rem 0.8rem;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -56,7 +56,7 @@ const Contents = styled.div`
 
 const Border = styled.div`
   width: 100%;
-  height: 3px;
+  height: 2.5px;
   background: linear-gradient(to right, #6d56ff, #ffa1f6);
 `;
 

@@ -43,7 +43,7 @@ const AlbumCarousel = () => {
                 : isTablet
                 ? "30%"
                 : isMobile
-                ? "50%"
+                ? "40%"
                 : "100%",
             }}
             ref={itemRef}

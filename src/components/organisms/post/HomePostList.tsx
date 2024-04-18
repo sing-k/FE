@@ -26,7 +26,6 @@ const HomePostList = (props: Props) => {
 export default HomePostList;
 
 const Container = styled.div`
-  //   width: 50%;
   flex: 1;
 `;
 

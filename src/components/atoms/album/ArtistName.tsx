@@ -9,5 +9,5 @@ const ArtistName = () => {
 export default ArtistName;
 
 const Name = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 `;

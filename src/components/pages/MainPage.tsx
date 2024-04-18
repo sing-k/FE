@@ -24,10 +24,10 @@ const MainPage = () => {
 export default MainPage;
 
 const PostListWrapper = styled.div`
-  margin-top: 2rem;
+  margin-top: 3rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 3rem;
 `;

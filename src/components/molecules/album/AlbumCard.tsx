@@ -25,12 +25,12 @@ const Container = styled.div`
   background-color: ${color.COLOR_TRANSPARENT_WHITE};
   width: 100%;
   flex-shrink: 0;
-  border-radius: 0.8rem;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.7rem;
+  padding: 0.7rem;
   cursor: pointer;
 `;
