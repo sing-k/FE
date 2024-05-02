@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useMediaQueries } from "../../hooks";
+import NavigationBar from "../organisms/navbar/NavigationBar";
 
 import color from "../../styles/color";
 
@@ -15,6 +16,7 @@ const MainLayout = ({ children }: Props) => {
 
   return (
     <Layout>
+      <NavigationBar />
       <Contents
         style={{
           width: isPc ? "70%" : isTablet ? "80%" : isMobile ? "100%" : "100%",
