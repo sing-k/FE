@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import { ButtonType } from "../../../types/\bauthTypes";
+import { ButtonType } from "../../../types/authTypes";
 const AuthPostButton = ({
   type,
   text,

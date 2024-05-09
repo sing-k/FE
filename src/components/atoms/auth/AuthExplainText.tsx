@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { TextType } from "../../../types/authTypes";
+import { TextType } from "../../../types/authTypes";
 
 const AuthExplainText = ({ text }: TextType) => {
   return <ExplainText>{text}</ExplainText>;

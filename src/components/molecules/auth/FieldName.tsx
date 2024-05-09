@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { AuthLabel, AuthRequiredText } from "../../atoms";
 
-import { TextType } from "../../../types/\bauthTypes";
+import { TextType } from "../../../types/authTypes";
 const FieldName = ({ text }: TextType) => {
   return (
     <Container>

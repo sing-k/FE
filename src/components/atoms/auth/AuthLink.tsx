@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import { TextType } from "../../../types/\bauthTypes";
+import { TextType } from "../../../types/authTypes";
 const AuthLink = ({ text }: TextType) => {
   return <LinkTitle>{text}</LinkTitle>;
 };

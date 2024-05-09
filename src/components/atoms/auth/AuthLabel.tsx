@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { TextType } from "../../../types/\bauthTypes";
+import { TextType } from "../../../types/authTypes";
 const AuthLabel = ({ text }: TextType) => {
   return <Title>{text}</Title>;
 };
