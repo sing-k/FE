@@ -1,7 +1,5 @@
 import client from "../../config/axios";
 
-import { FormType } from "../../types/authTypes";
-
 export const handleSendVerificationCode = async (email: any) => {
   try {
     const res = await client.post(
@@ -79,18 +77,3 @@ export const handleSubmitLogin = async (data: any) => {
     console.error("API 호출 중 오류가 발생했습니다.", error);
   }
 };
-
-export const handleValid = async (data: FormType) => {
-  try {
-    const result = await handleSubmitData(data);
-    console.log(result);
-    if (result === 200) {
-      alert("회원가입을 완료하였습니다. 로그인 페이지로 이동합니다.");
-    }
-  } catch (err) {
-    console.log(err, "err");
-    alert("입력사항을 확인해주세요 ");
-  }
-};
-
-export const handleError = (errors: any) => console.error(errors);

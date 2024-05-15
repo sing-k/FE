@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import { useForm } from "react-hook-form";
 
+import { useNavigate } from "react-router-dom";
+
 import { useMediaQueries } from "../../../hooks";
 import {
   AuthPostButton,
@@ -18,8 +20,7 @@ import {
   handleSendVerificationCode,
   handelCheckNickNameExists,
   handleVerificationCodeConfirmation,
-  handleValid,
-  handleError,
+  handleSubmitData,
 } from "../../../utils/auth/authApi";
 
 import { FormType } from "../../../types/authTypes";
@@ -38,7 +39,7 @@ const SignUpForm = () => {
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState<string>("");
   const { isPc, isTablet, isMobile } = useMediaQueries();
-
+  const navigate = useNavigate();
   const handleSendVerificationCodeClick = async () => {
     try {
       const response = await handleSendVerificationCode(watch("email"));
@@ -90,6 +91,21 @@ const SignUpForm = () => {
   const handelDateChange = (date: string) => {
     setValue("birthday", date);
   };
+  const handleValid = async (data: FormType) => {
+    try {
+      const result = await handleSubmitData(data);
+      console.log(result);
+      if (result === 200) {
+        alert("회원가입을 완료하였습니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    } catch (err) {
+      console.log(err, "err");
+      alert("입력사항을 확인해주세요 ");
+    }
+  };
+
+  const handleError = (errors: any) => console.error(errors);
   return (
     <Container
       style={{
