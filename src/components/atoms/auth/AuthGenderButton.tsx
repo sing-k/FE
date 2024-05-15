@@ -19,7 +19,7 @@ const StyledButton = styled.button<{ $isActive: boolean }>`
     props.$isActive ? color.COLOR_BLUE_AUTH_BUTTON : "#efefef"};
   color: ${props =>
     props.$isActive ? "white" : color.COLOR_LIGHT_GRAY_PLACEHOLDER};
-  padding: 3%;
+  padding: 2%;
   border: none;
   border-radius: 8px;
   font-size: 0.8rem;
@@ -30,6 +30,7 @@ const StyledButton = styled.button<{ $isActive: boolean }>`
   transition: 0.4s;
   &:hover {
     background-color: ${color.COLOR_BLUE_AUTH_BUTTON};
+    color: white;
   }
 
   &:focus {

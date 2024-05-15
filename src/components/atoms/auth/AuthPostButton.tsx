@@ -35,7 +35,7 @@ const PostButton = styled.button<{ $isActive: boolean }>`
     props.$isActive
       ? color.COLOR_BLUE_AUTH_BUTTON
       : color.COLOR_GRAY_INACTIVE_BUTTON};
-  margin: 3% 0 3% 0;
+  margin: 5% 0 3% 0;
   cursor: pointer;
   white-space: nowrap;
   &:active {

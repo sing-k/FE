@@ -4,7 +4,7 @@ import color from "../../../styles/color";
 
 type NavbarBtnProps = {
   title: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 const NavbarBtn = ({ title, onClick }: NavbarBtnProps) => {
   return <NavbarButton onClick={onClick}>{title}</NavbarButton>;

@@ -7,15 +7,23 @@ type TAuthInput = {
   register?: any;
   placeholder?: string;
   type?: string;
+  disabled?: boolean;
 };
 const AuthInput = ({
   name,
   register,
   placeholder = "",
   type = "text",
+  disabled,
 }: TAuthInput) => {
   return (
-    <Input {...register} name={name} placeholder={placeholder} type={type} />
+    <Input
+      {...register}
+      name={name}
+      placeholder={placeholder}
+      type={type}
+      disabled={disabled}
+    />
   );
 };
 

@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import { MainPage } from "./components/pages";
+import { MainPage, SignUpPage, LoginPage } from "./components/pages";
 
 import { useAxiosInterceptors } from "./hooks";
 
@@ -34,6 +34,8 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
   );
