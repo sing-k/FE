@@ -29,8 +29,8 @@ export const handleVerificationCodeConfirmation = async (
       email: email,
       code: code,
     });
-
-    return res.data.statusCode;
+    console.log(res.data);
+    return res.data;
   } catch (error) {
     console.error("API 호출 중 오류가 발생했습니다.", error);
   }

@@ -53,16 +53,21 @@ const SignUpForm = () => {
     }
   };
 
-  const handleVerificationCodeConfirmationClick = () => {
-    handleVerificationCodeConfirmation(watch("email"), watch("emailcode")).then(
-      statusCode => {
-        if (statusCode === 200) {
-          setIsEmailValid(true); // 성공 시 상태 변경
-        } else {
-          // 실패 시에는 다른 처리를 수행할 수 있음
-        }
-      },
-    );
+  const handleVerificationCodeConfirmationClick = async () => {
+    try {
+      const response = await handleVerificationCodeConfirmation(
+        watch("email"),
+        watch("emailcode"),
+      );
+      if (response && response.statusCode === 200) {
+        setIsEmailValid(true);
+        setEmailErrorMessage("");
+      } else {
+        setEmailErrorMessage(response.message);
+      }
+    } catch (error) {
+      console.error("API 호출 중 오류가 발생했습니다.", error);
+    }
   };
   const handelCheckNickNameExistsClick = async () => {
     try {
