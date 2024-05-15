@@ -13,7 +13,7 @@ export const validationRules = {
     required: "인증번호 확인은 필수입니다",
     pattern: {
       value: /^\d{6}$/,
-      message: "인증번호가 일치하지 않습니다",
+      message: "인증번호 6자리를 입력해주세요",
     },
   },
   password: {
