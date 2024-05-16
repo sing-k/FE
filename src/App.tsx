@@ -6,7 +6,7 @@ import { useAxiosInterceptors } from "./hooks";
 
 import GlobalStyle from "./styles/GlobalStyle";
 
-import client from "./config/axios";
+// import client from "./config/axios";
 
 function App() {
   useAxiosInterceptors();
