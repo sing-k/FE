@@ -14,6 +14,8 @@ import NavProfile from "../../molecules/navbar/NavProfile";
 import LogoutBtn from "../../atoms/navbar/LogoutBtn";
 import NavClickIcon from "../../atoms/navbar/NavClickIcon";
 
+import { glassEffectStyle } from "../../../styles/style";
+
 type ContainerProps = {
   $isPc: boolean;
   $isTablet: boolean;
@@ -81,11 +83,11 @@ const Wrapper = styled.div`
   left: 0;
   z-index: 10;
 `;
+
 const Container = styled.div<ContainerProps>`
-  background: ${color.COLOR_TRANSPARENT_WHITE};
+  ${glassEffectStyle()}
+
   box-shadow: 0 8px 10px 0 rgba(113, 113, 113, 0.344);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
   position: fixed;
   z-index: 11;
   display: flex;

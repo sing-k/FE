@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import color from "../../../styles/color";
+import { glassEffectStyle } from "../../../styles/style";
 
 type Props = {
   text: string;
@@ -14,7 +15,7 @@ export default PostListHeader;
 
 const Container = styled.div`
   width: 100%;
-  background-color: ${color.COLOR_TRANSPARENT_WHITE};
+  ${glassEffectStyle()}
   text-align: center;
   font-size: 1rem;
   font-weight: bold;
