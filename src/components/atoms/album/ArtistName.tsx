@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import color from "../../../styles/color";
-
 const ArtistName = () => {
   return <Name>아티스트명</Name>;
 };

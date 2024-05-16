@@ -1,5 +1,3 @@
-import React from "react";
-
 import styled from "styled-components";
 
 import { PostListHeader } from "../../atoms";
@@ -15,7 +13,7 @@ const HomePostList = (props: Props) => {
       <PostListHeader text={props.text} />
 
       <ListWrapper>
-        {[...new Array(5).fill(0)].map((el, idx) => (
+        {[...new Array(5).fill(0)].map(idx => (
           <PostListItem key={`postListItem${idx}`} />
         ))}
       </ListWrapper>
