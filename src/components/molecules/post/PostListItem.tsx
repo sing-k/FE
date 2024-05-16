@@ -11,6 +11,7 @@ import {
 } from "../../atoms";
 
 import color from "../../../styles/color";
+import { glassEffectStyle } from "../../../styles/style";
 
 const PostListItem = () => {
   return (
@@ -45,8 +46,7 @@ export default PostListItem;
 const Container = styled.div``;
 
 const Contents = styled.div`
-  //   background-color: ${color.COLOR_TRANSPARENT_WHITE};
-  background-color: rgba(255, 255, 255, 0.2);
+  ${glassEffectStyle()}
   width: 100%;
   padding: 0.5rem 0.8rem;
   display: flex;

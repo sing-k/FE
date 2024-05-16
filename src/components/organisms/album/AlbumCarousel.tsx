@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 import styled from "styled-components";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 import { AlbumCard } from "../../molecules";
 
 import { useMediaQueries } from "../../../hooks";
 
 import color from "../../../styles/color";
+import { glassEffectStyle } from "../../../styles/style";
 
 const GAP_REM = 1.5;
 const data = [...new Array(10).fill(0)];
@@ -67,12 +69,12 @@ const AlbumCarousel = () => {
             key={`albumcard${idx}`}
             style={{
               width: isPc
-                ? "20%"
+                ? "17%"
                 : isTablet
-                ? "30%"
-                : isMobile
-                ? "40%"
-                : "100%",
+                  ? "30%"
+                  : isMobile
+                    ? "40%"
+                    : "100%",
             }}
             ref={itemRef}
           >
@@ -82,7 +84,9 @@ const AlbumCarousel = () => {
       </Carousel>
 
       <IndicatorWrapper>
-        <div onClick={handleClickPrev}>prev</div>
+        <IndicatorBtn onClick={handleClickPrev}>
+          <FaChevronCircleLeft />
+        </IndicatorBtn>
 
         <div style={{ overflow: "hidden" }}>
           <Indicator ref={indicatorRef}>
@@ -95,7 +99,9 @@ const AlbumCarousel = () => {
           </Indicator>
         </div>
 
-        <div onClick={handleClickNext}>next</div>
+        <IndicatorBtn onClick={handleClickNext}>
+          <FaChevronCircleRight />
+        </IndicatorBtn>
       </IndicatorWrapper>
     </Container>
   );
@@ -143,11 +149,19 @@ const Dot = styled.div`
   aspect-ratio: 1 / 1;
   width: 0.5rem;
   flex-shrink: 0;
-  background-color: ${color.COLOR_TRANSPARENT_WHITE};
+  ${glassEffectStyle()}
   border-radius: 50%;
   transition: 0.5s;
 
   &.focused {
     background-color: ${color.COLOR_WHITE_BACKGROUND};
   }
+`;
+
+const IndicatorBtn = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: ${color.COLOR_WHITE_BACKGROUND};
+  font-size: 1rem;
 `;

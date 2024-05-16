@@ -4,6 +4,7 @@ import CoverRecord from "./CoverRecord";
 import AlbumInfo from "./AlbumInfo";
 
 import color from "../../../styles/color";
+import { glassEffectStyle } from "../../../styles/style";
 
 type Props = {
   width?: string;
@@ -22,7 +23,7 @@ const AlbumCard = ({ width }: Props) => {
 export default AlbumCard;
 
 const Container = styled.div`
-  background-color: ${color.COLOR_TRANSPARENT_WHITE};
+  ${glassEffectStyle()}
   width: 100%;
   flex-shrink: 0;
   border-radius: 0.5rem;

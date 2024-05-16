@@ -9,6 +9,7 @@ import {
 } from "../../atoms";
 
 import color from "../../../styles/color";
+import { glassEffectStyle } from "../../../styles/style";
 
 const AlbumInfo = () => {
   return (
@@ -35,8 +36,8 @@ const AlbumInfo = () => {
 export default AlbumInfo;
 
 const Container = styled.div`
+  ${glassEffectStyle()}
   width: 100%;
-  background-color: ${color.COLOR_TRANSPARENT_WHITE};
   border-radius: 0.3rem;
   padding: 0.5rem;
   display: flex;
