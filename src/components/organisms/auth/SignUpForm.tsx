@@ -94,7 +94,6 @@ const SignUpForm = () => {
   const handleValid = async (data: FormType) => {
     try {
       const result = await handleSubmitData(data);
-      console.log(result);
       if (result === 200) {
         alert("회원가입을 완료하였습니다. 로그인 페이지로 이동합니다.");
         navigate("/login");
