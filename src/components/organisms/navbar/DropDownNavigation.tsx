@@ -10,7 +10,7 @@ import { IoMenu } from "react-icons/io5";
 import LogoImage from "../../common/LogoImage";
 import SearchBar from "../../molecules/search/SearchBar";
 import NavProfile from "../../molecules/navbar/NavProfile";
-import NavSignUpBtn from "./NavSignUpBtn";
+// import NavSignUpBtn from "./NavSignUpBtn";
 import NavMenuList from "../../molecules/navbar/NavMenuList";
 
 const DropDownNavigation = () => {

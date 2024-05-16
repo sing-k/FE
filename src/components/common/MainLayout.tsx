@@ -7,7 +7,7 @@ import { useMediaQueries } from "../../hooks";
 
 import LogoImage from "./LogoImage";
 import NavigationBar2 from "../organisms/navbar/NavigationBar2";
-import NavigationBar from "../organisms/navbar/NavigationBar";
+// import NavigationBar from "../organisms/navbar/NavigationBar";
 import SearchBar from "../molecules/search/SearchBar";
 import DropDownNavigation from "../organisms/navbar/DropDownNavigation";
 
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const MainLayout = ({ children }: Props) => {
-  const { isPc, isTablet, isMobile } = useMediaQueries();
+  const { isPc, isTablet } = useMediaQueries();
 
   return (
     <Layout style={{ flexDirection: isPc ? "row" : "column" }}>

@@ -9,8 +9,8 @@ type Props = {
   text: string;
   link?: string;
 };
-
-const NavProfileBtn = ({ Icon, text, link }: Props) => {
+//link props 에 다시 추가하기 ! (배포때문에 빼놨음)
+const NavProfileBtn = ({ Icon, text }: Props) => {
   return (
     <Container>
       {Icon && <Icon />}

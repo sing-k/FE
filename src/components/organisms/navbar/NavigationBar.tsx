@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 import styled, { css } from "styled-components";
 
-import color from "../../../styles/color";
-
 import { useMediaQueries } from "../../../hooks";
 import NavbarLogo from "../../atoms/navbar/NavbarLogo";
 import NavbarBtn from "../../atoms/navbar/NavbarBtn";

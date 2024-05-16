@@ -3,7 +3,6 @@ import styled from "styled-components";
 import CoverRecord from "./CoverRecord";
 import AlbumInfo from "./AlbumInfo";
 
-import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
 type Props = {

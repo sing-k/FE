@@ -8,7 +8,6 @@ import {
   AlbumRatingNum,
 } from "../../atoms";
 
-import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
 const AlbumInfo = () => {

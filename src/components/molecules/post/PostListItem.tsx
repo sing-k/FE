@@ -8,7 +8,6 @@ import {
   PostWriter,
 } from "../../atoms";
 
-import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
 const PostListItem = () => {
