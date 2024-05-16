@@ -11,7 +11,7 @@ export const handleSendVerificationCode = async (email: any) => {
         },
       },
     );
-    console.log(res.data);
+
     return res.data;
   } catch (error) {
     console.error("API 호출 중 오류가 발생했습니다.", error);
