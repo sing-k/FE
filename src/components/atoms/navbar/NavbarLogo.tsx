@@ -12,7 +12,7 @@ const LogoImage = styled.div`
   background-image: url(${Logo});
   background-size: contain;
   background-repeat: no-repeat;
-  width: 50%;
+  width: 80px;
   height: 60px; // 부모 만들어지면 크기 수정해야됨
   flex-basis: 10%;
   margin-top: 5%;

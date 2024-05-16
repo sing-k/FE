@@ -1,11 +1,14 @@
 import { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 import styled, { css } from "styled-components";
 
 import color from "../../../styles/color";
 
 import { useMediaQueries } from "../../../hooks";
 import NavbarLogo from "../../atoms/navbar/NavbarLogo";
+import NavbarBtn from "../../atoms/navbar/NavbarBtn";
 import NavMenuList from "../../molecules/navbar/NavMenuList";
 import NavProfile from "../../molecules/navbar/NavProfile";
 import LogoutBtn from "../../atoms/navbar/LogoutBtn";
@@ -22,11 +25,11 @@ type ContainerProps = {
 const NavigationBar = () => {
   const { isPc, isTablet, isMobile } = useMediaQueries();
   const [isNavClick, setIsNavClick] = useState<boolean>(false);
+  const isLoggedIn = false; // 나중에 유저관련 로직 변경/임시처리
 
   const handleNavClick = () => {
     setIsNavClick(true);
   };
-
   return (
     <>
       {isNavClick && <Wrapper onClick={() => setIsNavClick(false)} />}
@@ -37,26 +40,28 @@ const NavigationBar = () => {
         $isNavClick={isNavClick}
         onClick={handleNavClick}
       >
-        {isPc ? (
+        {isPc || (isTablet && isNavClick) || (isMobile && isNavClick) ? (
           <>
             <NavbarLogo />
-            <NavProfile />
-            <NavMenuList />
-            <LogoutBtn />
-          </>
-        ) : isTablet && isNavClick ? (
-          <>
-            <NavbarLogo />
-            <NavProfile />
-            <NavMenuList />
-            <LogoutBtn />
-          </>
-        ) : isMobile && isNavClick ? (
-          <>
-            <NavbarLogo />
-            <NavProfile />
-            <NavMenuList />
-            <LogoutBtn />
+            {isLoggedIn ? (
+              <>
+                <NavProfile />
+                <NavMenuList />
+                <LogoutBtn />
+              </>
+            ) : (
+              <>
+                <ButtonContainer>
+                  <StyledLink to="/login">
+                    <NavbarBtn title="로그인" />
+                  </StyledLink>
+                  <StyledLink to="/signup">
+                    <NavbarBtn title="회원가입" />
+                  </StyledLink>
+                </ButtonContainer>
+                <NavMenuList />
+              </>
+            )}
           </>
         ) : (
           <NavClickIcon />
@@ -115,4 +120,29 @@ const Container = styled.div<ContainerProps>`
       `;
     }
   }}
+`;
+
+const ButtonContainer = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff12;
+  border-radius: 10px;
+  box-shadow: inset 0 0 1px 1px rgba(99, 99, 99, 0.169);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  padding: 2%;
+  margin-bottom: 5%;
+`;
+const StyledLink = styled(Link)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff12;
+  border-radius: 10px;
+  padding: 2%;
 `;
