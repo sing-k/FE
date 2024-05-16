@@ -27,6 +27,7 @@ export default NavigationBar2;
 
 const Container = styled.div`
   width: 18%;
+  min-width: 200px;
   position: relative;
 `;
 

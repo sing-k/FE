@@ -42,7 +42,7 @@ const NavProfileDiv = styled.div`
   flex-direction: column;
   gap: 0.7rem;
   border-radius: 5px;
-  box-shadow: inset 0 0 1px 1px rgba(99, 99, 99, 0.169);
+  // box-shadow: inset 0 0 1px 1px rgba(99, 99, 99, 0.169);
 
   padding: 1rem 0.7rem;
 `;

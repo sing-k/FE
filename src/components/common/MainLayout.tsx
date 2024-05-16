@@ -9,6 +9,7 @@ import NavigationBar2 from "../organisms/navbar/NavigationBar2";
 import NavigationBar from "../organisms/navbar/NavigationBar";
 
 import color from "../../styles/color";
+import SearchBar from "../molecules/search/SearchBar";
 
 type Props = {
   children?: React.ReactNode;
@@ -28,6 +29,8 @@ const MainLayout = ({ children }: Props) => {
           <ContentsWrapper>
             <HeaderWrapper>
               <LogoImage />
+
+              <SearchBar />
             </HeaderWrapper>
 
             <Contents style={{ width: "80%" }}>{children}</Contents>
@@ -35,13 +38,15 @@ const MainLayout = ({ children }: Props) => {
         </>
       ) : (
         <>
-          <Contents
-            style={{
-              width: isTablet ? "80%" : "100%",
-            }}
-          >
-            {children}
-          </Contents>
+          <ContentsWrapper>
+            <Contents
+              style={{
+                width: isTablet ? "80%" : "100%",
+              }}
+            >
+              {children}
+            </Contents>
+          </ContentsWrapper>
         </>
       )}
     </Layout>
@@ -72,9 +77,13 @@ const ContentsWrapper = styled.div`
 
 const HeaderWrapper = styled.div`
   width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Contents = styled.div`
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 2rem 150px;
 `;
