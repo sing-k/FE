@@ -3,6 +3,9 @@ import React from "react";
 import styled from "styled-components";
 
 import { useMediaQueries } from "../../hooks";
+
+import LogoImage from "./LogoImage";
+import NavigationBar2 from "../organisms/navbar/NavigationBar2";
 import NavigationBar from "../organisms/navbar/NavigationBar";
 
 import color from "../../styles/color";
@@ -16,14 +19,31 @@ const MainLayout = ({ children }: Props) => {
 
   return (
     <Layout>
-      <NavigationBar />
-      <Contents
-        style={{
-          width: isPc ? "70%" : isTablet ? "80%" : isMobile ? "100%" : "100%",
-        }}
-      >
-        {children}
-      </Contents>
+      {/* <NavigationBar /> */}
+
+      {isPc ? (
+        <>
+          <NavigationBar2 />
+
+          <ContentsWrapper>
+            <HeaderWrapper>
+              <LogoImage />
+            </HeaderWrapper>
+
+            <Contents style={{ width: "80%" }}>{children}</Contents>
+          </ContentsWrapper>
+        </>
+      ) : (
+        <>
+          <Contents
+            style={{
+              width: isTablet ? "80%" : "100%",
+            }}
+          >
+            {children}
+          </Contents>
+        </>
+      )}
     </Layout>
   );
 };
@@ -34,8 +54,6 @@ const Layout = styled.div`
   width: 100vw;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
 
   background: linear-gradient(
     to bottom,
@@ -45,6 +63,18 @@ const Layout = styled.div`
   );
 `;
 
+const ContentsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const HeaderWrapper = styled.div`
+  width: 100%;
+`;
+
 const Contents = styled.div`
+  width: 100%;
   padding: 2rem;
 `;

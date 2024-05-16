@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import NavbarMenu from "../../atoms/navbar/NavbarMenu";
+
 const NavMenuList = () => {
   return (
     <MenuDiv>
@@ -20,6 +21,4 @@ const MenuDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 2%;
-  margin-bottom: 5%;
 `;

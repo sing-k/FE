@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import color from "../../../styles/color";
+import { glassEffectStyle } from "../../../styles/style";
 
 type MenuNameType = {
   title: string;
@@ -11,16 +13,17 @@ const NavbarMenu = ({ title }: MenuNameType) => {
 export default NavbarMenu;
 
 const MenuButton = styled.button`
-  width: 90%;
-  font-size: 1rem;
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 700;
   background-color: transparent;
   text-align: start;
   border-radius: 5px;
-  color: #4e4e4e;
+  color: ${color.COLOR_DARKGRAY_TEXT};
   white-space: nowrap;
+  padding: 0.4rem 0.9rem;
+
   &:hover {
-    background-color: #ffffff12;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    ${glassEffectStyle({ bgColor: "#ffffff12" })};
   }
 `;

@@ -6,9 +6,9 @@ type Props = {
   width?: string;
 };
 
-const LogoImage = (props: Props) => {
+const LogoImage = ({ width }: Props) => {
   return (
-    <Container>
+    <Container style={width ? { width } : {}}>
       <Image src={Logo} />
     </Container>
   );
@@ -17,7 +17,7 @@ const LogoImage = (props: Props) => {
 export default LogoImage;
 
 const Container = styled.div`
-  width: 200px;
+  width: 150px;
 `;
 
 const Image = styled.img`

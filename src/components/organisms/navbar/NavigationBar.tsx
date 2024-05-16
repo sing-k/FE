@@ -13,6 +13,7 @@ import NavMenuList from "../../molecules/navbar/NavMenuList";
 import NavProfile from "../../molecules/navbar/NavProfile";
 import LogoutBtn from "../../atoms/navbar/LogoutBtn";
 import NavClickIcon from "../../atoms/navbar/NavClickIcon";
+
 import { glassEffectStyle } from "../../../styles/style";
 
 type ContainerProps = {
