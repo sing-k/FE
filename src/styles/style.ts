@@ -8,7 +8,7 @@ type GlassOptions = {
 
 export const glassEffectStyle = (
   options: GlassOptions = {
-    blur: "2px",
+    blur: "5px",
     bgColor: color.COLOR_TRANSPARENT_WHITE,
   }
 ) => {

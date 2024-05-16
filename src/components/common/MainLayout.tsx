@@ -1,15 +1,15 @@
 import React from "react";
 
 import styled from "styled-components";
+import color from "../../styles/color";
 
 import { useMediaQueries } from "../../hooks";
 
 import LogoImage from "./LogoImage";
 import NavigationBar2 from "../organisms/navbar/NavigationBar2";
 import NavigationBar from "../organisms/navbar/NavigationBar";
-
-import color from "../../styles/color";
 import SearchBar from "../molecules/search/SearchBar";
+import DropDownNavigation from "../organisms/navbar/DropDownNavigation";
 
 type Props = {
   children?: React.ReactNode;
@@ -19,7 +19,7 @@ const MainLayout = ({ children }: Props) => {
   const { isPc, isTablet, isMobile } = useMediaQueries();
 
   return (
-    <Layout>
+    <Layout style={{ flexDirection: isPc ? "row" : "column" }}>
       {/* <NavigationBar /> */}
 
       {isPc ? (
@@ -38,6 +38,8 @@ const MainLayout = ({ children }: Props) => {
         </>
       ) : (
         <>
+          <DropDownNavigation />
+
           <ContentsWrapper>
             <Contents
               style={{

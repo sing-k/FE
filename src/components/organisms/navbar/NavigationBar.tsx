@@ -83,6 +83,7 @@ const Wrapper = styled.div`
   left: 0;
   z-index: 10;
 `;
+
 const Container = styled.div<ContainerProps>`
   ${glassEffectStyle()}
 

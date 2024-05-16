@@ -34,7 +34,8 @@ const SearchBar = () => {
 export default SearchBar;
 
 const Container = styled.div`
-  width: 40%;
+  width: 45%;
+  min-width: max-content;
   border-radius: 50px;
   border: 3px double #eeeeeeb1;
   box-shadow: 0px 0px 16px #eeeeee6e;

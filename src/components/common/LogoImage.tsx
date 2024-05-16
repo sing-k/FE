@@ -4,11 +4,22 @@ import Logo from "../../assets/img/singk-logo.png";
 
 type Props = {
   width?: string;
+  height?: string;
 };
 
-const LogoImage = ({ width }: Props) => {
+const LogoImage = ({ width, height }: Props) => {
   return (
-    <Container style={width ? { width } : {}}>
+    <Container
+      style={
+        width
+          ? { width }
+          : height
+            ? { height }
+            : {
+                width: "150px",
+              }
+      }
+    >
       <Image src={Logo} />
     </Container>
   );
@@ -16,10 +27,10 @@ const LogoImage = ({ width }: Props) => {
 
 export default LogoImage;
 
-const Container = styled.div`
-  width: 150px;
-`;
+const Container = styled.div``;
 
 const Image = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
