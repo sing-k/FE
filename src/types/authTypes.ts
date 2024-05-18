@@ -35,3 +35,8 @@ export type FormType = {
   emailcode?: number;
   passwordConfirm?: string;
 };
+
+export type LoginType = {
+  email: string;
+  password: string;
+};
