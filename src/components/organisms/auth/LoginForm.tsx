@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -21,6 +22,7 @@ const LoginForm = () => {
 
   const { isPc, isTablet, isMobile } = useMediaQueries();
   const { login, isLoading, error } = useLogin();
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleValid = async () => {
@@ -29,10 +31,12 @@ const LoginForm = () => {
     const data: LoginType = { email, password };
     const response = await login("/api/auth/login", data);
     console.log(response);
-    if (response) {
+    if (response.data === 200) {
+      setErrorMessage("");
       alert("로그인에 성공했습니다.");
       navigate("/"); // 로그인 성공 시 대시보드로 이동
     } else {
+      setErrorMessage(response.message);
       alert(error || "로그인에 실패했습니다. 입력사항을 확인해주세요.");
     }
   };
@@ -61,6 +65,7 @@ const LoginForm = () => {
           {errors.email && (
             <AuthValidMessage text="이메일 형식으로 입력해주세요." />
           )}
+          {errorMessage}
           {/* api 요청 후 에러메세지 */}
         </ValidDiv>
 
