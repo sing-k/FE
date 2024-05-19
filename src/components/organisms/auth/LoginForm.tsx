@@ -27,7 +27,7 @@ const LoginForm = () => {
     const email = watch("email");
     const password = watch("password");
     const data: LoginType = { email, password };
-    const response = await login(data);
+    const response = await login("/api/auth/login", data);
     console.log(response);
     if (response) {
       alert("로그인에 성공했습니다.");

@@ -7,11 +7,11 @@ const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const login = async (data: LoginType) => {
+  const login = async (url: string, data: LoginType) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await client.post("/api/auth/login", data);
+      const response = await client.post(url, data);
       if (response.status === 200) {
         const accessToken = response.headers.authorization.split("Bearer ")[1];
         const refreshToken = response.headers.refresh;
