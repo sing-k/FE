@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 import LoginForm from "../organisms/auth/LoginForm";
+
+import NaverOauth from "../molecules/auth/NaverOauth";
 const LoginPage = () => {
   return (
     <Container>
       <LoginForm />
+      <NaverOauth />
     </Container>
   );
 };
