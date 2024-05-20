@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { useMediaQueries } from "../../../hooks";
 import { AuthPostButton, AuthInput, AuthValidMessage } from "../../atoms";
 import { TitleLink } from "../../molecules";
 import { validationRules } from "../../../utils/auth/validationRules";
@@ -20,7 +19,6 @@ const LoginForm = () => {
     formState: { errors, isValid },
   } = useForm<LoginType>({ mode: "onBlur" });
 
-  const { isPc, isTablet, isMobile } = useMediaQueries();
   const { login, isLoading, error } = useLogin();
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -43,11 +41,7 @@ const LoginForm = () => {
 
   const handleError = (errors: any) => console.error(errors);
   return (
-    <Container
-      style={{
-        width: isPc ? "50%" : isTablet ? "70%" : isMobile ? "100%" : "100%",
-      }}
-    >
+    <Container>
       <form method="post" onSubmit={handleSubmit(handleValid, handleError)}>
         <TitleLink text="로그인" linkTitle="회원가입" link="/signup" />
         <AuthInput
@@ -84,10 +78,8 @@ export default LoginForm;
 
 const Container = styled.div`
   background-color: white;
-  border-radius: 10px;
-  padding: 3% 5%;
-  /* width: 50%; */
-  margin: auto;
+  padding: 5%;
+  width: 100%;
 `;
 
 const ValidDiv = styled.div`
