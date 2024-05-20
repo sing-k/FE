@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -16,11 +16,12 @@ const LoginForm = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<LoginType>({ mode: "onBlur" });
 
   const { login, isLoading, error } = useLogin();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>("");
+
   const navigate = useNavigate();
 
   const handleValid = async () => {
@@ -29,16 +30,17 @@ const LoginForm = () => {
     const data: LoginType = { email, password };
     const response = await login("/api/auth/login", data);
     console.log(response);
-    if (response.data === 200) {
+    if (response.statusCode === 401) {
+      setErrorMessage(error);
+    } else {
       setErrorMessage("");
       alert("로그인에 성공했습니다.");
       navigate("/"); // 로그인 성공 시 대시보드로 이동
-    } else {
-      setErrorMessage(response.message);
-      alert(error || "로그인에 실패했습니다. 입력사항을 확인해주세요.");
     }
   };
-
+  useEffect(() => {
+    setErrorMessage(error);
+  }, [error]);
   const handleError = (errors: any) => console.error(errors);
   return (
     <Container>
@@ -51,23 +53,29 @@ const LoginForm = () => {
         />
         <AuthInput
           name="password"
-          register={register("password", validationRules.password)}
+          register={register("password", {
+            required: {
+              value: true,
+              message: "비밀번호를 입력해주세요.",
+            },
+          })}
           placeholder="비밀번호 입력"
           type="password"
         />
         <ValidDiv>
-          {errors.email && (
-            <AuthValidMessage text="이메일 형식으로 입력해주세요." />
+          {errors.email && <AuthValidMessage text={errors.email.message} />}
+          {errors.password && (
+            <AuthValidMessage text={errors.password.message} />
           )}
-          {errorMessage}
-          {/* api 요청 후 에러메세지 */}
+
+          <AuthValidMessage text={errorMessage} />
         </ValidDiv>
 
         <AuthPostButton
           type="submit"
           text="로그인"
-          isActive={isValid}
-          disabled={!isValid || isLoading}
+          isActive={true}
+          disabled={isLoading}
         />
       </form>
     </Container>
