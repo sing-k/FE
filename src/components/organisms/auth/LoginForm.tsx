@@ -39,6 +39,12 @@ const LoginForm = () => {
     }
   };
   useEffect(() => {
+    const subscription = watch(() => {
+      setErrorMessage(null);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+  useEffect(() => {
     setErrorMessage(error);
   }, [error]);
   const handleError = (errors: any) => console.error(errors);
