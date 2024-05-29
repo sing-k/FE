@@ -1,4 +1,6 @@
-import { useState, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
+
+import { useNavigate, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -7,12 +9,23 @@ import color from "../../../styles/color";
 
 const SearchBar = () => {
   const [input, setInput] = useState<string>("");
-
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const query = queryParams.get("query");
+  const navigate = useNavigate();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setInput(value);
   };
+  const handleSearch = () => {
+    navigate(`/album/search?query=${input}`);
+  };
 
+  useEffect(() => {
+    if (query) {
+      setInput(query);
+    }
+  }, []);
   return (
     <Container>
       <InputWrapper>
@@ -20,10 +33,10 @@ const SearchBar = () => {
           type="text"
           value={input}
           onChange={handleChange}
-          placeholder="평가할 앨범을 검색해 보세요!"
+          placeholder="평가할 앨범을 검색해 보세요! ex) 가수 또는 앨범"
         />
 
-        <IconBtn>
+        <IconBtn onClick={handleSearch}>
           <TbMusicSearch size="1.2rem" />
         </IconBtn>
       </InputWrapper>
