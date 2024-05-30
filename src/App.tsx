@@ -1,6 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 
-import { MainPage, SignUpPage, LoginPage } from "./components/pages";
+import {
+  MainPage,
+  SignUpPage,
+  LoginPage,
+  AlbumDetailPage,
+} from "./components/pages";
 
 import { useAxiosInterceptors } from "./hooks";
 
@@ -36,6 +41,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/album/:id" element={<AlbumDetailPage />} />
       </Routes>
     </>
   );

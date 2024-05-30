@@ -1,4 +1,6 @@
 export default {
+  COLOR_MAIN: "#6741FF",
+
   COLOR_MAIN_PURPLE: "#c896e4",
   COLOR_MAIN_MIDDLE: "#ccc8e5",
   COLOR_MAIN_SKYBLUE: "#adc1ed",
