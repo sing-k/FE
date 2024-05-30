@@ -1,15 +1,12 @@
 import styled from "styled-components";
 
-const AlbumName = ({ data }: any) => {
+const AlbumNameList = ({ data }: any) => {
   return <StyledName>{data.name}</StyledName>;
 };
 
-export default AlbumName;
+export default AlbumNameList;
 
 const StyledName = styled.p`
   font-weight: 700;
   font-size: 0.8rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 `;

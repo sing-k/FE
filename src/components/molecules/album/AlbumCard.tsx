@@ -7,14 +7,15 @@ import { glassEffectStyle } from "../../../styles/style";
 
 type Props = {
   width?: string;
+  data?: any;
 };
 
-const AlbumCard = ({ width }: Props) => {
+const AlbumCard = ({ width, data }: Props) => {
   return (
     <Container style={width ? { width } : {}}>
-      <CoverRecord />
+      <CoverRecord data={data} />
 
-      <AlbumInfo />
+      <AlbumInfo data={data} />
     </Container>
   );
 };

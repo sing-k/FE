@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-const CoverImage = () => {
-  return (
-    <Image src="https://image.bugsm.co.kr/album/images/500/40940/4094086.jpg" />
-  );
+const CoverImage = ({ data }: any) => {
+  return <Image src={data.images[0].imageUrl} alt={data.name} />;
 };
 
 export default CoverImage;
