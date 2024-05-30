@@ -24,8 +24,10 @@ const SearchBar = () => {
   useEffect(() => {
     if (query) {
       setInput(query);
+    } else {
+      setInput("");
     }
-  }, []);
+  }, [query]);
   return (
     <Container>
       <InputWrapper>
