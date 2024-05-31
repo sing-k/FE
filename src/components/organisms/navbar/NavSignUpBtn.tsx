@@ -40,7 +40,7 @@ const StyledLink = styled(Link)`
   padding: inherit;
   border-radius: inherit;
   transition: 0.4s;
-
+  text-decoration: none;
   &:hover {
     background-color: ${color.COLOR_BLUE_AUTH_BUTTON};
     color: white;
