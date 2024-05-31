@@ -7,7 +7,7 @@ import color from "../../../styles/color";
 const AlbumRatingNum = () => {
   return (
     <Container>
-      <IoPersonSharp />
+      <IoPersonSharp color={color.COLOR_MAIN} />
       12
     </Container>
   );
