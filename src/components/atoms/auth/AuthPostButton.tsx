@@ -36,6 +36,7 @@ const PostButton = styled.button<{ $isActive: boolean }>`
       ? color.COLOR_BLUE_AUTH_BUTTON
       : color.COLOR_GRAY_INACTIVE_BUTTON};
   margin: 5% 0 3% 0;
+  padding: 0.6em 1.2em;
   cursor: pointer;
   white-space: nowrap;
   &:active {

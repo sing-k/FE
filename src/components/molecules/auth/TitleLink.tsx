@@ -8,14 +8,15 @@ type TextType = {
   text: string;
   linkTitle: string;
   link: string;
+  title: string;
 };
 
-const TitleLink = ({ text, linkTitle, link }: TextType) => {
+const TitleLink = ({ title, text, linkTitle, link }: TextType) => {
   return (
     <Container>
-      <AuthTitle text={text} />
+      <AuthTitle text={title} />
       <div>
-        <AuthExplainText text="SingK 계정이 있으신가요?" />
+        <AuthExplainText text={text} />
         <Link to={link}>
           <AuthLink text={linkTitle} />
         </Link>

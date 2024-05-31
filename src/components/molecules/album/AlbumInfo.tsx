@@ -10,15 +10,15 @@ import {
 
 import { glassEffectStyle } from "../../../styles/style";
 
-const AlbumInfo = () => {
+const AlbumInfo = ({ data }: any) => {
   return (
     <Container>
       <Wrapper>
-        <AlbumName />
+        <AlbumName data={data} />
       </Wrapper>
 
       <Wrapper>
-        <ArtistName />
+        <ArtistName data={data} />
 
         <AlbumRating />
       </Wrapper>

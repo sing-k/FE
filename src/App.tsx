@@ -5,6 +5,7 @@ import { MainPage, SignUpPage, LoginPage } from "./components/pages";
 import { useAxiosInterceptors } from "./hooks";
 
 import GlobalStyle from "./styles/GlobalStyle";
+import AlbumPage from "./components/pages/AlbumPage";
 
 // import client from "./config/axios";
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/album/*" element={<AlbumPage />} />
       </Routes>
     </>
   );

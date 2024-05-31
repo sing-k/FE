@@ -1,1 +1,1 @@
-export const APIURL = "http://3.34.143.154:8080";
+export const APIURL = "https://api.singk.site";
