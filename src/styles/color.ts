@@ -1,4 +1,6 @@
 export default {
+  COLOR_MAIN: "#6741FF",
+
   COLOR_MAIN_PURPLE: "#c896e4",
   COLOR_MAIN_MIDDLE: "#ccc8e5",
   COLOR_MAIN_SKYBLUE: "#adc1ed",
@@ -19,6 +21,7 @@ export default {
 
   COLOR_GRAY_TEXT: "#7D7D7D",
   COLOR_DARKGRAY_TEXT: "#4e4e4e",
+  COLOR_PINK_TEXT: "#FF66B2",
 
   COLOR_BLUE_AUTH_BUTTON: "#6741ff",
   COLOR_LIGHT_GRAY_PLACEHOLDER: "#acacac",
@@ -27,4 +30,7 @@ export default {
   COLOR_GREEN_VALID: "#0fc20b",
   COLOR_GRAY_INACTIVE_BUTTON: "#bdbdbd",
   COLOR_GRAY_INACTIVE_INPUT: "#e8e8e8",
+
+  COLOR_STAR: "#98FF98",
+  COLOR_STAR_BACKGROUND: "#E8E8E8",
 };
