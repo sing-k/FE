@@ -6,18 +6,16 @@ import NavMenuList from "../../molecules/navbar/NavMenuList";
 import LogoImage from "../../common/LogoImage";
 import NavSignUpBtn from "./NavSignUpBtn";
 import NavProfile from "../../molecules/navbar/NavProfile";
+import LogoutBtn from "../../atoms/navbar/LogoutBtn";
 
-const NavigationBar2 = () => {
+const NavigationBar2 = ({ isLogin, data }: any) => {
   return (
     <Container>
       <NavBar>
         <LogoImage width="60%" />
-
-        <NavProfile />
-
-        <NavSignUpBtn />
-
+        {isLogin === "true" ? <NavProfile data={data} /> : <NavSignUpBtn />}
         <NavMenuList />
+        {isLogin === "true" ? <LogoutBtn /> : undefined}
       </NavBar>
     </Container>
   );

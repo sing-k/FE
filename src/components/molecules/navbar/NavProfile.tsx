@@ -10,14 +10,14 @@ import NavProfileBtn from "../../atoms/navbar/NavProfileBtn";
 
 import { FaBell, FaHistory, FaUserCog } from "react-icons/fa";
 
-const NavProfile = () => {
+const NavProfile = ({ data }: any) => {
   return (
     <NavProfileDiv>
-      <NavbarProfileImg />
+      <NavbarProfileImg data={data} />
 
       <NickNameRating>
         <NavbarRating />
-        <NavbarNickname />
+        <NavbarNickname data={data} />
       </NickNameRating>
 
       <NavbarTag />
@@ -47,6 +47,7 @@ const NavProfileDiv = styled.div`
   padding: 1rem 0.7rem;
 `;
 const NickNameRating = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

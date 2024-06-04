@@ -1,13 +1,13 @@
 import React from "react";
-
+import { useEffect } from "react";
 import styled from "styled-components";
 import color from "../../styles/color";
 
+import { useApi } from "../../hooks";
 import { useMediaQueries } from "../../hooks";
 
 import LogoImage from "./LogoImage";
 import NavigationBar2 from "../organisms/navbar/NavigationBar2";
-// import NavigationBar from "../organisms/navbar/NavigationBar";
 import SearchBar from "../molecules/search/SearchBar";
 import DropDownNavigation from "../organisms/navbar/DropDownNavigation";
 
@@ -17,14 +17,26 @@ type Props = {
 
 const MainLayout = ({ children }: Props) => {
   const { isPc, isTablet } = useMediaQueries();
-
+  const isLoggedIn = localStorage.getItem("loginState");
+  const { data, callApi } = useApi();
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("accessToken");
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      await callApi("/api/members/me", "get", {
+        headers,
+      });
+    };
+    fetchData();
+  }, []);
+  if (data) {
+    console.log(data);
+  }
   return (
     <Layout style={{ flexDirection: isPc ? "row" : "column" }}>
-      {/* <NavigationBar /> */}
-
       {isPc ? (
         <>
-          <NavigationBar2 />
+          {data && <NavigationBar2 isLogin={isLoggedIn} data={data} />}
 
           <ContentsWrapper>
             <HeaderWrapper>
@@ -38,7 +50,7 @@ const MainLayout = ({ children }: Props) => {
         </>
       ) : (
         <>
-          <DropDownNavigation />
+          {data && <DropDownNavigation isLogin={isLoggedIn} data={data} />}
 
           <ContentsWrapper>
             <Contents
