@@ -5,7 +5,7 @@ import { useApi } from "../../../hooks";
 import { getToken, clearTokens } from "../../../utils/auth/tokenStorage";
 
 const LogoutBtn = () => {
-  const { data, callApi, statusCode } = useApi();
+  const { callApi, statusCode } = useApi();
   const handleLogout = async () => {
     const accessToken = getToken("accessToken"); // 액세스 토큰 가져오기
     const refreshToken = getToken("refreshToken");
@@ -23,8 +23,6 @@ const LogoutBtn = () => {
   if (statusCode === 200) {
     clearTokens();
     window.location.reload();
-  } else {
-    console.error("로그아웃 실패:", data);
   }
 
   return <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>;
