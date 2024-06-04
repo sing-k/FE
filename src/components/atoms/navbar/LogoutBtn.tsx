@@ -34,8 +34,7 @@ export default LogoutBtn;
 
 const LogoutButton = styled.button`
   color: ${color.COLOR_GRAY_TEXT};
-  width: 30%;
-  height: 4%;
+  padding: 0.3rem 0.6rem;
   border: 0.5px double white;
   border-radius: 5px;
   font-size: 0.6rem;
