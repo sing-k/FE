@@ -1,7 +1,17 @@
 import React from "react";
 
+import styled from "styled-components";
+
+import AlbumReviewDashboard from "./AlbumReviewDashboard";
+
 const AlbumDetailReview = () => {
-  return <div></div>;
+  return (
+    <Container>
+      <AlbumReviewDashboard />
+    </Container>
+  );
 };
 
-export default AlbumDetailReview;
+export default React.memo(AlbumDetailReview);
+
+const Container = styled.div``;

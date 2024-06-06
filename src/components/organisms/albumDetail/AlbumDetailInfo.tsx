@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 
 import AlbumDetailCard from "./AlbumDetailCard";
@@ -13,6 +15,6 @@ const AlbumDetailInfo = () => {
   );
 };
 
-export default AlbumDetailInfo;
+export default React.memo(AlbumDetailInfo);
 
 const Container = styled.div``;

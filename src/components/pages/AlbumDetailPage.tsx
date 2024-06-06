@@ -28,7 +28,8 @@ const AlbumDetailPage = () => {
         setCurrentTab={setCurrentTab}
       />
 
-      {currentTab === "info" ? <AlbumDetailInfo /> : <AlbumDetailReview />}
+      {currentTab === "info" && <AlbumDetailInfo />}
+      {currentTab === "review" && <AlbumDetailReview />}
     </MainLayout>
   );
 };
