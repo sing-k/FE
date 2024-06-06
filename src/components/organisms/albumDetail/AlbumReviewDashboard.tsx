@@ -25,7 +25,7 @@ const Container = styled.div`
 
   width: 100%;
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: inherit;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

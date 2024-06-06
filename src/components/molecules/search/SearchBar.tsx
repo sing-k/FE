@@ -14,7 +14,6 @@ const SearchBar = () => {
       placeholder={"평가할 앨범을 검색해 보세요!"}
       button={{
         icon: <TbMusicSearch size="1.2rem" />,
-        text: "검색",
       }}
       width="45%"
     />

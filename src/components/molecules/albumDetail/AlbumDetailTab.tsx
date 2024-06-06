@@ -1,5 +1,3 @@
-import React from "react";
-
 import styled from "styled-components";
 
 import color from "../../../styles/color";
@@ -12,10 +10,10 @@ type TabObjType = {
 type Props = {
   tabObj: TabObjType;
   currentTab: string;
-  setCurrentTab: React.Dispatch<React.SetStateAction<string>>;
+  onClickTab: (key?: string) => void;
 };
 
-const AlbumDetailTab = ({ tabObj, currentTab, setCurrentTab }: Props) => {
+const AlbumDetailTab = ({ tabObj, currentTab, onClickTab }: Props) => {
   return (
     <>
       <Container>
@@ -23,7 +21,7 @@ const AlbumDetailTab = ({ tabObj, currentTab, setCurrentTab }: Props) => {
           <Tab
             key={key}
             className={key === currentTab ? "active" : "none"}
-            onClick={setCurrentTab.bind(this, key)}
+            onClick={onClickTab.bind(this, key)}
           >
             {tabObj[key]}
           </Tab>

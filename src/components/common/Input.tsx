@@ -16,6 +16,7 @@ type Props = {
   button?: InputButtonType;
   placeholder?: string;
   width?: string;
+  textarea?: boolean;
 };
 
 const Input = ({
@@ -25,22 +26,38 @@ const Input = ({
   button,
   placeholder,
   width,
+  textarea,
 }: Props) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+  const handleChange = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const { value, tagName } = e.target;
     setInput(value);
+
+    if (tagName === "TEXTAREA") {
+      if (e.target.scrollHeight < 200)
+        e.target.style.height = `${e.target.scrollHeight}px`; // 실제 내용에 맞게 높이 설정
+    }
   };
 
   return (
     <Container style={width ? { width } : {}}>
       <BorderBox>
         <InputWrapper>
-          <StyledInput
-            type={type ? type : "text"}
-            value={input}
-            onChange={handleChange}
-            placeholder={placeholder}
-          />
+          {textarea ? (
+            <StyledTextarea
+              value={input}
+              onChange={handleChange}
+              placeholder={placeholder}
+            />
+          ) : (
+            <StyledInput
+              type={type ? type : "text"}
+              value={input}
+              onChange={handleChange}
+              placeholder={placeholder}
+            />
+          )}
 
           {button?.icon && <IconBtn>{button.icon}</IconBtn>}
         </InputWrapper>
@@ -63,14 +80,14 @@ const Container = styled.div`
 
 const BorderBox = styled.div`
   flex-grow: 1;
-  border-radius: 50px;
+  border-radius: calc(1.15rem + 1.5px);
   border: 3px double #eeeeeeb1;
   box-shadow: 0px 0px 16px #eeeeee6e;
+  overflow: hidden;
 `;
 
 const InputWrapper = styled.div`
   width: 100%;
-  border-radius: inherit;
   display: flex;
   align-items: center;
   background-color: white;
@@ -82,6 +99,21 @@ const StyledInput = styled.input`
   display: inline-block;
   border: none;
   flex-grow: 1;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const StyledTextarea = styled.textarea`
+  display: inline-block;
+  border: none;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  resize: none;
+  line-height: 1.2rem;
+  height: 1.4rem;
+
   &:focus {
     outline: none;
   }
