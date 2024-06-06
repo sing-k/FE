@@ -44,7 +44,7 @@ const AlbumGenderPercentage = () => {
 
   return (
     <DashboardBox text="성별 비율">
-      <Container id="container" style={{ width: isMobile ? "40%" : "80%" }}>
+      <Container id="container" style={{ width: isMobile ? "40%" : "70%" }}>
         <Doughnut
           data={data}
           options={options}

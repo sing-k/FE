@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import AlbumReviewDashboard from "./AlbumReviewDashboard";
 import AlbumReviewInput from "./AlbumReviewInput";
+import AlbumReviewList from "./AlbumReviewList";
 
 const AlbumDetailReview = () => {
   return (
@@ -11,6 +12,8 @@ const AlbumDetailReview = () => {
       <AlbumReviewDashboard />
 
       <AlbumReviewInput />
+
+      <AlbumReviewList />
     </Container>
   );
 };

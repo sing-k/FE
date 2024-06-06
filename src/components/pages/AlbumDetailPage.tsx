@@ -19,7 +19,7 @@ const AlbumDetailPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [currentTab, setCurrentTab] = useState<TabKey>("info");
+  const [currentTab, setCurrentTab] = useState<TabKey | "">("");
 
   const onClickTab = (key?: string) => {
     const path = key === "review" ? "?tab=review" : "";
@@ -35,6 +35,8 @@ const AlbumDetailPage = () => {
       setCurrentTab("info");
     }
   }, [location]);
+
+  if (currentTab === "") return;
 
   return (
     <MainLayout>
