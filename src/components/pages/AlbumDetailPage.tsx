@@ -23,7 +23,7 @@ const AlbumDetailPage = () => {
 
   const onClickTab = (key?: string) => {
     const path = key === "review" ? "?tab=review" : "";
-    navigate(`/album/${id}${path}`);
+    navigate(`/album-detail/${id}${path}`);
   };
 
   useEffect(() => {

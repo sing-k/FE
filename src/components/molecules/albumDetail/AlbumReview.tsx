@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 
 import { glassEffectStyle } from "../../../styles/style";
@@ -47,7 +49,7 @@ const AlbumReview = () => {
   );
 };
 
-export default AlbumReview;
+export default React.memo(AlbumReview);
 
 const Container = styled.div`
   ${glassEffectStyle()}

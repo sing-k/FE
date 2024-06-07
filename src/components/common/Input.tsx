@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, KeyboardEvent } from "react";
 
 import styled from "styled-components";
 import color from "../../styles/color";
@@ -40,6 +40,14 @@ const Input = ({
     }
   };
 
+  const handleKeyDown = (
+    e: KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    if (e.key === "Enter" && button?.onClickButton) {
+      button.onClickButton();
+    }
+  };
+
   return (
     <Container style={width ? { width } : {}}>
       <BorderBox>
@@ -49,6 +57,7 @@ const Input = ({
               value={input}
               onChange={handleChange}
               placeholder={placeholder}
+              onKeyDown={handleKeyDown}
             />
           ) : (
             <StyledInput
@@ -56,14 +65,19 @@ const Input = ({
               value={input}
               onChange={handleChange}
               placeholder={placeholder}
+              onKeyDown={handleKeyDown}
             />
           )}
 
-          {button?.icon && <IconBtn>{button.icon}</IconBtn>}
+          {button?.icon && (
+            <IconBtn onClick={button?.onClickButton}>{button.icon}</IconBtn>
+          )}
         </InputWrapper>
       </BorderBox>
 
-      {button?.text && <TextBtn>{button.text}</TextBtn>}
+      {button?.text && (
+        <TextBtn onClick={button?.onClickButton}>{button.text}</TextBtn>
+      )}
     </Container>
   );
 };
