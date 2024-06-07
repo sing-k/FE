@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 import { CoverImage, Record } from "../../atoms";
 
-const CoverRecord = () => {
+const CoverRecord = ({ data }: any) => {
   return (
     <Container>
-      <CoverImage />
+      <CoverImage data={data} />
 
       <Record />
     </Container>

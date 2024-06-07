@@ -75,6 +75,12 @@ const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(
+    to bottom,
+    ${color.COLOR_MAIN_PURPLE},
+    ${color.COLOR_MAIN_MIDDLE},
+    ${color.COLOR_MAIN_SKYBLUE}
+  );
 `;
 
 const HeaderWrapper = styled.div`

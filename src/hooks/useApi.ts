@@ -3,14 +3,14 @@ import client from "../config/axios";
 
 type Method = "get" | "post" | "put" | "delete";
 
-interface ApiResponse<T> {
-  statusCode: number;
-  data: T;
-  // 다른 필요한 응답 데이터가 있다면 여기에 추가
-}
+// interface ApiResponse<T> {
+//   statusCode: number;
+//   data?: T;
+//   // 다른 필요한 응답 데이터가 있다면 여기에 추가
+// }
 
 const useApi = <T>() => {
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<any | null>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -21,7 +21,7 @@ const useApi = <T>() => {
     headers?: Record<string, string>,
   ) => {
     try {
-      const response = await client[method]<ApiResponse<T>>(url, requestData, {
+      const response = await client[method](url, requestData, {
         headers,
       });
       console.log(`API 호출: ${method.toUpperCase()} ${url}`);
