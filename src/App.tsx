@@ -42,9 +42,8 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/album/search" element={<AlbumPage />} />
-        <Route path="/album/:id" element={<AlbumDetailPage />} />
         <Route path="/album/*" element={<AlbumPage />} />
+        <Route path="/album-detail/:id" element={<AlbumDetailPage />} />
       </Routes>
     </>
   );

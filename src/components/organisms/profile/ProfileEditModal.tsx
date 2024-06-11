@@ -26,7 +26,7 @@ const ProfileEditModal = ({
   );
   const [nickname, setNickname] = useState<string>(userData?.nickname || "");
   // const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  console.log(selectedImage);
+
   useEffect(() => {
     if (userData) {
       setPreviewImage(userData.imageUrl || null);

@@ -17,11 +17,11 @@ type Props = {
 const MainLayout = ({ children }: Props) => {
   const { isPc, isTablet } = useMediaQueries();
   const isLoggedIn = localStorage.getItem("loginState");
-  const { isLoading, data } = useMemberInfoQuery();
+  const { data } = useMemberInfoQuery();
 
-  if (isLoading) {
-    return <div>로딩중</div>;
-  }
+  // if (isLoading) {
+  //   return <div>로딩중</div>;
+  // }
 
   return (
     <Layout style={{ flexDirection: isPc ? "row" : "column" }}>
