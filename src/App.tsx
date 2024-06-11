@@ -43,7 +43,6 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/album/*" element={<AlbumPage />} />
-        <Route path="/album-detail/:id" element={<AlbumDetailPage />} />
       </Routes>
     </>
   );
