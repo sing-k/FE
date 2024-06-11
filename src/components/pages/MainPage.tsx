@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { MainLayout } from "../common";
 import { HomePostList } from "../organisms";
-import { AlbumCarousel } from "../organisms/album";
+// import { AlbumCarousel } from "../organisms/album";
 
 import { useMediaQueries } from "../../hooks";
 
