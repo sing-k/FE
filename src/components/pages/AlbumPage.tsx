@@ -1,19 +1,17 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import styled from "styled-components";
 
 import { MainLayout } from "../common";
 
-import { useMediaQueries } from "../../hooks";
 import { useApi } from "../../hooks";
-import { albumData } from "../../mockData";
+
 import { AlbumSearchList } from "../organisms/album";
 const AlbumPage = () => {
   //   const { isPc } = useMediaQueries();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
-  const { data, callApi, isLoading, statusCode } = useApi<any>();
+  const { data, callApi, isLoading, statusCode } = useApi();
 
   useEffect(() => {
     const fetchData = async () => {

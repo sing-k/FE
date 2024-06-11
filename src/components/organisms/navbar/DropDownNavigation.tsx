@@ -10,10 +10,11 @@ import { IoMenu } from "react-icons/io5";
 import LogoImage from "../../common/LogoImage";
 import SearchBar from "../../molecules/search/SearchBar";
 import NavProfile from "../../molecules/navbar/NavProfile";
-// import NavSignUpBtn from "./NavSignUpBtn";
+import NavSignUpBtn from "./NavSignUpBtn";
 import NavMenuList from "../../molecules/navbar/NavMenuList";
+import LogoutBtn from "../../atoms/navbar/LogoutBtn";
 
-const DropDownNavigation = () => {
+const DropDownNavigation = ({ isLogin, data }: any) => {
   const [isOpen, setIsOpen] = useState<boolean | null>(null);
 
   return (
@@ -30,13 +31,19 @@ const DropDownNavigation = () => {
       </Inner>
 
       {isOpen !== null && (
-        <Menu className={isOpen ? "open" : "close"}>
-          <NavProfile />
-
-          {/* <NavSignUpBtn /> */}
-
-          <NavMenuList />
-        </Menu>
+        <>
+          <Menu className={isOpen ? "open" : "close"}>
+            {isLogin === "true" && data ? (
+              <NavProfile data={data} />
+            ) : (
+              <NavSignUpBtn />
+            )}
+            <NavMenuList />
+          </Menu>
+          <LogoutDiv>
+            {isLogin === "true" ? <LogoutBtn /> : undefined}
+          </LogoutDiv>
+        </>
       )}
     </Container>
   );
@@ -102,4 +109,11 @@ const Menu = styled.div`
   &.close {
     animation: ${dropUp} 0.5s ease;
   }
+`;
+const LogoutDiv = styled.div`
+  position: relative;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

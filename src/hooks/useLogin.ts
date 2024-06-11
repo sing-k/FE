@@ -1,6 +1,9 @@
 import { useState } from "react";
 import client from "../config/axios";
-import { saveTokensToLocalStorage } from "../utils/auth/tokenStorage";
+import {
+  saveTokensToLocalStorage,
+  saveLoginState,
+} from "../utils/auth/tokenStorage";
 import { LoginType } from "../types/authTypes";
 
 const useLogin = () => {
@@ -17,6 +20,7 @@ const useLogin = () => {
         const refreshToken = response.headers.refresh;
         if (accessToken && refreshToken) {
           saveTokensToLocalStorage(accessToken, refreshToken);
+          saveLoginState();
         }
         return response;
       } else {

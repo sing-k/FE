@@ -4,8 +4,8 @@ import color from "../../../styles/color";
 
 import { FaUser } from "react-icons/fa";
 
-const NavbarProfileImg = () => {
-  const imageSrc = null;
+const NavbarProfileImg = ({ data }: any) => {
+  const imageSrc = data.imageUrl;
 
   return (
     <Container>{imageSrc ? <Image src={imageSrc} /> : <FaUser />}</Container>
@@ -26,6 +26,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
