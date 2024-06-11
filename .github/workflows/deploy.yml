@@ -19,9 +19,9 @@ jobs:
 
       - name: Add remote-url
         run: |
-          git remote add forked-repo https://[baejb]:${{ secrets.DEPLOY }}@github.com/baejb/FE
+          git remote add forked-repo https://baejb:${{ secrets.DEPLOY }}@github.com/baejb/FE
           git config user.name baejb
-          git config user.email qowjdqls6478@gmail.com
+          git config user.email bjb6478@naver.com
       
       - name: Push changes to forked-repo 
         run: |
