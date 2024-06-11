@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 import { MainLayout } from "../common";
 import AlbumDetailTab from "../molecules/albumDetail/AlbumDetailTab";
@@ -16,19 +16,38 @@ type TabKey = keyof typeof tabObj;
 
 const AlbumDetailPage = () => {
   const { id } = useParams(); // 앨범 아이디
-  console.log(id);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [currentTab, setCurrentTab] = useState<TabKey | string>("info");
+  const [currentTab, setCurrentTab] = useState<TabKey | "">("");
+
+  const onClickTab = (key?: string) => {
+    const path = key === "review" ? "?tab=review" : "";
+    navigate(`/album-detail/${id}${path}`);
+  };
+
+  useEffect(() => {
+    const currentTab = new URLSearchParams(location.search).get("tab");
+
+    if (currentTab) {
+      setCurrentTab("review");
+    } else {
+      setCurrentTab("info");
+    }
+  }, [location]);
+
+  if (currentTab === "") return;
 
   return (
     <MainLayout>
       <AlbumDetailTab
         tabObj={tabObj}
         currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
+        onClickTab={onClickTab}
       />
 
-      {currentTab === "info" ? <AlbumDetailInfo /> : <AlbumDetailReview />}
+      {currentTab === "info" && <AlbumDetailInfo />}
+      {currentTab === "review" && <AlbumDetailReview />}
     </MainLayout>
   );
 };
