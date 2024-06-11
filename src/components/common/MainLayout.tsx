@@ -1,9 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
 import styled from "styled-components";
 import color from "../../styles/color";
 
-import { useApi } from "../../hooks";
 import { useMediaQueries } from "../../hooks";
 
 import LogoImage from "./LogoImage";
@@ -11,6 +9,7 @@ import NavigationBar2 from "../organisms/navbar/NavigationBar2";
 import SearchBar from "../molecules/search/SearchBar";
 import DropDownNavigation from "../organisms/navbar/DropDownNavigation";
 
+import { useMemberInfoQuery } from "../../hooks/services/queries/userQueries";
 type Props = {
   children?: React.ReactNode;
 };
@@ -18,25 +17,21 @@ type Props = {
 const MainLayout = ({ children }: Props) => {
   const { isPc, isTablet } = useMediaQueries();
   const isLoggedIn = localStorage.getItem("loginState");
-  const { data, callApi } = useApi();
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem("accessToken");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      await callApi("/api/members/me", "get", {
-        headers,
-      });
-    };
-    fetchData();
-  }, []);
-  if (data) {
-    console.log(data);
+  const { isLoading, data } = useMemberInfoQuery();
+
+  if (isLoading) {
+    return <div>로딩중</div>;
   }
+
   return (
     <Layout style={{ flexDirection: isPc ? "row" : "column" }}>
       {isPc ? (
         <>
-          {data && <NavigationBar2 isLogin={isLoggedIn} data={data} />}
+          {data ? (
+            <NavigationBar2 isLogin={isLoggedIn} data={data} />
+          ) : (
+            <NavigationBar2 isLogin={isLoggedIn} data={data} />
+          )}
 
           <ContentsWrapper>
             <HeaderWrapper>
@@ -50,7 +45,11 @@ const MainLayout = ({ children }: Props) => {
         </>
       ) : (
         <>
-          {data && <DropDownNavigation isLogin={isLoggedIn} data={data} />}
+          {data ? (
+            <DropDownNavigation isLogin={isLoggedIn} data={data} />
+          ) : (
+            <DropDownNavigation isLogin={isLoggedIn} data={data} />
+          )}
 
           <ContentsWrapper>
             <Contents

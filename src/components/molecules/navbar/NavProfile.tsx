@@ -10,7 +10,7 @@ import NavProfileBtn from "../../atoms/navbar/NavProfileBtn";
 
 import { FaBell, FaHistory, FaUserCog } from "react-icons/fa";
 
-const NavProfile = ({ data }: any) => {
+const NavProfile = ({ data, openModal }: any) => {
   return (
     <NavProfileDiv>
       <NavbarProfileImg data={data} />
@@ -24,7 +24,11 @@ const NavProfile = ({ data }: any) => {
 
       <BtnWrapper>
         <NavProfileBtn Icon={FaHistory} text="활동 히스토리" />
-        <NavProfileBtn Icon={FaUserCog} text="프로필 수정" />
+        <NavProfileBtn
+          onClick={openModal}
+          Icon={FaUserCog}
+          text="프로필 수정"
+        />
         <NavProfileBtn Icon={FaBell} text="알림" />
       </BtnWrapper>
     </NavProfileDiv>

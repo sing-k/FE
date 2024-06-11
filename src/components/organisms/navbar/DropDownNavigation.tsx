@@ -33,7 +33,11 @@ const DropDownNavigation = ({ isLogin, data }: any) => {
       {isOpen !== null && (
         <>
           <Menu className={isOpen ? "open" : "close"}>
-            {isLogin === "true" ? <NavProfile data={data} /> : <NavSignUpBtn />}
+            {isLogin === "true" && data ? (
+              <NavProfile data={data} />
+            ) : (
+              <NavSignUpBtn />
+            )}
             <NavMenuList />
           </Menu>
           <LogoutDiv>

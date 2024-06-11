@@ -8,11 +8,12 @@ type Props = {
   Icon?: IconType;
   text: string;
   link?: string;
+  onClick?: () => void;
 };
 //link props 에 다시 추가하기 ! (배포때문에 빼놨음)
-const NavProfileBtn = ({ Icon, text }: Props) => {
+const NavProfileBtn = ({ Icon, text, onClick }: Props) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       {Icon && <Icon />}
       {text}
     </Container>

@@ -2,16 +2,12 @@ import client from "../../config/axios";
 
 export const handleSendVerificationCode = async (email: any) => {
   try {
-    const res = await client.post(
-      "/api/auth/email-authentication/request",
-      email,
-      {
-        headers: {
-          "Content-Type": "text/plain",
-        },
+    const res = await client.post("/api/auth/certification/request", email, {
+      headers: {
+        "Content-Type": "text/plain",
       },
-    );
-
+    });
+    console.log(res);
     return res.data;
   } catch (error) {
     console.error("API 호출 중 오류가 발생했습니다.", error);
