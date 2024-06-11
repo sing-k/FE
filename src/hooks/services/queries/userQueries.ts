@@ -10,9 +10,11 @@ const fetchMemberInfo = async () => {
 };
 
 export const useMemberInfoQuery = () => {
+  const token = localStorage.getItem("accessToken");
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["memberInfo"],
     queryFn: fetchMemberInfo,
+    enabled: !!token, // 토큰이 있을 때만 쿼리를 실행
   });
 
   return { isLoading, isError, data, error };
