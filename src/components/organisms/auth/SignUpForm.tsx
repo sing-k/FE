@@ -112,7 +112,12 @@ const SignUpForm = () => {
       }}
     >
       <form method="post" onSubmit={handleSubmit(handleValid, handleError)}>
-        <TitleLink text="회원가입" linkTitle="로그인" link="/login" />
+        <TitleLink
+          title="회원가입"
+          text="SingK 계정이 있으신가요?"
+          linkTitle="로그인"
+          link="/login"
+        />
         <FieldName text="이름" />
         <AuthInput
           name="name"

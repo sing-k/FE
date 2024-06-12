@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const NavbarNickname = () => {
-  return <NickName>킹연두</NickName>;
+const NavbarNickname = ({ data }: any) => {
+  return <NickName>{data.nickname}</NickName>;
 };
 
 export default NavbarNickname;

@@ -5,6 +5,9 @@ export const saveTokensToLocalStorage = (
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("refreshToken", refreshToken);
 };
+export const saveLoginState = () => {
+  localStorage.setItem("loginState", "true");
+};
 
 export const getToken = (tokenName: string): string | null => {
   return localStorage.getItem(tokenName);
@@ -17,4 +20,5 @@ export const getToken = (tokenName: string): string | null => {
 export const clearTokens = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
+  localStorage.removeItem("loginState");
 };

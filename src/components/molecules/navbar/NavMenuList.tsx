@@ -10,12 +10,10 @@ import color from "../../../styles/color";
 const NavMenuList = () => {
   return (
     <MenuDiv>
-      <NavbarMenu title="홈" />
-      <StyledLink to="/album">
-        <NavbarMenu title="앨범" />
-      </StyledLink>
-      <NavbarMenu title="음악 추천 게시판" />
-      <NavbarMenu title="자유 게시판" />
+      <NavbarMenu title="홈" link="/" />
+      <NavbarMenu title="앨범" link="/album" />
+      <NavbarMenu title="음악 추천 게시판" link="/" />
+      <NavbarMenu title="자유 게시판" link="/" />
     </MenuDiv>
   );
 };

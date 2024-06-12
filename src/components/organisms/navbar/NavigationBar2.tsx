@@ -6,19 +6,29 @@ import NavMenuList from "../../molecules/navbar/NavMenuList";
 import LogoImage from "../../common/LogoImage";
 import NavSignUpBtn from "./NavSignUpBtn";
 import NavProfile from "../../molecules/navbar/NavProfile";
+import LogoutBtn from "../../atoms/navbar/LogoutBtn";
+import useModal from "../../../hooks/useModal";
+import { ProfileEditModal } from "../profile";
 
-const NavigationBar2 = () => {
+const NavigationBar2 = ({ isLogin, data }: any) => {
+  const { isOpen, openModal, closeModal } = useModal();
   return (
     <Container>
       <NavBar>
         <LogoImage width="60%" />
-
-        <NavProfile />
-
-        <NavSignUpBtn />
-
+        {isLogin === "true" && data ? (
+          <NavProfile data={data} openModal={openModal} />
+        ) : (
+          <NavSignUpBtn />
+        )}
         <NavMenuList />
+        {isLogin === "true" ? <LogoutBtn /> : undefined}
       </NavBar>
+      <ProfileEditModal
+        userData={data}
+        isOpen={isOpen}
+        closeModal={closeModal}
+      />
     </Container>
   );
 };

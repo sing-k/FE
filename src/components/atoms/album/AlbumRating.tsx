@@ -7,7 +7,7 @@ import color from "../../../styles/color";
 const AlbumRating = () => {
   return (
     <Container>
-      <IoMusicalNotes className="icon" color={"#555"} />
+      <IoMusicalNotes className="icon" color={color.COLOR_MAIN} />
       4.5
     </Container>
   );

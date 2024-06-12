@@ -43,7 +43,7 @@ const ModalWrapper = styled.div<{ $isOpen: boolean }>`
   width: 100%;
   height: 100%;
   background-color: rgba(57, 57, 57, 0.5);
-  z-index: 20;
+  z-index: 100;
   justify-content: center;
   align-items: center;
   overflow: hidden;

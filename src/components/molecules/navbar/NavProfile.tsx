@@ -10,21 +10,25 @@ import NavProfileBtn from "../../atoms/navbar/NavProfileBtn";
 
 import { FaBell, FaHistory, FaUserCog } from "react-icons/fa";
 
-const NavProfile = () => {
+const NavProfile = ({ data, openModal }: any) => {
   return (
     <NavProfileDiv>
-      <NavbarProfileImg />
+      <NavbarProfileImg data={data} />
 
       <NickNameRating>
         <NavbarRating />
-        <NavbarNickname />
+        <NavbarNickname data={data} />
       </NickNameRating>
 
       <NavbarTag />
 
       <BtnWrapper>
         <NavProfileBtn Icon={FaHistory} text="활동 히스토리" />
-        <NavProfileBtn Icon={FaUserCog} text="프로필 수정" />
+        <NavProfileBtn
+          onClick={openModal}
+          Icon={FaUserCog}
+          text="프로필 수정"
+        />
         <NavProfileBtn Icon={FaBell} text="알림" />
       </BtnWrapper>
     </NavProfileDiv>
@@ -47,6 +51,7 @@ const NavProfileDiv = styled.div`
   padding: 1rem 0.7rem;
 `;
 const NickNameRating = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
