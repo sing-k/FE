@@ -58,7 +58,7 @@ const SignUpForm = () => {
     try {
       const response = await handleVerificationCodeConfirmation(
         watch("email"),
-        watch("emailcode"),
+        watch("emailcode")
       );
       if (response && response.statusCode === 200) {
         setIsEmailValid(true);
@@ -189,7 +189,7 @@ const SignUpForm = () => {
           name="passwordConfirm"
           register={register("passwordConfirm", {
             required: true,
-            validate: value =>
+            validate: (value) =>
               watch().password !== value
                 ? "비밀번호가 일치하지 않습니다"
                 : true,

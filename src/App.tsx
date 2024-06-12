@@ -1,10 +1,20 @@
 import { Routes, Route } from "react-router-dom";
 
-import { MainPage, SignUpPage, LoginPage } from "./components/pages";
+import {
+  MainPage,
+  SignUpPage,
+  LoginPage,
+  AlbumPage,
+  HighestRated,
+  MostReview,
+  RecentReview,
+} from "./components/pages";
 
 import { useAxiosInterceptors } from "./hooks";
 
 import GlobalStyle from "./styles/GlobalStyle";
+
+import Oauth from "./utils/auth/Oauth";
 
 // import client from "./config/axios";
 
@@ -36,6 +46,10 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/album" element={<AlbumPage />} />
+        <Route path="/recentreview" element={<RecentReview />} />
+        <Route path="/mostreview" element={<MostReview />} />
+        <Route path="/highestated" element={<HighestRated />} />
       </Routes>
     </>
   );
