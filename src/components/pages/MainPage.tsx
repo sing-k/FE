@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { MainLayout } from "../common";
 import { HomePostList } from "../organisms";
-// import { AlbumCarousel } from "../organisms/album";
+import { AlbumCarousel } from "../organisms/album";
 
 import { useMediaQueries } from "../../hooks";
 
@@ -11,7 +11,7 @@ const MainPage = () => {
 
   return (
     <MainLayout>
-      {/* <AlbumCarousel /> */}
+      <AlbumCarousel />
 
       <PostListWrapper style={isPc ? { flexDirection: "row" } : {}}>
         <HomePostList text="음악 추천 게시판" />
