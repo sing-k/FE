@@ -7,6 +7,9 @@ import AlbumDetailTab from "../molecules/albumDetail/AlbumDetailTab";
 import AlbumDetailInfo from "../organisms/albumDetail/AlbumDetailInfo";
 import AlbumDetailReview from "../organisms/albumDetail/AlbumDetailReview";
 
+import { AlbumSearchList } from "../organisms/album";
+import AlbumSection from "../organisms/album/AlbumSection";
+
 const tabObj = {
   info: "기본 정보",
   review: "감상평",
@@ -36,7 +39,7 @@ const AlbumDetailPage = () => {
     }
   }, [location]);
 
-  if (currentTab === "") return;
+  if (currentTab === "") return null;
 
   return (
     <MainLayout>

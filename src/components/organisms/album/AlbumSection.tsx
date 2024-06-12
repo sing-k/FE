@@ -53,6 +53,7 @@ const MoreBtn = styled(Link)`
   font-size: 0.8rem;
   font-weight: 700;
   color: ${color.COLOR_GRAY_TEXT};
+  text-decoration: none; /* 밑줄 제거 */
   ${glassEffectStyle()}
   padding: 0.5rem 1rem;
   border-radius: 20px;
