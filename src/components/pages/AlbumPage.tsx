@@ -24,7 +24,7 @@ const AlbumPage = () => {
             "get",
             {
               headers,
-            },
+            }
           );
         }
       } catch (error) {

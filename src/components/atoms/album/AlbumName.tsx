@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const AlbumName = ({ data }: any) => {
-  return <StyledName>{data.name}</StyledName>;
+  return <StyledName>{data?.name}</StyledName>;
 };
 
 export default AlbumName;

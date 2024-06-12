@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ArtistName = ({ data }: any) => {
-  return <Name>{data.artists[0].name}</Name>;
+  return <Name>{data?.artists[0]?.name}</Name>;
 };
 
 export default ArtistName;

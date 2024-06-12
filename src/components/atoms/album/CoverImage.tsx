@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const CoverImage = ({ data }: any) => {
-  return <Image src={data.images[0].imageUrl} alt={data.name} />;
+  return <Image src={data?.images[0]?.imageUrl} alt={data?.name} />;
 };
 
 export default CoverImage;
