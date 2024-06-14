@@ -10,6 +10,8 @@ import AlbumDetailReview from "../organisms/albumDetail/AlbumDetailReview";
 import { AlbumSearchList } from "../organisms/album";
 import AlbumSection from "../organisms/album/AlbumSection";
 
+import { pathName } from "../../App";
+
 const tabObj = {
   info: "기본 정보",
   review: "감상평",
@@ -26,7 +28,7 @@ const AlbumDetailPage = () => {
 
   const onClickTab = (key?: string) => {
     const path = key === "review" ? "?tab=review" : "";
-    navigate(`/album-detail/${id}${path}`);
+    navigate(`${pathName.albumDetail}/${id}${path}`);
   };
 
   useEffect(() => {

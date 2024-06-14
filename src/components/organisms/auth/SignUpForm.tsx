@@ -24,6 +24,8 @@ import {
 } from "../../../utils/auth/authApi";
 
 import { FormType } from "../../../types/authTypes";
+import { pathName } from "../../../App";
+
 const SignUpForm = () => {
   const {
     register,
@@ -96,7 +98,7 @@ const SignUpForm = () => {
       const result = await handleSubmitData(data);
       if (result === 200) {
         alert("회원가입을 완료하였습니다. 로그인 페이지로 이동합니다.");
-        navigate("/login");
+        navigate(`${pathName.login}`);
       }
     } catch (err) {
       console.log(err, "err");

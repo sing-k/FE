@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Pathname } from "react-router-dom";
 
 import {
   MainPage,
@@ -16,6 +16,22 @@ import GlobalStyle from "./styles/GlobalStyle";
 
 import AlbumPage from "./components/pages/AlbumPage";
 
+// 카멜 케이스로 작성 부탁해요
+export const pathName = {
+  home: "/",
+  signUp: "/signUp",
+  login: "/login",
+  album: "/album",
+  recentReview: "/album/recentReview",
+  mostReview: "/album/mostReview",
+  highestRated: "/album/highestRated",
+  albumDetail: "/albumDetail",
+  musicRecommendationBoard: "/musicRecommendationBoard",
+  board: "/board",
+} as const;
+
+export type PathType = (typeof pathName)[keyof typeof pathName];
+
 function App() {
   useAxiosInterceptors();
 
@@ -23,14 +39,23 @@ function App() {
     <>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/recentreview" element={<RecentReview />} />
-        <Route path="/mostreview" element={<MostReview />} />
-        <Route path="/highestrated" element={<HighestRated />} />
-        <Route path="/album-detail/:id" element={<AlbumDetailPage />} />
-        <Route path="/album/*" element={<AlbumPage />} />
+        <Route path={pathName.home} element={<MainPage />}>
+          <Route path={pathName.musicRecommendationBoard} element={<>음추</>} />
+          <Route path={pathName.board} element={<>자유</>} />
+        </Route>
+
+        <Route path={pathName.signUp} element={<SignUpPage />} />
+        <Route path={pathName.login} element={<LoginPage />} />
+
+        <Route path={pathName.album} element={<AlbumPage />} />
+        <Route path={pathName.recentReview} element={<RecentReview />} />
+        <Route path={pathName.mostReview} element={<MostReview />} />
+        <Route path={pathName.highestRated} element={<HighestRated />} />
+
+        <Route
+          path={`${pathName.albumDetail}/:id`}
+          element={<AlbumDetailPage />}
+        />
       </Routes>
     </>
   );

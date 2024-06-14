@@ -1,19 +1,36 @@
+import { useEffect, useState } from "react";
+
 import styled from "styled-components";
 
 import NavbarMenu from "../../atoms/navbar/NavbarMenu";
 
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import { glassEffectStyle } from "../../../styles/style";
-import color from "../../../styles/color";
+import { pathName, PathType } from "../../../App";
 
 const NavMenuList = () => {
+  const [currentTab, setCurrentTab] = useState<PathType | string>("/");
+  const location = useLocation();
+
+  useEffect(() => {
+    let [_, path, ...rest] = location.pathname.split("/");
+    setCurrentTab(`/${path}`);
+  }, [location]);
+
   return (
     <MenuDiv>
-      <NavbarMenu title="홈" link="/" />
-      <NavbarMenu title="앨범" link="/album" />
-      <NavbarMenu title="음악 추천 게시판" link="/" />
-      <NavbarMenu title="자유 게시판" link="/" />
+      <NavbarMenu title="홈" link={pathName.home} currentTab={currentTab} />
+      <NavbarMenu title="앨범" link={pathName.album} currentTab={currentTab} />
+      <NavbarMenu
+        title="음악 추천 게시판"
+        link={pathName.musicRecommendationBoard}
+        currentTab={currentTab}
+      />
+      <NavbarMenu
+        title="자유 게시판"
+        link={pathName.board}
+        currentTab={currentTab}
+      />
     </MenuDiv>
   );
 };
@@ -26,19 +43,4 @@ const MenuDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-`;
-
-const StyledLink = styled(Link)`
-  width: 100%;
-  font-size: 0.9rem;
-  font-weight: 700;
-  background-color: transparent;
-  text-align: start;
-  border-radius: 5px;
-  color: ${color.COLOR_DARKGRAY_TEXT};
-  white-space: nowrap;
-
-  &:hover {
-    ${glassEffectStyle({ bgColor: "#ffffff12" })};
-  }
 `;

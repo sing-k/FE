@@ -1,9 +1,14 @@
 import styled from "styled-components";
-import { AlbumCard, AlbumList } from "../../molecules";
-import { useMediaQueries } from "../../../hooks";
-import { glassEffectStyle } from "../../../styles/style";
+
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+
+import { AlbumCard, AlbumList } from "../../molecules";
+import { useMediaQueries } from "../../../hooks";
+
+import { glassEffectStyle } from "../../../styles/style";
+import { pathName } from "../../../App";
+
 const AlbumSearchList = ({ data, query }: any) => {
   if (!data) return <p>Loading...</p>;
   const { isPc, isTablet, isMobile } = useMediaQueries();
@@ -12,9 +17,11 @@ const AlbumSearchList = ({ data, query }: any) => {
   const topItems = data.slice(0, numToShow);
   const rest = data.slice(numToShow);
   const navigate = useNavigate();
+
   const handleClick = () => {
-    navigate("/album");
+    navigate(`${pathName.album}`);
   };
+
   return (
     <Container>
       <SearchTitle>

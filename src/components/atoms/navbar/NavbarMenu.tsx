@@ -2,13 +2,19 @@ import styled from "styled-components";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 import { Link } from "react-router-dom";
+
 type MenuNameType = {
   title: string;
   link: string;
+  currentTab: string;
 };
 
-const NavbarMenu = ({ title, link }: MenuNameType) => {
-  return <StyledLink to={link}>{title}</StyledLink>;
+const NavbarMenu = ({ title, link, currentTab }: MenuNameType) => {
+  return (
+    <StyledLink to={link} className={link === currentTab ? "focused" : "none"}>
+      {title}
+    </StyledLink>
+  );
 };
 
 export default NavbarMenu;
@@ -27,6 +33,10 @@ const StyledLink = styled(Link)`
   padding: 0.6rem 0.9rem;
 
   &:hover {
-    ${glassEffectStyle({ bgColor: "#ffffff12" })};
+    ${glassEffectStyle({ bgColor: "rgba(255, 255, 255, 0.05)" })};
+  }
+
+  &.focused {
+    ${glassEffectStyle({ bgColor: "rgba(255, 255, 255, 0.2)" })};
   }
 `;

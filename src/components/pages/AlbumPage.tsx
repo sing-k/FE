@@ -8,6 +8,9 @@ import { useApi } from "../../hooks";
 import { AlbumSearchList } from "../organisms/album";
 
 import AlbumSection from "../organisms/album/AlbumSection";
+
+import { pathName } from "../../App";
+
 const AlbumPage = () => {
   //   const { isPc } = useMediaQueries();
   const location = useLocation();
@@ -45,9 +48,9 @@ const AlbumPage = () => {
       {query && data && (
         <AlbumSearchList query={query} data={data.items}></AlbumSearchList>
       )}
-      <AlbumSection title="최근 평가된 앨범" link="/recentreview" />
-      <AlbumSection title="평가 많은 순" link="/mostreview" />
-      <AlbumSection title="평점 높은 순" link="/highestrated" />
+      <AlbumSection title="최근 평가된 앨범" link={pathName.recentReview} />
+      <AlbumSection title="평가 많은 순" link={pathName.mostReview} />
+      <AlbumSection title="평점 높은 순" link={pathName.highestRated} />
     </MainLayout>
   );
 };

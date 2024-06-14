@@ -6,6 +6,8 @@ import { AlbumCarousel } from "../organisms/album";
 
 import { useMediaQueries } from "../../hooks";
 
+import { Outlet } from "react-router-dom";
+
 const MainPage = () => {
   const { isPc } = useMediaQueries();
 
@@ -17,6 +19,8 @@ const MainPage = () => {
         <HomePostList text="음악 추천 게시판" />
         <HomePostList text="자유 게시판" />
       </PostListWrapper>
+
+      <Outlet />
     </MainLayout>
   );
 };
