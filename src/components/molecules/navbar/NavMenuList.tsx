@@ -2,11 +2,6 @@ import styled from "styled-components";
 
 import NavbarMenu from "../../atoms/navbar/NavbarMenu";
 
-import { Link } from "react-router-dom";
-
-import { glassEffectStyle } from "../../../styles/style";
-import color from "../../../styles/color";
-
 const NavMenuList = () => {
   return (
     <MenuDiv>
@@ -26,19 +21,4 @@ const MenuDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-`;
-
-const StyledLink = styled(Link)`
-  width: 100%;
-  font-size: 0.9rem;
-  font-weight: 700;
-  background-color: transparent;
-  text-align: start;
-  border-radius: 5px;
-  color: ${color.COLOR_DARKGRAY_TEXT};
-  white-space: nowrap;
-
-  &:hover {
-    ${glassEffectStyle({ bgColor: "#ffffff12" })};
-  }
 `;

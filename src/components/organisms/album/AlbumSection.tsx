@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import AlbumCarousel from "./AlbumCarousel";
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
+type AlbumSectionType = {
+  title: string;
+  link: string;
+};
 
-const AlbumSection = ({ title, link }) => {
+const AlbumSection = ({ title, link }: AlbumSectionType) => {
   return (
     <Container>
       <Header>
