@@ -5,6 +5,10 @@ import styled from "styled-components";
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
 
+import { useLocation, useNavigate } from "react-router-dom";
+
+import { pathName } from "../../../App";
+
 import TabMenu from "../../common/TabMenu";
 
 type Props = {
@@ -21,10 +25,21 @@ type TabKey = keyof typeof tabObj;
 const BoardListTemplate = ({ children }: Props) => {
   const [currentTab, setCurrentTab] = useState<TabKey | string>("recent");
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const onClickTab = (key?: string) => {
     if (!key) return;
 
     setCurrentTab(key);
+  };
+
+  const onClickWriteBtn = () => {
+    const query =
+      location.pathname === pathName.musicRecommendationBoard
+        ? "?type=music"
+        : "";
+    navigate(`${pathName.writePost}${query}`);
   };
 
   return (
@@ -36,7 +51,7 @@ const BoardListTemplate = ({ children }: Props) => {
           onClickTab={onClickTab}
         />
 
-        <WriteBtn>글쓰기</WriteBtn>
+        <WriteBtn onClick={onClickWriteBtn}>글쓰기</WriteBtn>
       </TabWrapper>
 
       <ListWrapper>{children}</ListWrapper>
