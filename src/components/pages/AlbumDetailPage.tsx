@@ -27,7 +27,7 @@ const AlbumDetailPage = () => {
 
   const onClickTab = (key?: string) => {
     const path = key === "review" ? "?tab=review" : "";
-    navigate(`${pathName.albumDetail}/${id}${path}`);
+    navigate(`${pathName.album}/${id}${path}`);
   };
 
   useEffect(() => {
