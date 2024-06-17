@@ -8,6 +8,8 @@ import {
   MostReview,
   RecentReview,
   AlbumDetailPage,
+  MusicRecommendationBoardPage,
+  BoardPage,
 } from "./components/pages";
 
 import { useAxiosInterceptors } from "./hooks";
@@ -49,8 +51,11 @@ function App() {
 
           <Route path={`${pathName.album}/:id`} element={<AlbumDetailPage />} />
 
-          <Route path={pathName.musicRecommendationBoard} element={<>음추</>} />
-          <Route path={pathName.board} element={<>자유</>} />
+          <Route
+            path={pathName.musicRecommendationBoard}
+            element={<MusicRecommendationBoardPage />}
+          />
+          <Route path={pathName.board} element={<BoardPage />} />
         </Route>
 
         <Route path={pathName.signUp} element={<SignUpPage />} />
