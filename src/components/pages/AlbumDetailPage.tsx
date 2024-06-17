@@ -6,9 +6,6 @@ import AlbumDetailTab from "../molecules/albumDetail/AlbumDetailTab";
 import AlbumDetailInfo from "../organisms/albumDetail/AlbumDetailInfo";
 import AlbumDetailReview from "../organisms/albumDetail/AlbumDetailReview";
 
-import { AlbumSearchList } from "../organisms/album";
-import AlbumSection from "../organisms/album/AlbumSection";
-
 import { pathName } from "../../App";
 
 const tabObj = {

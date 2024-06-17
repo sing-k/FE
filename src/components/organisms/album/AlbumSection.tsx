@@ -4,12 +4,12 @@ import AlbumCarousel from "./AlbumCarousel";
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
 
-type Props = {
+type AlbumSectionType = {
   title: string;
   link: string;
 };
 
-const AlbumSection = ({ title, link }: Props) => {
+const AlbumSection = ({ title, link }: AlbumSectionType) => {
   return (
     <Container>
       <Header>
