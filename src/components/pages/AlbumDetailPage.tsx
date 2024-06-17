@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-import AlbumDetailTab from "../molecules/albumDetail/AlbumDetailTab";
 import AlbumDetailInfo from "../organisms/albumDetail/AlbumDetailInfo";
 import AlbumDetailReview from "../organisms/albumDetail/AlbumDetailReview";
+import TabMenu from "../common/TabMenu";
 
 import { pathName } from "../../App";
 
@@ -41,7 +41,7 @@ const AlbumDetailPage = () => {
 
   return (
     <>
-      <AlbumDetailTab
+      <TabMenu
         tabObj={tabObj}
         currentTab={currentTab}
         onClickTab={onClickTab}

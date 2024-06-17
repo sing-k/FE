@@ -18,6 +18,7 @@ export default {
 
   COLOR_WHITE_BORDER: "#ffffff",
   COLOR_GRAY_BORDER: "#AEAEAE",
+  COLOR_LIGHTGRAY_BORDER: "#DCDCDC",
 
   COLOR_GRAY_TEXT: "#7D7D7D",
   COLOR_DARKGRAY_TEXT: "#4e4e4e",
@@ -36,4 +37,6 @@ export default {
 
   COLOR_MALE: "#2D65F7",
   COLOR_FEMALE: "#F874EB",
+
+  COLOR_FOOTER: "#ECECEC",
 };

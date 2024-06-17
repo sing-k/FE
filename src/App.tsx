@@ -8,6 +8,9 @@ import {
   MostReview,
   RecentReview,
   AlbumDetailPage,
+  MusicRecommendationBoardPage,
+  BoardPage,
+  WritePostPage,
 } from "./components/pages";
 
 import { useAxiosInterceptors } from "./hooks";
@@ -28,6 +31,7 @@ export const pathName = {
   highestRated: "/album/highestRated",
   musicRecommendationBoard: "/musicRecommendationBoard",
   board: "/board",
+  writePost: "/writePost",
 } as const;
 
 export type PathType = (typeof pathName)[keyof typeof pathName];
@@ -49,12 +53,17 @@ function App() {
 
           <Route path={`${pathName.album}/:id`} element={<AlbumDetailPage />} />
 
-          <Route path={pathName.musicRecommendationBoard} element={<>음추</>} />
-          <Route path={pathName.board} element={<>자유</>} />
+          <Route
+            path={pathName.musicRecommendationBoard}
+            element={<MusicRecommendationBoardPage />}
+          />
+          <Route path={pathName.board} element={<BoardPage />} />
         </Route>
 
         <Route path={pathName.signUp} element={<SignUpPage />} />
         <Route path={pathName.login} element={<LoginPage />} />
+
+        <Route path={pathName.writePost} element={<WritePostPage />} />
       </Routes>
     </>
   );

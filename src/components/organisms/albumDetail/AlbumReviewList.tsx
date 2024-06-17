@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { glassEffectStyle } from "../../../styles/style";
-import AlbumDetailTab from "../../molecules/albumDetail/AlbumDetailTab";
+
 import AlbumReview from "../../molecules/albumDetail/AlbumReview";
+import TabMenu from "../../common/TabMenu";
 
 const filterObj = {
   recent: "최신순",
@@ -43,7 +44,7 @@ const AlbumReviewList = () => {
 
   return (
     <div style={{ borderRadius: "inherit" }}>
-      <AlbumDetailTab
+      <TabMenu
         tabObj={filterObj}
         currentTab={currentFilter}
         onClickTab={onClickTab}

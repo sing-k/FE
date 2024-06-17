@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import color from "../../../styles/color";
-import { glassEffectStyle } from "../../../styles/style";
+import color from "../../styles/color";
+import { glassEffectStyle } from "../../styles/style";
 
 type TabObjType = {
   [key: string]: string;
@@ -13,7 +13,7 @@ type Props = {
   onClickTab: (key?: string) => void;
 };
 
-const AlbumDetailTab = ({ tabObj, currentTab, onClickTab }: Props) => {
+const TabMenu = ({ tabObj, currentTab, onClickTab }: Props) => {
   return (
     <>
       <Container>
@@ -30,8 +30,6 @@ const AlbumDetailTab = ({ tabObj, currentTab, onClickTab }: Props) => {
     </>
   );
 };
-
-export default AlbumDetailTab;
 
 const Container = styled.div`
   ${glassEffectStyle()}
@@ -57,3 +55,5 @@ const Tab = styled.div`
     color: white;
   }
 `;
+
+export default TabMenu;
