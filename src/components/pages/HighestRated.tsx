@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { MainLayout } from "../common";
 
 import { glassEffectStyle } from "../../styles/style";
 import color from "../../styles/color";
@@ -10,7 +9,7 @@ import { IoArrowBack } from "react-icons/io5";
 
 const HighestRated = () => {
   return (
-    <MainLayout>
+    <>
       <Container>
         <Header>
           <BackBtn to="/album">
@@ -25,7 +24,7 @@ const HighestRated = () => {
           ))}
         </CardContainer>
       </Container>
-    </MainLayout>
+    </>
   );
 };
 

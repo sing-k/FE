@@ -10,6 +10,7 @@ import { validationRules } from "../../../utils/auth/validationRules";
 import useLogin from "../../../hooks/useLogin";
 
 import { LoginType } from "../../../types/authTypes";
+import { pathName } from "../../../App";
 
 const LoginForm = () => {
   const {
@@ -35,7 +36,7 @@ const LoginForm = () => {
     } else {
       setErrorMessage("");
       alert("로그인에 성공했습니다.");
-      navigate("/"); // 로그인 성공 시 대시보드로 이동
+      navigate(`${pathName.home}`); // 로그인 성공 시 대시보드로 이동
     }
   };
   useEffect(() => {

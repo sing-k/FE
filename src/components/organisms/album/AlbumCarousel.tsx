@@ -115,6 +115,7 @@ const Container = styled.div`
 `;
 
 const Carousel = styled.div`
+  width: 100%;
   display: flex;
   transition: 0.5s;
   gap: ${GAP_REM}rem;

@@ -13,7 +13,7 @@ const HomePostList = (props: Props) => {
       <PostListHeader text={props.text} />
 
       <ListWrapper>
-        {[...new Array(5).fill(0)].map(idx => (
+        {[...new Array(5).fill(0)].map((_, idx) => (
           <PostListItem key={`postListItem${idx}`} />
         ))}
       </ListWrapper>

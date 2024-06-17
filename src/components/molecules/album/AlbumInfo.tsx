@@ -37,7 +37,7 @@ export default AlbumInfo;
 const Container = styled.div`
   ${glassEffectStyle()}
   width: 100%;
-  border-radius: 0.3rem;
+  border-radius: 5px;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -47,6 +47,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 `;
