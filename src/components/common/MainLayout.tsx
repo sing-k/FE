@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import color from "../../styles/color";
 
+import { Outlet } from "react-router-dom";
+
 import { useMediaQueries } from "../../hooks";
 
 import LogoImage from "./LogoImage";
@@ -10,11 +12,12 @@ import SearchBar from "../molecules/search/SearchBar";
 import DropDownNavigation from "../organisms/navbar/DropDownNavigation";
 
 import { useMemberInfoQuery } from "../../hooks/services/queries/userQueries";
+
 type Props = {
   children?: React.ReactNode;
 };
 
-const MainLayout = ({ children }: Props) => {
+const MainLayout = () => {
   const { isPc, isTablet } = useMediaQueries();
   const isLoggedIn = localStorage.getItem("loginState");
   const { data } = useMemberInfoQuery();
@@ -40,7 +43,9 @@ const MainLayout = ({ children }: Props) => {
               <SearchBar />
             </HeaderWrapper>
 
-            <Contents style={{ width: "80%" }}>{children}</Contents>
+            <Contents>
+              <Outlet />
+            </Contents>
           </ContentsWrapper>
         </>
       ) : (
@@ -57,7 +62,7 @@ const MainLayout = ({ children }: Props) => {
                 width: isTablet ? "80%" : "100%",
               }}
             >
-              {children}
+              <Outlet />
             </Contents>
           </ContentsWrapper>
         </>
@@ -69,7 +74,7 @@ const MainLayout = ({ children }: Props) => {
 export default MainLayout;
 
 const Layout = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
 
@@ -103,6 +108,6 @@ const HeaderWrapper = styled.div`
 `;
 
 const Contents = styled.div`
-  width: 100%;
+  width: 80%;
   padding: 2rem 2rem 150px;
 `;

@@ -26,7 +26,7 @@ const Container = styled.div`
   ${glassEffectStyle()}
   width: 100%;
   flex-shrink: 0;
-  border-radius: 0.5rem;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;

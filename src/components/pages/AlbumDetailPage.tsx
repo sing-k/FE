@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-import { MainLayout } from "../common";
 import AlbumDetailTab from "../molecules/albumDetail/AlbumDetailTab";
 import AlbumDetailInfo from "../organisms/albumDetail/AlbumDetailInfo";
 import AlbumDetailReview from "../organisms/albumDetail/AlbumDetailReview";
@@ -44,7 +43,7 @@ const AlbumDetailPage = () => {
   if (currentTab === "") return null;
 
   return (
-    <MainLayout>
+    <>
       <AlbumDetailTab
         tabObj={tabObj}
         currentTab={currentTab}
@@ -53,7 +52,7 @@ const AlbumDetailPage = () => {
 
       {currentTab === "info" && <AlbumDetailInfo />}
       {currentTab === "review" && <AlbumDetailReview />}
-    </MainLayout>
+    </>
   );
 };
 

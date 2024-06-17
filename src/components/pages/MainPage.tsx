@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import { MainLayout } from "../common";
 import { HomePostList } from "../organisms";
 import { AlbumCarousel } from "../organisms/album";
 
@@ -12,7 +11,7 @@ const MainPage = () => {
   const { isPc } = useMediaQueries();
 
   return (
-    <MainLayout>
+    <>
       <AlbumCarousel />
 
       <PostListWrapper style={isPc ? { flexDirection: "row" } : {}}>
@@ -21,7 +20,7 @@ const MainPage = () => {
       </PostListWrapper>
 
       <Outlet />
-    </MainLayout>
+    </>
   );
 };
 
