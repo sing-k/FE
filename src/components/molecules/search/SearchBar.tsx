@@ -15,7 +15,7 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate(`${pathName.album}/search?query=${input}`);
+    navigate(`${pathName.album}?query=${input}`);
   };
 
   useEffect(() => {
