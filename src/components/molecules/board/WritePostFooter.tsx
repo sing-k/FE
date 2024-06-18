@@ -2,12 +2,19 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-const WritePostFooter = () => {
+type Props = {
+  onClickPreview?: () => void;
+  onClickSubmit?: () => void;
+};
+
+const WritePostFooter = ({ onClickPreview, onClickSubmit }: Props) => {
   return (
     <Container>
       <Inner>
-        <Btn>미리보기</Btn>
-        <Btn className="submit">등록</Btn>
+        <Btn onClick={onClickPreview}>미리보기</Btn>
+        <Btn className="submit" onClick={onClickSubmit}>
+          등록
+        </Btn>
       </Inner>
     </Container>
   );

@@ -7,8 +7,6 @@ import color from "../../../styles/color";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { pathName } from "../../../App";
-
 import TabMenu from "../../common/TabMenu";
 
 type Props = {
@@ -35,11 +33,7 @@ const BoardListTemplate = ({ children }: Props) => {
   };
 
   const onClickWriteBtn = () => {
-    const query =
-      location.pathname === pathName.musicRecommendationBoard
-        ? "?type=music"
-        : "";
-    navigate(`${pathName.writePost}${query}`);
+    navigate(`${location.pathname}/post`);
   };
 
   return (

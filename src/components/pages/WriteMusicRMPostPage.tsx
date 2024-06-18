@@ -8,7 +8,7 @@ import {
 import WritePostLayout from "../common/WritePostLayout";
 import PostForm from "../organisms/board/PostForm";
 
-const WritePostPage = () => {
+const WriteMusicRMPostPage = () => {
   const fieldValues: UseFormReturn = useForm<FieldValues>();
 
   const { handleSubmit } = fieldValues;
@@ -19,7 +19,7 @@ const WritePostPage = () => {
 
   return (
     <WritePostLayout
-      headerText="자유 게시글 작성"
+      headerText="음악 추천 게시글 작성"
       onClickPreview={() => console.log("preview")}
       onClickSubmit={handleSubmit(onSubmit)}
     >
@@ -28,4 +28,4 @@ const WritePostPage = () => {
   );
 };
 
-export default WritePostPage;
+export default WriteMusicRMPostPage;

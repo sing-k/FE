@@ -1,41 +1,36 @@
+import React from "react";
+
 import styled from "styled-components";
 
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-  FieldValues,
-} from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 import ReactQuill from "react-quill";
 
 import { modules, formats } from "../../../styles/quillStyle";
 import color from "../../../styles/color";
 
 type Props = {
-  type?: string | null;
+  fieldValues: UseFormReturn;
+  children?: React.ReactNode;
 };
 
-const PostForm = ({}: Props) => {
+const PostForm = ({ fieldValues, children }: Props) => {
   const {
     register,
-    handleSubmit,
-    watch,
     control,
     formState: { errors },
-  } = useForm();
-
-  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
-    console.log(data);
-  };
+  } = fieldValues;
 
   return (
-    <Container onSubmit={handleSubmit(onSubmit)}>
+    <Container>
       <TitleInput
         {...register("title", {
           required: "게시글 제목을 입력해주세요",
         })}
         placeholder="제목"
       />
+
+      {/* 음악 추천 게시판 작성 페이지에서 추가 입력 사항 부분 */}
+      {children && children}
 
       <Controller
         name="content"
@@ -59,7 +54,7 @@ const PostForm = ({}: Props) => {
 
 export default PostForm;
 
-const Container = styled.form`
+const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -99,7 +94,7 @@ const StyledReactQuill = styled(ReactQuill)`
   }
 
   .ql-editor {
-    min-height: 50vh;
+    min-height: 100vh;
     font-size: 1rem;
   }
 `;
