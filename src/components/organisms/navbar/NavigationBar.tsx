@@ -13,7 +13,7 @@ import LogoutBtn from "../../atoms/navbar/LogoutBtn";
 import NavClickIcon from "../../atoms/navbar/NavClickIcon";
 
 import { glassEffectStyle } from "../../../styles/style";
-
+import { pathName } from "../../../App";
 type ContainerProps = {
   $isPc: boolean;
   $isTablet: boolean;
@@ -52,10 +52,10 @@ const NavigationBar = () => {
             ) : (
               <>
                 <ButtonContainer>
-                  <StyledLink to="/login">
+                  <StyledLink to={`${pathName.login}`}>
                     <NavbarBtn title="로그인" />
                   </StyledLink>
-                  <StyledLink to="/signup">
+                  <StyledLink to={`${pathName.signUp}`}>
                     <NavbarBtn title="회원가입" />
                   </StyledLink>
                 </ButtonContainer>

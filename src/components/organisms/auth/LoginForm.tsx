@@ -56,7 +56,7 @@ const LoginForm = () => {
           title="로그인"
           text="아직 SingK 계정이 없으신가요?"
           linkTitle="회원가입"
-          link="/signup"
+          link={`${pathName.signUp}`}
         />
         <AuthInput
           name="email"
