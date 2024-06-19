@@ -3,8 +3,11 @@ import styled from "styled-components";
 import color from "../../../styles/color";
 import { useApi } from "../../../hooks";
 import { getToken, clearTokens } from "../../../utils/auth/tokenStorage";
+import { useNavigate } from "react-router-dom";
+import { pathName } from "../../../App";
 
 const LogoutBtn = () => {
+  const navigate = useNavigate();
   const { callApi, statusCode } = useApi();
   const handleLogout = async () => {
     const accessToken = getToken("accessToken"); // 액세스 토큰 가져오기
@@ -23,6 +26,7 @@ const LogoutBtn = () => {
   if (statusCode === 200) {
     clearTokens();
     window.location.reload();
+    navigate(`${pathName.home}`);
   }
 
   return <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>;
