@@ -19,6 +19,7 @@ const LogoImage = ({ width, height }: Props) => {
                 width: "150px",
               }
       }
+      onClick={() => window.location.replace("/")}
     >
       <Image src={Logo} />
     </Container>
@@ -27,7 +28,9 @@ const LogoImage = ({ width, height }: Props) => {
 
 export default LogoImage;
 
-const Container = styled.div``;
+const Container = styled.div`
+  cursor: pointer;
+`;
 
 const Image = styled.img`
   width: 100%;
