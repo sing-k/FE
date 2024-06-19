@@ -4,11 +4,13 @@ import color from "../../../styles/color";
 
 import { FaUser } from "react-icons/fa";
 
-const NavbarProfileImg = ({ data }: any) => {
+const NavbarProfileImg = ({ data, width = "50px", height = "50px" }: any) => {
   const imageSrc = data.imageUrl;
 
   return (
-    <Container>{imageSrc ? <Image src={imageSrc} /> : <FaUser />}</Container>
+    <Container style={{ width, height }}>
+      {imageSrc ? <Image src={imageSrc} /> : <FaUser />}
+    </Container>
   );
 };
 
