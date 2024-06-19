@@ -11,20 +11,15 @@ import NavigationBar2 from "../organisms/navbar/NavigationBar2";
 import SearchBar from "../molecules/search/SearchBar";
 import DropDownNavigation from "../organisms/navbar/DropDownNavigation";
 
-import { useMemberInfoQuery } from "../../hooks/services/queries/userQueries";
-
-type Props = {
-  children?: React.ReactNode;
-};
+import { useMemberInfoQuery } from "../../hooks/queries/user";
+// type Props = {
+//   children?: React.ReactNode;
+// };
 
 const MainLayout = () => {
   const { isPc, isTablet } = useMediaQueries();
   const isLoggedIn = localStorage.getItem("loginState");
   const { data } = useMemberInfoQuery();
-
-  // if (isLoading) {
-  //   return <div>로딩중</div>;
-  // }
 
   return (
     <Layout style={{ flexDirection: isPc ? "row" : "column" }}>
