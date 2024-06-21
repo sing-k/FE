@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Controller,
   Control,
@@ -8,6 +6,9 @@ import {
 } from "react-hook-form";
 
 import SelectBtnForm from "../../molecules/board/SelectBtnForm";
+import SelectImageForm from "../../molecules/board/SelectImageForm";
+import SelectAlbumForm from "../../molecules/board/SelectAlbumForm";
+import SelectYoutubeForm from "../../molecules/board/SelectYoutubeForm";
 
 type Props = {
   register: UseFormRegister<FieldValues>;
@@ -35,11 +36,11 @@ const SelectMusicInfoForm = ({ register, control, value, name }: Props) => {
       />
 
       {value === "이미지" ? (
-        <>이미지</>
+        <SelectImageForm />
       ) : value === "앨범" ? (
-        <>앨범</>
+        <SelectAlbumForm />
       ) : value === "유튜브" ? (
-        <>유튜브</>
+        <SelectYoutubeForm />
       ) : null}
     </>
   );

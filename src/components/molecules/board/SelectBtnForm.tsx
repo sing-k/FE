@@ -46,7 +46,7 @@ export default SelectBtnForm;
 
 const Container = styled.div`
   width: 100%;
-  //   background-color: orange;
+  // background-color: orange;
   display: flex;
   align-items: center;
 `;
@@ -58,8 +58,10 @@ const Label = styled.p`
 `;
 
 const ItemWrapper = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 5px;
 `;
 
