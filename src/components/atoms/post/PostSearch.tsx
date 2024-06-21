@@ -1,6 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-import color from "../../../styles/color";
 
 const PostSearch = () => {
   const selectName = "job"; // This is the name attribute for the select element
@@ -15,7 +13,7 @@ const PostSearch = () => {
   return (
     <Container>
       <StyledSelect name={selectName}>
-        {options.map((option) => (
+        {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>

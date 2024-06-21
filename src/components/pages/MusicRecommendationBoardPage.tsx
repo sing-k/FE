@@ -1,5 +1,3 @@
-import React from "react";
-
 import BoardListTemplate from "../templates/board/BoardListTemplate";
 
 const MusicRecommendationBoardPage = () => {
