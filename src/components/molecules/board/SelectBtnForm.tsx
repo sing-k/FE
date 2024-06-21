@@ -1,11 +1,9 @@
-import React from "react";
-
 import styled from "styled-components";
 
 import color from "../../../styles/color";
 
 import {
-  ControllerRenderProps,
+  // ControllerRenderProps,
   FieldValues,
   UseFormRegister,
 } from "react-hook-form";
@@ -14,7 +12,7 @@ type Props = {
   name: string;
   label: string;
   items: string[];
-  field: ControllerRenderProps;
+  field: any;
   register: UseFormRegister<FieldValues>;
 };
 

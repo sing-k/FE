@@ -13,9 +13,9 @@ import DropDownNavigation from "../organisms/navbar/DropDownNavigation";
 
 import { useMemberInfoQuery } from "../../hooks/services/queries/userQueries";
 
-type Props = {
-  children?: React.ReactNode;
-};
+// type Props = {
+//   children?: React.ReactNode;
+// };
 
 const MainLayout = () => {
   const { isPc, isTablet } = useMediaQueries();

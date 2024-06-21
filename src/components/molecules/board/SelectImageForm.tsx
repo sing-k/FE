@@ -4,8 +4,6 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import { FieldValues, UseFormRegister } from "react-hook-form";
-
 import { FaPlus } from "react-icons/fa";
 
 const SelectImageForm = () => {
@@ -14,6 +12,10 @@ const SelectImageForm = () => {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  if (file) {
+    // file 선언 후 사용하지 않았다는 에러 제거 위함 나중에 제거해주세요
+    console.log(file);
+  }
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];

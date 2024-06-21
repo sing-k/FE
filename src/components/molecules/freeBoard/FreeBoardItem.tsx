@@ -1,12 +1,6 @@
 import styled from "styled-components";
 
-import {
-  PostCommentNum,
-  PostLikeNum,
-  PostTime,
-  PostTitle,
-  PostWriter,
-} from "../../atoms";
+import { PostCommentNum, PostLikeNum, PostWriter } from "../../atoms";
 
 import PostDay from "../../atoms/post/PostDay";
 import FreeBoardTitle from "../../atoms/freeBoard/FreeBoardTitle";

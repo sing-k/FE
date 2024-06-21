@@ -1,20 +1,22 @@
+import { useState } from "react";
 import BoardListTemplate from "../templates/board/BoardListTemplate";
 import FreeBoardItem from "../molecules/freeBoard/FreeBoardItem";
-import { PostListItem } from "../molecules";
 import PostSelection from "./../atoms/post/PostSelection";
-import PostSearch from "./../atoms/post/PostSearch";
 import Input from "../common/Input";
 import styled from "styled-components";
 
 import { TbMusicSearch } from "react-icons/tb";
 
 const BoardPage = () => {
+  const [input, setInput] = useState<string>("");
   return (
     <>
       <BoardListTemplate>
         <Container>
           <PostSelection />
           <Input
+            input={input}
+            setInput={setInput}
             width="0.2rem"
             placeholder={"검색어 입력"}
             button={{
