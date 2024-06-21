@@ -40,3 +40,15 @@ export type LoginType = {
   email: string;
   password: string;
 };
+
+export type UserDataType = {
+  birthday: string;
+  createdAt: string;
+  email: string;
+  gender: string;
+  id: number;
+  imageUrl: string;
+  modifiedAt: string;
+  name: string;
+  nickname: string;
+};

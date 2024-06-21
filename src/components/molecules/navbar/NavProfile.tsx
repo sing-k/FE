@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { glassEffectStyle } from "../../../styles/style";
@@ -9,8 +10,13 @@ import NavbarTag from "../../atoms/navbar/NavbarTag";
 import NavProfileBtn from "../../atoms/navbar/NavProfileBtn";
 
 import { FaBell, FaHistory, FaUserCog } from "react-icons/fa";
+import { pathName } from "../../../App";
 
 const NavProfile = ({ data, openModal }: any) => {
+  const navigate = useNavigate();
+  const handelNavigate = () => {
+    navigate(`${pathName.myPage}`);
+  };
   return (
     <NavProfileDiv>
       <NavbarProfileImg data={data} />
@@ -23,7 +29,11 @@ const NavProfile = ({ data, openModal }: any) => {
       <NavbarTag />
 
       <BtnWrapper>
-        <NavProfileBtn Icon={FaHistory} text="활동 히스토리" />
+        <NavProfileBtn
+          onClick={handelNavigate}
+          Icon={FaHistory}
+          text="활동 히스토리"
+        />
         <NavProfileBtn
           onClick={openModal}
           Icon={FaUserCog}

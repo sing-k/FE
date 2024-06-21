@@ -10,3 +10,4 @@ export { default as MusicRecommendationBoardPage } from "./MusicRecommendationBo
 export { default as BoardPage } from "./BoardPage";
 export { default as WritePostPage } from "./WritePostPage";
 export { default as WriteMusicRMPostPage } from "./WriteMusicRMPostPage";
+export { default as Mypage } from "./Mypage";
