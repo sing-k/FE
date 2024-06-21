@@ -3,6 +3,9 @@ import styled from "styled-components";
 import LoginForm from "../organisms/auth/LoginForm";
 
 import { useMediaQueries } from "../../hooks";
+import NaverOauth from "../molecules/auth/NaverOauth";
+import GoogleOauth from "../molecules/auth/GoogleOauth";
+
 const LoginPage = () => {
   const { isPc, isTablet, isMobile } = useMediaQueries();
   return (
@@ -14,6 +17,8 @@ const LoginPage = () => {
       >
         <LoginForm />
         {/* 여기에 버튼들 추가  */}
+        <NaverOauth></NaverOauth>
+        <GoogleOauth></GoogleOauth>
       </LoginDiv>
     </Container>
   );
