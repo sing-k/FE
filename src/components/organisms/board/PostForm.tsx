@@ -20,6 +20,10 @@ const PostForm = ({ fieldValues, children }: Props) => {
     formState: { errors },
   } = fieldValues;
 
+  if (errors) {
+    // 배포 오류를 위한 추가 추후 삭제 바람
+    console.log(errors);
+  }
   return (
     <Container>
       <TitleInput

@@ -1,11 +1,9 @@
-import React from "react";
-
 import styled from "styled-components";
 
 import color from "../../../styles/color";
 
 import {
-  ControllerRenderProps,
+  // ControllerRenderProps,
   FieldValues,
   UseFormRegister,
 } from "react-hook-form";
@@ -14,7 +12,7 @@ type Props = {
   name: string;
   label: string;
   items: string[];
-  field: ControllerRenderProps;
+  field: any;
   register: UseFormRegister<FieldValues>;
 };
 
@@ -46,7 +44,7 @@ export default SelectBtnForm;
 
 const Container = styled.div`
   width: 100%;
-  //   background-color: orange;
+  // background-color: orange;
   display: flex;
   align-items: center;
 `;
@@ -58,8 +56,10 @@ const Label = styled.p`
 `;
 
 const ItemWrapper = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 5px;
 `;
 
