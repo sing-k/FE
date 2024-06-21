@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 import { SiNaver } from "react-icons/si";
-
+import { APIURL } from "../../../config";
 const NaverOauth = () => {
-  const link = "http://3.34.143.154:8080/oauth2/authorization/naver";
+  const link = `${APIURL}/oauth2/authorization/naver`;
   const loginHandler = () => {
     window.location.href = link;
   };
@@ -20,7 +20,9 @@ const NaverOauth = () => {
 export default NaverOauth;
 
 const OauthBtn = styled.button`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 90%;
   font-size: 1rem;
   font-weight: 600;

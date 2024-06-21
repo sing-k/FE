@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import color from "../../../styles/color";
 import { FaGoogle } from "react-icons/fa";
-
+import { APIURL } from "../../../config";
 const GoogleOauth = () => {
-  const link = "http://3.34.143.154:8080/oauth2/authorization/google";
+  const link = `${APIURL}/oauth2/authorization/google`;
   const loginHandler = () => {
     window.location.href = link;
   };
@@ -19,7 +19,9 @@ const GoogleOauth = () => {
 export default GoogleOauth;
 
 const OauthBtn = styled.button`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 90%;
   font-size: 1rem;
   font-weight: 600;
