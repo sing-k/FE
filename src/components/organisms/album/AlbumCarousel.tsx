@@ -10,7 +10,7 @@ import { useMediaQueries } from "../../../hooks";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
-const GAP_REM = 1.5;
+const GAP_REM = 1;
 const data = [...new Array(10).fill(0)];
 
 const AlbumCarousel = () => {
@@ -128,6 +128,7 @@ const Carousel = styled.div`
 const CardWrapper = styled.div`
   width: 100%;
   flex-shrink: 0;
+  min-width: 130px;
 `;
 
 const IndicatorWrapper = styled.div`

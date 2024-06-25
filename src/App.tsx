@@ -12,6 +12,8 @@ import {
   BoardPage,
   WritePostPage,
   WriteMusicRMPostPage,
+  MusicRMPostPage,
+  FreePostPage,
   Mypage,
 } from "./components/pages";
 
@@ -62,6 +64,11 @@ function App() {
             element={<MusicRecommendationBoardPage />}
           />
           <Route path={pathName.board} element={<BoardPage />} />
+          <Route
+            path={`${pathName.musicRecommendationBoard}/:id`}
+            element={<MusicRMPostPage />}
+          />
+          <Route path={`${pathName.board}/:id`} element={<FreePostPage />} />
           <Route path={pathName.myPage} element={<Mypage />} />
         </Route>
 

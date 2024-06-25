@@ -22,7 +22,11 @@ const UserInfo = ({ profileImage, nickname, size = "S" }: Props) => {
   return (
     <Container>
       <ImgDiv style={{ width: ImgSize[size] }}>
-        {profileImage ? <Img src={profileImage} /> : <ImgIcon />}
+        {profileImage ? (
+          <Img src={profileImage} />
+        ) : (
+          <ImgIcon style={{ fontSize: `calc(${ImgSize[size]} * 0.6)` }} />
+        )}
       </ImgDiv>
 
       <Nickname style={{ fontSize: NicknameSize[size] }}>{nickname}</Nickname>
@@ -41,6 +45,7 @@ const Container = styled.div`
 const ImgDiv = styled.div`
   aspect-ratio: 1 / 1;
   background-color: ${color.COLOR_LIGHTGRAY_BACKGROUND};
+  border: 1px solid ${color.COLOR_LIGHTGRAY_BACKGROUND};
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -65,13 +70,13 @@ const Nickname = styled.p`
 `;
 
 const ImgSize = {
-  [size.S]: "1rem",
+  [size.S]: "1.5rem",
   [size.M]: "2rem",
   [size.L]: "3rem",
 };
 
 const NicknameSize = {
   [size.S]: "0.8rem",
-  [size.M]: "0.9rem",
+  [size.M]: "1rem",
   [size.L]: "1.2rem",
 };
