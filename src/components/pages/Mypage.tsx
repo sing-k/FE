@@ -12,7 +12,6 @@ import {
   MyPageTabMenu,
 } from "../organisms";
 import { pathName } from "../../App";
-
 // 마이페이지에서는 내 정보만 요청 일단
 // (내 정보 요청 , 관련 데이터 요청 -> 탭에서 요청하기 )
 // 1. 내 정보 컴포넌트

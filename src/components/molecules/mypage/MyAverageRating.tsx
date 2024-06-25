@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
-import StarRating from "../../atoms/albumDetail/StarRating";
-const MyAverageRating = ({ data }) => {
+import { MyStarRating } from "../../atoms";
+const MyAverageRating = () => {
   return (
     <Container>
       <Text>평균 별점</Text>
       <Rating>4 / 5</Rating>
-      <StarRating rating={4} />
+      <MyStarRating rating={4} />
     </Container>
   );
 };
@@ -22,6 +22,7 @@ const Container = styled.div`
   align-items: center;
   padding: 1rem;
   border-radius: 5px;
+  gap: 0.5rem;
 `;
 const Text = styled.div`
   font-size: 0.8rem;
