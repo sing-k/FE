@@ -14,6 +14,7 @@ import {
   WriteMusicRMPostPage,
   MusicRMPostPage,
   FreePostPage,
+  Mypage,
 } from "./components/pages";
 
 import { useAxiosInterceptors } from "./hooks";
@@ -36,6 +37,7 @@ export const pathName = {
   board: "/board",
   musicRecommendationPost: "/musicRecommendationBoard/post",
   post: "/board/post",
+  myPage: "/myPage",
 } as const;
 
 export type PathType = (typeof pathName)[keyof typeof pathName];
@@ -67,6 +69,7 @@ function App() {
             element={<MusicRMPostPage />}
           />
           <Route path={`${pathName.board}/:id`} element={<FreePostPage />} />
+          <Route path={pathName.myPage} element={<Mypage />} />
         </Route>
 
         <Route path={pathName.signUp} element={<SignUpPage />} />

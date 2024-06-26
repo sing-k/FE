@@ -19,7 +19,7 @@ export const handleVerificationCodeConfirmation = async (
   code: any,
 ) => {
   try {
-    const res = await client.post("/api/auth/email-authentication/confirm", {
+    const res = await client.post("/api/auth/certification/confirm", {
       email: email,
       code: code,
     });

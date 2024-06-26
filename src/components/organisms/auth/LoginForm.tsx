@@ -29,14 +29,20 @@ const LoginForm = () => {
     const email = watch("email");
     const password = watch("password");
     const data: LoginType = { email, password };
-    const response = await login("/api/auth/login", data);
-    console.log(response);
-    if (response.statusCode === 401) {
-      setErrorMessage(error);
-    } else {
-      setErrorMessage("");
-      alert("로그인에 성공했습니다.");
-      navigate(`${pathName.home}`); // 로그인 성공 시 대시보드로 이동
+    try {
+      const response = await login("/api/auth/login", data);
+      console.log(response);
+
+      if (response.status === 200) {
+        setErrorMessage("");
+        alert("로그인에 성공했습니다.");
+        navigate(`${pathName.home}`); // 로그인 성공 시 대시보드로 이동
+      } else {
+        setErrorMessage(response.message || "로그인에 실패했습니다.");
+      }
+    } catch (err) {
+      console.error("로그인 요청 중 오류가 발생했습니다.", err);
+      setErrorMessage("로그인 요청 중 오류가 발생했습니다.");
     }
   };
   useEffect(() => {
@@ -56,7 +62,7 @@ const LoginForm = () => {
           title="로그인"
           text="아직 SingK 계정이 없으신가요?"
           linkTitle="회원가입"
-          link="/signup"
+          link={`${pathName.signUp}`}
         />
         <AuthInput
           name="email"

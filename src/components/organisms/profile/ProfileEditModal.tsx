@@ -4,7 +4,11 @@ import Modal, { ModalProps } from "../../common/Modal";
 import { FaUser } from "react-icons/fa";
 import { RiImageEditFill } from "react-icons/ri";
 import color from "../../../styles/color";
-import useProfileMutations from "../../../hooks/services/mutations/userMutations";
+import {
+  useUploadProfileImageMutation,
+  useDeleteProfileImageMutation,
+  useUpdateNicknameMutation,
+} from "../../../hooks/queries/user";
 type ProfileEditModalProps = ModalProps & {
   userData?: {
     imageUrl?: string | null;
@@ -17,16 +21,15 @@ const ProfileEditModal = ({
   closeModal,
   userData,
 }: ProfileEditModalProps) => {
-  const { uploadProfileImage, deleteProfileImage, updateNickname } =
-    useProfileMutations();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(
     userData?.imageUrl || null,
   );
   const [nickname, setNickname] = useState<string>(userData?.nickname || "");
-  // const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  const uploadProfileImageMutation = useUploadProfileImageMutation();
+  const deleteProfileImageMutation = useDeleteProfileImageMutation();
+  const updateNicknameMutation = useUpdateNicknameMutation();
   useEffect(() => {
     if (userData) {
       setPreviewImage(userData.imageUrl || null);
@@ -56,15 +59,15 @@ const ProfileEditModal = ({
     const formData = new FormData();
     formData.append("image", selectedImage);
 
-    uploadProfileImage.mutate(formData);
+    uploadProfileImageMutation.mutate(formData);
   };
 
   const handleImageDelete = () => {
-    deleteProfileImage.mutate();
+    deleteProfileImageMutation.mutate();
   };
 
   const handleNicknameChange = () => {
-    updateNickname.mutate({ newNickname: nickname });
+    updateNicknameMutation.mutate({ newNickname: nickname });
   };
 
   return (

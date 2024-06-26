@@ -4,18 +4,20 @@ import color from "../../../styles/color";
 
 import { FaUser } from "react-icons/fa";
 
-const NavbarProfileImg = ({ data }: any) => {
-  const imageSrc = data.imageUrl;
-
+const NavbarProfileImg = ({ data, width = "50px" }: any) => {
+  const imageSrc = data?.imageUrl;
   return (
-    <Container>{imageSrc ? <Image src={imageSrc} /> : <FaUser />}</Container>
+    <Container style={{ width }}>
+      {imageSrc ? <Image src={imageSrc} /> : <FaUser />}
+    </Container>
   );
 };
 
 export default NavbarProfileImg;
 
 const Container = styled.div`
-  width: 50px;
+  min-width: 50px;
+  min-height: 50px;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: ${color.COLOR_LIGHTGRAY_BACKGROUND};

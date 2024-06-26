@@ -15,20 +15,15 @@ const NavbarTag = () => {
 
 export default NavbarTag;
 const TagsDiv = styled.div`
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: row;
-  flex-wrap: wrap;
   gap: 0.3rem;
-  overflow: auto;
 `;
 const Tags = styled.div`
   ${glassEffectStyle()}
   color: ${color.COLOR_GRAY_TEXT};
   font-size: 0.7rem;
-  max-width: 33%;
   padding: 0.2rem 0.5rem;
   white-space: nowrap;
   text-overflow: ellipsis;

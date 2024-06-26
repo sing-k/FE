@@ -12,3 +12,4 @@ export { default as WritePostPage } from "./WritePostPage";
 export { default as WriteMusicRMPostPage } from "./WriteMusicRMPostPage";
 export { default as MusicRMPostPage } from "./MusicRMPostPage";
 export { default as FreePostPage } from "./FreePostPage";
+export { default as Mypage } from "./Mypage";
