@@ -4,11 +4,15 @@ import { IoPersonSharp } from "react-icons/io5";
 
 import color from "../../../styles/color";
 
-const AlbumRatingNum = () => {
+type Props = {
+  count: number;
+};
+
+const AlbumRatingNum = ({ count }: Props) => {
   return (
     <Container>
       <IoPersonSharp color={color.COLOR_MAIN} />
-      12
+      {count}
     </Container>
   );
 };

@@ -10,6 +10,8 @@ import AlbumSection from "../organisms/album/AlbumSection";
 
 import { pathName } from "../../App";
 
+import { AlbumType } from "../../types/albumType";
+
 const AlbumPage = () => {
   //   const { isPc } = useMediaQueries();
   const location = useLocation();
@@ -45,8 +47,12 @@ const AlbumPage = () => {
   return (
     <>
       {query && data && (
-        <AlbumSearchList query={query} data={data.items}></AlbumSearchList>
+        <AlbumSearchList
+          query={query}
+          data={data.items as AlbumType[]}
+        ></AlbumSearchList>
       )}
+
       <AlbumSection
         title="최근 평가된 앨범"
         link={pathName.recentReview}

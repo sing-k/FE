@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
-import { AlbumCard } from "../../molecules";
+import AlbumItem from "../../molecules/album/AlbumItem";
 
 import { useMediaQueries } from "../../../hooks";
 
 import { AlbumType } from "../../../types/albumType";
+import { albumListDummy } from "../../../dummy/album";
 
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
@@ -18,7 +19,7 @@ type Props = {
 
 const GAP_REM = 1;
 
-const AlbumCarousel = ({ items }: Props) => {
+const AlbumCarousel = ({ items = albumListDummy }: Props) => {
   const [itemWidth, setItemWidth] = useState<number>(0);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
 
@@ -69,22 +70,14 @@ const AlbumCarousel = ({ items }: Props) => {
   return (
     <Container>
       <Carousel ref={carouselRef}>
-        {items.map((data, idx) => (
-          <CardWrapper
-            key={`albumcard${idx}`}
-            style={{
-              width: isPc
-                ? "17%"
-                : isTablet
-                  ? "30%"
-                  : isMobile
-                    ? "40%"
-                    : "100%",
-            }}
-            ref={itemRef}
-          >
-            <AlbumCard data={data} />
-          </CardWrapper>
+        {items.map((data) => (
+          <AlbumItem
+            key={data.id}
+            itemRef={itemRef}
+            type="card"
+            data={data}
+            width={isPc ? "17%" : isTablet ? "30%" : isMobile ? "40%" : "100%"}
+          />
         ))}
       </Carousel>
 
@@ -128,12 +121,6 @@ const Carousel = styled.div`
   &:hover {
     animation-play-state: paused;
   }
-`;
-
-const CardWrapper = styled.div`
-  width: 100%;
-  flex-shrink: 0;
-  min-width: 130px;
 `;
 
 const IndicatorWrapper = styled.div`

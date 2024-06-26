@@ -7,12 +7,14 @@ import { useMediaQueries } from "../../hooks";
 
 import { Outlet } from "react-router-dom";
 
+import { albumListDummy } from "../../dummy/album";
+
 const MainPage = () => {
   const { isPc } = useMediaQueries();
 
   return (
     <>
-      {/* <AlbumCarousel /> */}
+      <AlbumCarousel items={albumListDummy} />
 
       <PostListWrapper style={isPc ? { flexDirection: "row" } : {}}>
         <HomePostList text="음악 추천 게시판" />

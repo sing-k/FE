@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import { glassEffectStyle } from "../../styles/style";
 import color from "../../styles/color";
-import { AlbumCard } from "../molecules/album";
 
 import { IoArrowBack } from "react-icons/io5";
 
@@ -19,9 +18,9 @@ const MostReview = () => {
         </Header>
 
         <CardContainer>
-          {Array.from({ length: 24 }).map((_, index) => (
-            <AlbumCard key={index} />
-          ))}
+          {/* {Array.from({ length: 24 }).map((_, index) => (
+            <AlbumCardItem key={index} />
+          ))} */}
         </CardContainer>
       </Container>
     </>

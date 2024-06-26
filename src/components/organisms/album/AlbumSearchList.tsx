@@ -3,15 +3,25 @@ import styled from "styled-components";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-import { AlbumCard, AlbumList } from "../../molecules";
 import { useMediaQueries } from "../../../hooks";
 
 import { glassEffectStyle } from "../../../styles/style";
 import { pathName } from "../../../App";
 
-const AlbumSearchList = ({ data, query }: any) => {
+import { AlbumType } from "../../../types/albumType";
+
+import AlbumCarousel from "./AlbumCarousel";
+import AlbumItem from "../../molecules/album/AlbumItem";
+
+type Props = {
+  data: AlbumType[];
+  query: string;
+};
+
+const AlbumSearchList = ({ data, query }: Props) => {
   if (!data) return <p>Loading...</p>;
-  const { isPc, isTablet, isMobile } = useMediaQueries();
+
+  const { isPc, isTablet } = useMediaQueries();
   const numToShow = isPc ? 5 : isTablet ? 3 : 2;
 
   const topItems = data.slice(0, numToShow);
@@ -27,18 +37,12 @@ const AlbumSearchList = ({ data, query }: any) => {
       <SearchTitle>
         <FaArrowLeft onClick={handleClick} /> '{query}'에 대한 검색 결과
       </SearchTitle>
-      <CardWrapper>
-        {topItems.map((data: any) => (
-          <AlbumCard
-            key={data.id}
-            data={data}
-            width={isPc ? "19%" : isTablet ? "30%" : isMobile ? "40%" : "100%"}
-          ></AlbumCard>
-        ))}
-      </CardWrapper>
+
+      <AlbumCarousel items={topItems} />
+
       <ListWrapper>
-        {rest.map((data: any) => (
-          <AlbumList key={data.id} data={data}></AlbumList>
+        {rest.map((data) => (
+          <AlbumItem key={data.id} type="list" data={data} />
         ))}
       </ListWrapper>
     </Container>
@@ -50,7 +54,7 @@ export default AlbumSearchList;
 const Container = styled.div`
   ${glassEffectStyle()}
   width: 100%;
-  padding: 2rem;
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -64,12 +68,6 @@ const SearchTitle = styled.div`
   font-weight: 900;
 `;
 
-const CardWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  gap: 1rem;
-`;
 const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
