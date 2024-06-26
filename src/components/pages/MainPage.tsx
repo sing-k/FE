@@ -12,7 +12,7 @@ const MainPage = () => {
 
   return (
     <>
-      <AlbumCarousel />
+      {/* <AlbumCarousel /> */}
 
       <PostListWrapper style={isPc ? { flexDirection: "row" } : {}}>
         <HomePostList text="음악 추천 게시판" />

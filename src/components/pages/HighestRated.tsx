@@ -17,7 +17,7 @@ const HighestRated = () => {
           </BackBtn>
           <AlbumCategory>평점 높은 순</AlbumCategory>
         </Header>
-        {/* <AlbumCarousel /> */}
+
         <CardContainer>
           {Array.from({ length: 24 }).map((_, index) => (
             <AlbumCard key={index} />

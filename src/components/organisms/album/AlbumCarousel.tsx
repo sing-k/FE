@@ -7,13 +7,18 @@ import { AlbumCard } from "../../molecules";
 
 import { useMediaQueries } from "../../../hooks";
 
+import { AlbumType } from "../../../types/albumType";
+
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
-const GAP_REM = 1;
-const data = [...new Array(10).fill(0)];
+type Props = {
+  items: AlbumType[];
+};
 
-const AlbumCarousel = () => {
+const GAP_REM = 1;
+
+const AlbumCarousel = ({ items }: Props) => {
   const [itemWidth, setItemWidth] = useState<number>(0);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
 
@@ -24,11 +29,11 @@ const AlbumCarousel = () => {
   const { isPc, isTablet, isMobile } = useMediaQueries();
 
   const handleClickPrev = () => {
-    if (currentIdx === 0) setCurrentIdx(9);
+    if (currentIdx === 0) setCurrentIdx(items.length - 1);
     else setCurrentIdx(currentIdx - 1);
   };
   const handleClickNext = () => {
-    if (currentIdx === 9) setCurrentIdx(0);
+    if (currentIdx === items.length - 1) setCurrentIdx(0);
     else setCurrentIdx(currentIdx + 1);
   };
 
@@ -64,7 +69,7 @@ const AlbumCarousel = () => {
   return (
     <Container>
       <Carousel ref={carouselRef}>
-        {data.map((_, idx) => (
+        {items.map((data, idx) => (
           <CardWrapper
             key={`albumcard${idx}`}
             style={{
@@ -78,7 +83,7 @@ const AlbumCarousel = () => {
             }}
             ref={itemRef}
           >
-            <AlbumCard />
+            <AlbumCard data={data} />
           </CardWrapper>
         ))}
       </Carousel>
@@ -90,7 +95,7 @@ const AlbumCarousel = () => {
 
         <div style={{ overflow: "hidden" }}>
           <Indicator ref={indicatorRef}>
-            {data.map((_, idx) => (
+            {items.map((_, idx) => (
               <Dot
                 key={`${idx}indicator`}
                 className={idx === currentIdx ? "focused" : "none"}

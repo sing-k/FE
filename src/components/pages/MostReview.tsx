@@ -17,7 +17,7 @@ const MostReview = () => {
           </BackBtn>
           <AlbumCategory>평가 많은 순</AlbumCategory>
         </Header>
-        {/* <AlbumCarousel /> */}
+
         <CardContainer>
           {Array.from({ length: 24 }).map((_, index) => (
             <AlbumCard key={index} />

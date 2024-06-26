@@ -17,7 +17,7 @@ const RecentReview = () => {
           </BackBtn>
           <AlbumCategory>최근 평가된 앨범</AlbumCategory>
         </Header>
-        {/* <AlbumCarousel /> */}
+
         <CardContainer>
           {Array.from({ length: 24 }).map((_, index) => (
             <AlbumCard key={index} />
