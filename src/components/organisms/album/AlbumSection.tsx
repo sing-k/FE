@@ -1,22 +1,42 @@
+import { useEffect, useState } from "react";
+
 import styled from "styled-components";
+
 import { Link } from "react-router-dom";
+
 import AlbumCarousel from "./AlbumCarousel";
+
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
+
+import { AlbumType } from "../../../types/albumType";
 
 type AlbumSectionType = {
   title: string;
   link: string;
+  fetchData: () => any;
 };
 
-const AlbumSection = ({ title, link }: AlbumSectionType) => {
+const AlbumSection = ({ title, link, fetchData }: AlbumSectionType) => {
+  const [items, setItems] = useState<AlbumType[]>();
+
+  useEffect(() => {
+    fetchData().then((res: any) => {
+      // console.log(res.data.items);
+      setItems(res.data.items as AlbumType[]);
+    });
+  }, [fetchData]);
+
+  if (!items) return;
+
   return (
     <Container>
       <Header>
         <AlbumCategory>{title}</AlbumCategory>
         <MoreBtn to={link}>더보기</MoreBtn>
       </Header>
-      <AlbumCarousel />
+
+      <AlbumCarousel items={items} />
     </Container>
   );
 };

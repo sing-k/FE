@@ -5,31 +5,48 @@ import styled from "styled-components";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
+import { timeFormat } from "../../../utils/time";
+
 import { FaRegStopCircle, FaPlayCircle } from "react-icons/fa";
+import { TrackType } from "../../../types/albumDetailType";
+
+import TrackPlayerModal from "../../organisms/albumDetail/TrackPlayerModal";
 
 type Props = {
-  number: number;
+  track: TrackType;
 };
 
-const AlbumTrack = (props: Props) => {
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+const AlbumTrack = ({ track }: Props) => {
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const onClickPlayButton = useCallback(() => {
-    setIsPlaying(!isPlaying);
-  }, [isPlaying]);
+    setModalVisible(!modalVisible);
+  }, [modalVisible]);
 
   return (
-    <Container>
-      <Wrapper>
-        <Number>{props.number}</Number>
-        <TrackName>별의 하모니</TrackName>
-        <Artist>QWER (feat.춘식)</Artist>
-      </Wrapper>
+    <>
+      <Container>
+        <Wrapper>
+          <Number>{track.trackNumber}</Number>
+          <TrackName>{track.name}</TrackName>
+          <Artist>아티스트 이름</Artist>
+        </Wrapper>
 
-      <PlayButton onClick={onClickPlayButton}>
-        {isPlaying ? <FaRegStopCircle /> : <FaPlayCircle />}
-      </PlayButton>
-    </Container>
+        <Wrapper>
+          <Time>{timeFormat(track.duration)}</Time>
+
+          {track.playable && (
+            <PlayButton onClick={onClickPlayButton}>
+              {modalVisible ? <FaRegStopCircle /> : <FaPlayCircle />}
+            </PlayButton>
+          )}
+        </Wrapper>
+      </Container>
+
+      {track.playable && modalVisible && (
+        <TrackPlayerModal track={track} setModalVisible={setModalVisible} />
+      )}
+    </>
   );
 };
 
@@ -62,10 +79,19 @@ const TrackName = styled.p`
 
 const Artist = styled.p`
   color: ${color.COLOR_GRAY_TEXT};
+  font-size: 0.9rem;
+`;
+
+const Time = styled.p`
+  color: ${color.COLOR_GRAY_TEXT};
+  font-size: 0.8rem;
 `;
 
 const PlayButton = styled.div`
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: ${color.COLOR_MAIN};
+  display: flex;
+  align-items: center;
+  jusitfy-content: center;
 `;

@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-const AlbumName = ({ data }: any) => {
-  return <StyledName>{data?.name}</StyledName>;
+type Props = {
+  name: string;
+};
+
+const AlbumName = ({ name }: Props) => {
+  return <StyledName>{name}</StyledName>;
 };
 
 export default AlbumName;

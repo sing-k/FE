@@ -47,8 +47,8 @@ const AlbumDetailPage = () => {
         onClickTab={onClickTab}
       />
 
-      {currentTab === "info" && <AlbumDetailInfo />}
-      {currentTab === "review" && <AlbumDetailReview />}
+      {currentTab === "info" && <AlbumDetailInfo albumId={id as string} />}
+      {currentTab === "review" && <AlbumDetailReview albumId={id as string} />}
     </>
   );
 };

@@ -1,24 +1,34 @@
 import styled from "styled-components";
 
-import { glassEffectStyle } from "../../../styles/style";
+import { TrackType } from "../../../types/albumDetailType";
+
+import color from "../../../styles/color";
 
 import AlbumTrack from "../../molecules/albumDetail/AlbumTrack";
 
-const AlbumTrackList = () => {
+type Props = {
+  tracks: TrackType[];
+};
+
+const AlbumTrackList = ({ tracks }: Props) => {
+  tracks.sort((a, b) => a.trackNumber - b.trackNumber);
+
   return (
-    <Container>
-      <Text>Track List</Text>
-      {[...Array(5)].map((_, idx) => (
-        <AlbumTrack key={idx} number={idx + 1} />
-      ))}
-    </Container>
+    <>
+      <Container>
+        <Text>Track List</Text>
+        {tracks.map((track) => (
+          <AlbumTrack key={track.id} track={track} />
+        ))}
+      </Container>
+    </>
   );
 };
 
 export default AlbumTrackList;
 
 const Container = styled.div`
-  ${glassEffectStyle()}
+  background-color: ${color.COLOR_TRANSPARENT_WHITE};
   width: 100%;
   padding: 1rem;
   margin-top: 1rem;

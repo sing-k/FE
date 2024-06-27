@@ -18,4 +18,5 @@ const Container = styled.div`
   width: 100%;
   aspect-ratio: 3 / 2;
   position: relative;
+  flex-shirnk: 0;
 `;

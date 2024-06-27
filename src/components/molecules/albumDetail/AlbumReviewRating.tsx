@@ -1,20 +1,21 @@
 import styled from "styled-components";
 import color from "../../../styles/color";
 
+import { AlbumReviewStatisticType } from "../../../types/albumReviewStatisticType";
+
 import DashboardBox from "../../templates/albumDetail/DashboardBox";
 import StarRating from "../../atoms/albumDetail/StarRating";
 
 type Props = {
-  rating: number;
-  reviewCount: number;
+  data: AlbumReviewStatisticType;
 };
 
-const AlbumReviewRating = ({ rating, reviewCount }: Props) => {
+const AlbumReviewRating = ({ data }: Props) => {
   return (
     <DashboardBox text="평점">
-      <RatingText>{rating} / 5</RatingText>
-      <StarRating rating={rating} />
-      <ReviewCountText>{reviewCount}명 참여</ReviewCountText>
+      <RatingText>{data.averageScore} / 5</RatingText>
+      <StarRating rating={data.averageScore} />
+      <ReviewCountText>{data.count}명 참여</ReviewCountText>
     </DashboardBox>
   );
 };

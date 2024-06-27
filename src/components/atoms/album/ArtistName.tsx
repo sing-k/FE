@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-const ArtistName = ({ data }: any) => {
-  return <Name>{data?.artists[0]?.name}</Name>;
+type Props = {
+  name: string;
+};
+
+const ArtistName = ({ name }: Props) => {
+  return <Name>{name}</Name>;
 };
 
 export default ArtistName;

@@ -4,11 +4,15 @@ import { IoMusicalNotes } from "react-icons/io5";
 
 import color from "../../../styles/color";
 
-const AlbumRating = () => {
+type Props = {
+  averageScore: number;
+};
+
+const AlbumRating = ({ averageScore }: Props) => {
   return (
     <Container>
       <IoMusicalNotes className="icon" color={color.COLOR_MAIN} />
-      4.5
+      {averageScore}
     </Container>
   );
 };
