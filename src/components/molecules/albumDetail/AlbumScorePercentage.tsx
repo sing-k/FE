@@ -1,40 +1,23 @@
+import { AlbumReviewStatisticType } from "../../../types/albumReviewStatisticType";
+
 import DashboardBox from "../../templates/albumDetail/DashboardBox";
 import EachScorePercentage from "./EachScorePercentage";
 
-const dummy = [
-  {
-    score: 1,
-    percentage: 0,
-  },
-  {
-    score: 2,
-    percentage: 0,
-  },
-  {
-    score: 3,
-    percentage: 0,
-  },
-  {
-    score: 4,
-    percentage: 23,
-  },
-  {
-    score: 5,
-    percentage: 77,
-  },
-];
+type Props = {
+  data: AlbumReviewStatisticType;
+};
 
-const AlbumScorePercentage = () => {
+const AlbumScorePercentage = ({ data }: Props) => {
   return (
     <DashboardBox text="점수별 비율">
-      {dummy
+      {data.scoreStatistics
         .slice()
         .reverse()
         .map((data) => (
           <EachScorePercentage
-            key={`${data.score}${data.percentage}`}
+            key={`${data.score}${data.ratio}`}
             score={data.score}
-            percentage={data.percentage}
+            percentage={data.ratio}
           />
         ))}
     </DashboardBox>

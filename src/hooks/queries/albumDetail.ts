@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getAlbumDetail } from "../../api/albumDetail";
+import { getAlbumDetail, getAlbumReviewStatistic } from "../../api/albumDetail";
 
 export const useAlbumDetailQuery = (albumId: string) => {
   return useQuery({
-    queryKey: ["albums", albumId],
+    queryKey: ["album", albumId],
     queryFn: () => getAlbumDetail(albumId),
+    enabled: !!albumId,
+  });
+};
+
+export const useAlbumReviewStatisticQuery = (albumId: string) => {
+  return useQuery({
+    queryKey: ["albumReviewStatistic", albumId],
+    queryFn: () => getAlbumReviewStatistic(albumId),
     enabled: !!albumId,
   });
 };

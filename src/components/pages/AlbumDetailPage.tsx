@@ -7,7 +7,6 @@ import AlbumDetailReview from "../organisms/albumDetail/AlbumDetailReview";
 import TabMenu from "../common/TabMenu";
 
 import { pathName } from "../../App";
-import { useAlbumDetailQuery } from "../../hooks/queries/albumDetail";
 
 const tabObj = {
   info: "기본 정보",
@@ -22,7 +21,6 @@ const AlbumDetailPage = () => {
   const navigate = useNavigate();
 
   const [currentTab, setCurrentTab] = useState<TabKey | "">("");
-  const { data, isLoading, isError, error } = useAlbumDetailQuery(id as string);
 
   const onClickTab = (key?: string) => {
     const path = key === "review" ? "?tab=review" : "";
@@ -41,9 +39,6 @@ const AlbumDetailPage = () => {
 
   if (currentTab === "") return null;
 
-  if (isLoading) return <>로딩중 {"><"}</>;
-  if (isError) return <>미친 에러 {error.message}</>;
-
   return (
     <>
       <TabMenu
@@ -52,8 +47,8 @@ const AlbumDetailPage = () => {
         onClickTab={onClickTab}
       />
 
-      {currentTab === "info" && data && <AlbumDetailInfo data={data} />}
-      {currentTab === "review" && <AlbumDetailReview />}
+      {currentTab === "info" && <AlbumDetailInfo albumId={id as string} />}
+      {currentTab === "review" && <AlbumDetailReview albumId={id as string} />}
     </>
   );
 };

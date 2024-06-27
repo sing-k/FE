@@ -6,10 +6,14 @@ import AlbumReviewDashboard from "./AlbumReviewDashboard";
 import AlbumReviewInput from "./AlbumReviewInput";
 import AlbumReviewList from "./AlbumReviewList";
 
-const AlbumDetailReview = () => {
+type Props = {
+  albumId: string;
+};
+
+const AlbumDetailReview = ({ albumId }: Props) => {
   return (
     <Container>
-      <AlbumReviewDashboard />
+      <AlbumReviewDashboard albumId={albumId} />
 
       <AlbumReviewInput />
 

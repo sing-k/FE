@@ -2,18 +2,30 @@ import styled from "styled-components";
 
 import { glassEffectStyle } from "../../../styles/style";
 
+import { useAlbumReviewStatisticQuery } from "../../../hooks/queries/albumDetail";
+
 import AlbumReviewRating from "../../molecules/albumDetail/AlbumReviewRating";
 import AlbumScorePercentage from "../../molecules/albumDetail/AlbumScorePercentage";
 import AlbumGenderPercentage from "../../molecules/albumDetail/AlbumGenderPercentage";
 
-const AlbumReviewDashboard = () => {
+type Props = {
+  albumId: string;
+};
+
+const AlbumReviewDashboard = ({ albumId }: Props) => {
+  const { data, isLoading, isError, error } =
+    useAlbumReviewStatisticQuery(albumId);
+
+  if (isLoading) return <>로딩중 {"><"}</>;
+  if (isError) return <>미친 에러 {error.message}</>;
+
   return (
     <Container>
-      <AlbumReviewRating rating={4.5} reviewCount={123} />
+      <AlbumReviewRating data={data} />
 
-      <AlbumScorePercentage />
+      <AlbumScorePercentage data={data} />
 
-      <AlbumGenderPercentage />
+      <AlbumGenderPercentage data={data} />
     </Container>
   );
 };

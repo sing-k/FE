@@ -10,24 +10,48 @@ import { useMediaQueries } from "../../../hooks";
 
 import DashboardBox from "../../templates/albumDetail/DashboardBox";
 
+import { AlbumReviewStatisticType } from "../../../types/albumReviewStatisticType";
+
 Chart.register(ArcElement, Tooltip, Legend);
 
-const AlbumGenderPercentage = () => {
+type Props = {
+  data: AlbumReviewStatisticType;
+};
+
+const AlbumGenderPercentage = ({ data }: Props) => {
+  const { genderStatistics, count } = data;
+
+  genderStatistics.sort((a, _) => (a.gender === "남성" ? -1 : 1));
+
   const { isMobile } = useMediaQueries();
-  const data = useMemo(
-    () => ({
-      labels: ["여성", "남성"],
-      datasets: [
-        {
-          label: "# of Percentages",
-          data: [43, 57],
-          backgroundColor: [color.COLOR_FEMALE, color.COLOR_MALE],
-          borderColor: ["#ffffff", "#ffffff"],
-          borderWidth: 1,
-        },
-      ],
-    }),
-    []
+  const doughnutData = useMemo(
+    () =>
+      count === 0
+        ? {
+            labels: ["통계 없음"],
+            datasets: [
+              {
+                label: "통계 없음",
+                data: [100],
+                backgroundColor: [color.COLOR_LIGHTGRAY_BACKGROUND],
+                borderColor: ["#ffffff"],
+                borderWidth: 1,
+              },
+            ],
+          }
+        : {
+            labels: genderStatistics.map((el) => el.gender),
+            datasets: [
+              {
+                label: "# of Percentages",
+                data: genderStatistics.map((el) => el.ratio),
+                backgroundColor: [color.COLOR_FEMALE, color.COLOR_MALE],
+                borderColor: ["#ffffff", "#ffffff"],
+                borderWidth: 1,
+              },
+            ],
+          },
+    [data]
   );
 
   const options = useMemo(
@@ -46,7 +70,7 @@ const AlbumGenderPercentage = () => {
     <DashboardBox text="성별 비율">
       <Container id="container" style={{ width: isMobile ? "40%" : "70%" }}>
         <Doughnut
-          data={data}
+          data={doughnutData}
           options={options}
           width={"100%"}
           height={"100%"}
@@ -54,8 +78,18 @@ const AlbumGenderPercentage = () => {
 
         {/* 도넛 차트의 가운데 */}
         <CenterDiv>
-          <CenterText className="male">남성 57%</CenterText>
-          <CenterText className="female">여성 43%</CenterText>
+          {count === 0 ? (
+            <CenterText>통계 없음</CenterText>
+          ) : (
+            <>
+              <CenterText className="male">
+                남성 {genderStatistics[0].ratio}%
+              </CenterText>
+              <CenterText className="female">
+                여성 {genderStatistics[1].ratio}%
+              </CenterText>
+            </>
+          )}
         </CenterDiv>
       </Container>
     </DashboardBox>
@@ -78,15 +112,15 @@ const CenterDiv = styled.div`
   padding: 0.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const CenterText = styled.p`
-  width: 48%;
   font-size: 0.8rem;
-  //   background-color: aqua;
   text-align: center;
   font-weight: bold;
+  flex: 1;
+  color: ${color.COLOR_DARKGRAY_TEXT};
 
   &.male {
     color: ${color.COLOR_MALE};
