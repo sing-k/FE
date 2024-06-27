@@ -1,21 +1,21 @@
-type AlbumArtistType = {
+export interface AlbumArtistType {
   id: string;
   name: string;
-};
+}
 
-type AlbumImageType = {
+export interface AlbumImageType {
   imageUrl: string;
   width: number;
   height: number;
-};
+}
 
-export type AlbumType = {
+export interface AlbumType {
   id: string;
   name: string;
   count: number;
   averageScore: number;
-  modifiedAt: string;
+  modifiedAt?: string;
   releasedAt: string;
   artists: AlbumArtistType[];
   images: AlbumImageType[];
-};
+}

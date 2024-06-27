@@ -2,15 +2,21 @@ import React from "react";
 
 import styled from "styled-components";
 
+import { AlbumDetailType } from "../../../types/albumDetailType";
+
 import AlbumDetailCard from "./AlbumDetailCard";
 import AlbumTrackList from "./AlbumTrackList";
 
-const AlbumDetailInfo = () => {
+type Props = {
+  data: AlbumDetailType;
+};
+
+const AlbumDetailInfo = ({ data }: Props) => {
   return (
     <Container>
-      <AlbumDetailCard />
+      <AlbumDetailCard data={data} />
 
-      <AlbumTrackList />
+      <AlbumTrackList tracks={data.tracks} />
     </Container>
   );
 };

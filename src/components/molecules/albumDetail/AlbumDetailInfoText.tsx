@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import color from "../../../styles/color";
 
+import { dateFormat } from "../../../utils/date";
+
 import StarRating from "../../atoms/albumDetail/StarRating";
 
 type Props = {
@@ -22,7 +24,7 @@ const AlbumDetailInfoText = (props: Props) => {
       <Box>
         <Wrapper>
           <Label>발매일</Label>
-          <Text>{props.releaseDate}</Text>
+          <Text>{dateFormat(props.releaseDate)}</Text>
         </Wrapper>
 
         <Wrapper>

@@ -7,8 +7,17 @@ import Badge from "../../../assets/img/badge.svg";
 
 import { useMediaQueries } from "../../../hooks";
 
-const AlbumDetailCard = () => {
+import { AlbumDetailType } from "../../../types/albumDetailType";
+
+type Props = {
+  data: AlbumDetailType;
+};
+
+const AlbumDetailCard = ({ data }: Props) => {
+  const { images, type, name, artists, releasedAt } = data;
+
   const { isMobile } = useMediaQueries();
+
   return (
     <Container
       style={
@@ -21,16 +30,16 @@ const AlbumDetailCard = () => {
         style={{
           width: isMobile ? "50%" : "25%",
         }}
-        src="https://image.bugsm.co.kr/album/images/500/40940/4094086.jpg"
+        src={images[0].imageUrl}
       />
 
       <AlbumDetailInfoText
-        type={"EP"}
-        title={"Discord (TAK Remix)"}
-        artist={"QWER"}
-        releaseDate={"2024-01-01"}
+        type={type}
+        title={name}
+        artist={artists[0].name}
+        releaseDate={releasedAt}
         genre={"일렉트로닉"}
-        rating={3.5}
+        rating={3}
         reviewCount={10}
       />
 
@@ -49,7 +58,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  position: relative;
 `;
 
 const AlbumImage = styled.img`
