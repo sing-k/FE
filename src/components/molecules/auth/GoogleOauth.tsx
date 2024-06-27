@@ -39,7 +39,6 @@ const OauthBtn = styled.button`
     filter: brightness(95%);
   }
 `;
-s;
 
 const GoogleIcon = styled(FaGoogle)`
   paddings-top: 0.2rem; /* Adjust this value to move the icon down */
