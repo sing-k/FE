@@ -22,6 +22,7 @@ const GAP_REM = 1;
 const AlbumCarousel = ({ items = albumListDummy }: Props) => {
   const [itemWidth, setItemWidth] = useState<number>(0);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
+  const [viewIndicator, setViewIndicator] = useState<boolean>(true);
 
   const itemRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -39,9 +40,20 @@ const AlbumCarousel = ({ items = albumListDummy }: Props) => {
   };
 
   const handleResize = () => {
-    if (itemRef.current === null) return;
+    if (itemRef.current === null || carouselRef.current === null) return;
 
-    setItemWidth(itemRef.current.offsetWidth);
+    const itemWidth = itemRef.current.offsetWidth;
+    const carouselWidth = carouselRef.current.offsetWidth;
+    const gapWidth =
+      GAP_REM * (isPc ? 16 : isTablet ? 14 : 12) * (items.length - 1);
+
+    if (carouselWidth >= itemWidth * items.length + gapWidth) {
+      setViewIndicator(false);
+    } else {
+      setViewIndicator(true);
+    }
+
+    setItemWidth(itemWidth);
   };
 
   useEffect(() => {
@@ -81,26 +93,28 @@ const AlbumCarousel = ({ items = albumListDummy }: Props) => {
         ))}
       </Carousel>
 
-      <IndicatorWrapper>
-        <IndicatorBtn onClick={handleClickPrev}>
-          <FaChevronCircleLeft />
-        </IndicatorBtn>
+      {viewIndicator && (
+        <IndicatorWrapper>
+          <IndicatorBtn onClick={handleClickPrev}>
+            <FaChevronCircleLeft />
+          </IndicatorBtn>
 
-        <div style={{ overflow: "hidden" }}>
-          <Indicator ref={indicatorRef}>
-            {items.map((_, idx) => (
-              <Dot
-                key={`${idx}indicator`}
-                className={idx === currentIdx ? "focused" : "none"}
-              />
-            ))}
-          </Indicator>
-        </div>
+          <div style={{ overflow: "hidden" }}>
+            <Indicator ref={indicatorRef}>
+              {items.map((_, idx) => (
+                <Dot
+                  key={`${idx}indicator`}
+                  className={idx === currentIdx ? "focused" : "none"}
+                />
+              ))}
+            </Indicator>
+          </div>
 
-        <IndicatorBtn onClick={handleClickNext}>
-          <FaChevronCircleRight />
-        </IndicatorBtn>
-      </IndicatorWrapper>
+          <IndicatorBtn onClick={handleClickNext}>
+            <FaChevronCircleRight />
+          </IndicatorBtn>
+        </IndicatorWrapper>
+      )}
     </Container>
   );
 };

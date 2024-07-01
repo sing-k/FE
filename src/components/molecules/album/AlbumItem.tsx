@@ -36,7 +36,11 @@ const AlbumItem = ({
   };
 
   return (
-    <Container ref={itemRef} style={{ width }} onClick={goAlbumDetailPage}>
+    <Container
+      ref={itemRef}
+      style={{ width, maxWidth: width }}
+      onClick={goAlbumDetailPage}
+    >
       {type === "card" ? (
         <AlbumCardItem data={data} />
       ) : type === "list" ? (
