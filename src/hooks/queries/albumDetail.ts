@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getAlbumDetail, getAlbumReviewStatistic } from "../../api/albumDetail";
+import {
+  getAlbumDetail,
+  getAlbumReviewStatistic,
+  getAlbumReviewList,
+  AlbumReviewListArgs,
+} from "../../api/albumDetail";
 
 export const useAlbumDetailQuery = (albumId: string) => {
   return useQuery({
@@ -15,5 +20,13 @@ export const useAlbumReviewStatisticQuery = (albumId: string) => {
     queryKey: ["albumReviewStatistic", albumId],
     queryFn: () => getAlbumReviewStatistic(albumId),
     enabled: !!albumId,
+  });
+};
+
+export const useAlbumReviewListQuery = (args: AlbumReviewListArgs) => {
+  return useQuery({
+    queryKey: ["albumReviewList", args],
+    queryFn: () => getAlbumReviewList(args),
+    enabled: !!args.albumId,
   });
 };

@@ -17,7 +17,7 @@ const AlbumDetailReview = ({ albumId }: Props) => {
 
       <AlbumReviewInput />
 
-      <AlbumReviewList />
+      <AlbumReviewList albumId={albumId} />
     </Container>
   );
 };

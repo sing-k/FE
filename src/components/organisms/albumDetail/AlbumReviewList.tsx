@@ -4,10 +4,15 @@ import styled from "styled-components";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
+import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
+
+import { useAlbumReviewListQuery } from "../../../hooks/queries/albumDetail";
 
 import AlbumReview from "../../molecules/albumDetail/AlbumReview";
 import TabMenu from "../../common/TabMenu";
+
+import { AlbumReviewType } from "../../../types/albumReviewType";
 
 const filterObj = {
   recent: "최신순",
@@ -16,11 +21,22 @@ const filterObj = {
 
 type FilterKey = keyof typeof filterObj;
 
-const AlbumReviewList = () => {
+type Props = {
+  albumId: string;
+};
+
+const AlbumReviewList = ({ albumId }: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [currentFilter, setCurrentFilter] = useState<FilterKey | "">("");
+
+  const { data, isLoading, isError, error } = useAlbumReviewListQuery({
+    albumId,
+    offset: 0,
+    limit: 10,
+    sort: currentFilter === "recent" ? "NEW" : "LIKES",
+  });
 
   const onClickTab = (key?: string) => {
     const path =
@@ -41,6 +57,8 @@ const AlbumReviewList = () => {
   }, [location]);
 
   if (currentFilter === "") return;
+  if (isLoading) return <>Loading....</>;
+  if (isError) return <>Error... {error.message}</>;
 
   return (
     <div style={{ borderRadius: "inherit" }}>
@@ -51,9 +69,15 @@ const AlbumReviewList = () => {
       />
 
       <Container>
-        {[...Array(10)].map((_, idx) => (
-          <AlbumReview key={`review${idx}`} />
-        ))}
+        {data && data?.items.length === 0 ? (
+          <EmptyText>등록된 감상평이 없습니다.</EmptyText>
+        ) : (
+          <>
+            {data?.items.map((data: AlbumReviewType) => (
+              <AlbumReview key={`review${data.id}`} data={data} />
+            ))}
+          </>
+        )}
       </Container>
     </div>
   );
@@ -69,4 +93,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+const EmptyText = styled.div`
+  color: ${color.COLOR_GRAY_TEXT};
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem 0;
 `;
