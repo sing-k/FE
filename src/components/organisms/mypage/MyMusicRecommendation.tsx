@@ -40,16 +40,14 @@ const OuterContainer = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  width: 100%;
 `;
 
 const Card = styled.div`
   ${glassEffectStyle()}
-  width: 25%;
-  min-width: 280px;
   padding: 1rem;
   border-radius: 5px;
   display: flex;
