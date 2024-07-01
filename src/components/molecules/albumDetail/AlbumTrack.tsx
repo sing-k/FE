@@ -29,7 +29,7 @@ const AlbumTrack = ({ track }: Props) => {
         <Wrapper>
           <Number>{track.trackNumber}</Number>
           <TrackName>{track.name}</TrackName>
-          <Artist>아티스트 이름</Artist>
+          <Artist>{track.artists[0].name}</Artist>
         </Wrapper>
 
         <Wrapper>
