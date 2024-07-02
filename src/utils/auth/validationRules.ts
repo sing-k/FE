@@ -40,4 +40,10 @@ export const validationRules = {
       message: "닉네임은 1자 이상 12자 이하여야 합니다",
     },
   },
+  birthday: {
+    required: "생년월일은 필수 입력입니다",
+  },
+  gender: {
+    required: "성별은 필수 입력입니다.",
+  },
 };
