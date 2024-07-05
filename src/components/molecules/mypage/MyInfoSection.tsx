@@ -3,13 +3,18 @@ import { UserDataType } from "../../../types/authTypes";
 import color from "../../../styles/color";
 import GenreTag from "../../atoms/navbar/NavbarTag";
 import { MyInfoButton } from "../../atoms";
-
-const MyInfoSection = ({ data }: { data: UserDataType }) => {
+import { useMediaQueries } from "../../../hooks";
+interface MyInfoProps {
+  data: UserDataType;
+  openModal: () => void;
+}
+const MyInfoSection = ({ data, openModal }: MyInfoProps) => {
+  const { isMobile } = useMediaQueries();
   return (
-    <Container>
+    <Container $isMobile={isMobile}>
       <div>
         <NickName>{data?.nickname}</NickName>
-        <MyInfoButton />
+        <MyInfoButton openModal={openModal} />
       </div>
       <div>
         <SmallText>{data?.name}</SmallText>
@@ -24,15 +29,19 @@ const MyInfoSection = ({ data }: { data: UserDataType }) => {
 
 export default MyInfoSection;
 
-const Container = styled.div`
+const Container = styled.div<{ $isMobile: boolean }>`
   width: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  gap: 0.7rem;
+  justify-content: ${({ $isMobile }) =>
+    $isMobile ? "center" : "space-evenly"};
+  align-items: ${({ $isMobile }) => ($isMobile ? "center" : "inherit")};
   > div {
     display: flex;
     gap: 0.7rem;
     align-items: center;
+    flex-basis: auto;
   }
 `;
 const NickName = styled.span`

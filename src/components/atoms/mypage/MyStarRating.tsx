@@ -13,7 +13,7 @@ const MyStarRating = ({ rating, maxRating = 5 }: StarRatingProps) => {
       {[...Array(maxRating)].map((_, index) => (
         <StarIcon key={index} active={index < rating} />
       ))}
-      <RatingValue>{rating}</RatingValue>
+      {/* <RatingValue>{rating}</RatingValue> */}
     </StarWrapper>
   );
 };
@@ -31,9 +31,4 @@ const StarIcon = styled(FaStar)<{ active: boolean }>`
   stroke-width: 10px;
   color: ${props =>
     props.active ? `${color.COLOR_STAR}` : `${color.COLOR_STAR_BACKGROUND}`};
-`;
-
-const RatingValue = styled.span`
-  font-size: 1rem;
-  font-weight: 700;
 `;

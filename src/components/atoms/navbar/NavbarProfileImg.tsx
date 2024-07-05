@@ -8,7 +8,7 @@ const NavbarProfileImg = ({ data, width = "50px" }: any) => {
   const imageSrc = data?.imageUrl;
   return (
     <Container style={{ width }}>
-      {imageSrc ? <Image src={imageSrc} /> : <FaUser />}
+      {imageSrc ? <Image src={imageSrc} /> : <NoneImage />}
     </Container>
   );
 };
@@ -16,15 +16,12 @@ const NavbarProfileImg = ({ data, width = "50px" }: any) => {
 export default NavbarProfileImg;
 
 const Container = styled.div`
-  min-width: 50px;
-  min-height: 50px;
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: ${color.COLOR_LIGHTGRAY_BACKGROUND};
   border: 3px double #eeeeeeb1;
   box-shadow: 0px 0px 16px #eeeeee6e;
-  color: white;
-  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,6 +30,11 @@ const Container = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
+`;
+
+const NoneImage = styled(FaUser)`
+  color: white;
+  font-size: 1.5rem;
 `;
