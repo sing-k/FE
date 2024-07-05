@@ -31,12 +31,11 @@ const MyPageTabMenu = ({ tabObj, currentTab, onClickTab }: Props) => {
 };
 
 const Container = styled.div`
-  width: max-content;
   display: flex;
   align-items: center;
   padding: 0.5rem;
   gap: 0.5rem;
-  border-radius: 5px;
+  flex-wrap: wrap;
 `;
 
 const Tab = styled.div`

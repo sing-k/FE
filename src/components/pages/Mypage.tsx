@@ -10,14 +10,11 @@ import {
   MyFreeBoard,
   MyComment,
   MyPageTabMenu,
+  ProfileEditModal,
 } from "../organisms";
 import { pathName } from "../../App";
-// 마이페이지에서는 내 정보만 요청 일단
-// (내 정보 요청 , 관련 데이터 요청 -> 탭에서 요청하기 )
-// 1. 내 정보 컴포넌트
-// 2. 탭 메뉴에 따라서 뿌려주는 컴포넌트 다르게 (앨범 디테일 페이지 참고 )
-// 3. 내용 뿌려주는 컴포넌트 (각 컴포넌트 렌더링 될때 맞는 api 요청하면 될듯 ?)
-
+import useModal from "../../hooks/useModal";
+import { useMediaQueries } from "../../hooks";
 const tabObj = {
   albumReview: "평가한앨범",
   recommendMusic: "음악추천글",
@@ -31,9 +28,9 @@ const Mypage = () => {
   const { data } = useMemberInfoQuery();
   const navigate = useNavigate();
   const location = useLocation();
-
   const [currentTab, setCurrentTab] = useState<TabKey | string>("albumReview");
-
+  const { isOpen, openModal, closeModal } = useModal();
+  const { isMobile } = useMediaQueries();
   const onClickTab = (key?: string) => {
     const path = `?tab=${key}`;
     navigate(`${pathName.myPage}/${path}`);
@@ -50,10 +47,11 @@ const Mypage = () => {
   }, [location]);
 
   if (currentTab === "") return null;
+
   return (
     <Container>
-      <MyInfo data={data} />
-      <TabContainer>
+      <MyInfo data={data} openModal={openModal} />
+      <TabContainer $isMobile={isMobile}>
         <MyPageTabMenu
           tabObj={tabObj}
           currentTab={currentTab}
@@ -66,6 +64,11 @@ const Mypage = () => {
         {currentTab === "freeBoard" && <MyFreeBoard />}
         {currentTab === "comment" && <MyComment />}
       </ContentContainer>
+      <ProfileEditModal
+        userData={data}
+        isOpen={isOpen}
+        closeModal={closeModal}
+      />
     </Container>
   );
 };
@@ -80,12 +83,11 @@ const Container = styled.div`
   align-items: center;
   gap: 1rem;
 `;
-const TabContainer = styled.div`
+const TabContainer = styled.div<{ $isMobile: boolean }>`
   ${glassEffectStyle()}
   width: 100%;
-  border-radius: 50px;
+  border-radius: ${({ $isMobile }) => ($isMobile ? "10px" : "50px")};
   padding: 0.5rem;
-  flex-wrap: wrap;
 `;
 const ContentContainer = styled.div`
   ${glassEffectStyle()}
