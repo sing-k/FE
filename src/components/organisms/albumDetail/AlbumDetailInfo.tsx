@@ -6,6 +6,8 @@ import { useAlbumDetailQuery } from "../../../hooks/queries/albumDetail";
 
 import AlbumDetailCard from "./AlbumDetailCard";
 import AlbumTrackList from "./AlbumTrackList";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 
 type Props = {
   albumId: string;
@@ -14,8 +16,8 @@ type Props = {
 const AlbumDetailInfo = ({ albumId }: Props) => {
   const { data, isLoading, isError, error } = useAlbumDetailQuery(albumId);
 
-  if (isLoading) return <>로딩중 {"><"}</>;
-  if (isError) return <>미친 에러 {error.message}</>;
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
 
   return (
     <Container>

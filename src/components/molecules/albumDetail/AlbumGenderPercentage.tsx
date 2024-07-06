@@ -45,7 +45,7 @@ const AlbumGenderPercentage = ({ data }: Props) => {
               {
                 label: "# of Percentages",
                 data: genderStatistics.map((el) => el.ratio),
-                backgroundColor: [color.COLOR_FEMALE, color.COLOR_MALE],
+                backgroundColor: [color.COLOR_MALE, color.COLOR_FEMALE],
                 borderColor: ["#ffffff", "#ffffff"],
                 borderWidth: 1,
               },

@@ -9,10 +9,12 @@ import { glassEffectStyle } from "../../../styles/style";
 
 import { useAlbumReviewListQuery } from "../../../hooks/queries/albumDetail";
 
+import { AlbumReviewType } from "../../../types/albumReviewType";
+
 import AlbumReview from "../../molecules/albumDetail/AlbumReview";
 import TabMenu from "../../common/TabMenu";
-
-import { AlbumReviewType } from "../../../types/albumReviewType";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 
 const filterObj = {
   recent: "최신순",
@@ -57,8 +59,8 @@ const AlbumReviewList = ({ albumId }: Props) => {
   }, [location]);
 
   if (currentFilter === "") return;
-  if (isLoading) return <>Loading....</>;
-  if (isError) return <>Error... {error.message}</>;
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
 
   return (
     <div style={{ borderRadius: "inherit" }}>

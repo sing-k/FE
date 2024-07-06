@@ -14,7 +14,7 @@ type Props = {
   menuList: MenuItemType[];
 };
 
-const DropDownMenu = ({ openMenu, setOpenMenu, menuList }: Props) => {
+const DropDownMenu = ({ menuList }: Props) => {
   if (!menuList || menuList.length === 0) return;
 
   return (
