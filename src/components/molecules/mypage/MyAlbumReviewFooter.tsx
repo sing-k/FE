@@ -3,7 +3,10 @@ import { MyStarRating, MyLikeRating, MyUnlikeRating } from "../../atoms";
 const MyAlbumReviewFooter = () => {
   return (
     <Container>
-      <MyStarRating rating={4} />
+      <RatingDiv>
+        <MyStarRating rating={4} />
+        <RatingValue>{4}</RatingValue>
+      </RatingDiv>
       <RatingDiv>
         <MyLikeRating />
         <MyUnlikeRating />
@@ -23,4 +26,8 @@ const Container = styled.div`
 const RatingDiv = styled.div`
   display: flex;
   gap: 0.2rem;
+`;
+const RatingValue = styled.span`
+  font-size: 1rem;
+  font-weight: 700;
 `;

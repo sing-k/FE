@@ -9,10 +9,10 @@ import NavbarNickname from "../../atoms/navbar/NavbarNickname";
 import NavbarTag from "../../atoms/navbar/NavbarTag";
 import NavProfileBtn from "../../atoms/navbar/NavProfileBtn";
 
-import { FaBell, FaHistory, FaUserCog } from "react-icons/fa";
+import { FaBell, FaUserCog } from "react-icons/fa";
 import { pathName } from "../../../App";
 
-const NavProfile = ({ data, openModal }: any) => {
+const NavProfile = ({ data }: any) => {
   const navigate = useNavigate();
   const handelNavigate = () => {
     navigate(`${pathName.myPage}`);
@@ -31,14 +31,14 @@ const NavProfile = ({ data, openModal }: any) => {
       <BtnWrapper>
         <NavProfileBtn
           onClick={handelNavigate}
-          Icon={FaHistory}
-          text="활동 히스토리"
+          Icon={FaUserCog}
+          text="마이 페이지"
         />
-        <NavProfileBtn
+        {/* <NavProfileBtn
           onClick={openModal}
           Icon={FaUserCog}
           text="프로필 수정"
-        />
+        /> */}
         <NavProfileBtn Icon={FaBell} text="알림" />
       </BtnWrapper>
     </NavProfileDiv>

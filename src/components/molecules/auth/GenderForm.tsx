@@ -9,7 +9,7 @@ type GenderFormProps = {
 };
 
 const GenderForm = ({ onGenderChange }: GenderFormProps) => {
-  const [selectedGender, setSelectedGender] = useState("NONE");
+  const [selectedGender, setSelectedGender] = useState("MALE");
 
   const handleGenderClick = (gender: string) => {
     if (selectedGender !== gender) {

@@ -14,7 +14,6 @@ const useLogin = () => {
     setIsLoading(true);
     try {
       const response = await client.post(url, data);
-      console.log(response);
       if (response.status === 200 && response.data.length === 0) {
         const accessToken = response.headers.authorization.split("Bearer ")[1];
         const refreshToken = response.headers.refresh;

@@ -12,8 +12,9 @@ import { convertTime } from "../../../utils/auth/convertTime";
 
 type AuthCalendarProps = {
   onDateChange: (date: string) => void;
+  register: any;
 };
-const AuthCalendar = ({ onDateChange }: AuthCalendarProps) => {
+const AuthCalendar = ({ onDateChange, register }: AuthCalendarProps) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const handleDateChange = (date: Date) => {
     setStartDate(date);
@@ -24,6 +25,7 @@ const AuthCalendar = ({ onDateChange }: AuthCalendarProps) => {
     <Container>
       <StyledLabel>
         <DatePicker
+          {...register}
           selected={startDate}
           dateFormat="yyyy-MM-dd"
           onChange={handleDateChange}
