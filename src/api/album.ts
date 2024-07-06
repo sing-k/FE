@@ -19,13 +19,13 @@ const queryData = {
 
 type AlbumType = keyof typeof queryData;
 
-type Args = {
+export type GetAlbumListArgs = {
   cursorId?: string;
   cursorData?: string;
   albumType: AlbumType;
 };
 
-export const getAlbumList = async (args: Args) => {
+export const getAlbumList = async (args: GetAlbumListArgs) => {
   try {
     let url = `/api/albums/list/${queryData[args.albumType].endPoint}?limit=${LIMIT}`;
 

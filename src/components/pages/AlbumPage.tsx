@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useApi } from "../../hooks";
-import { getAlbumList } from "../../api/album";
 
 import { AlbumSearchList } from "../organisms/album";
 
@@ -56,17 +55,17 @@ const AlbumPage = () => {
       <AlbumSection
         title="최근 평가된 앨범"
         link={pathName.recentReview}
-        fetchData={getAlbumList.bind(this, { albumType: "recent" })}
+        args={{ albumType: "recent" }}
       />
       <AlbumSection
         title="평가 많은 순"
         link={pathName.mostReview}
-        fetchData={getAlbumList.bind(this, { albumType: "reviewCount" })}
+        args={{ albumType: "reviewCount" }}
       />
       <AlbumSection
         title="평점 높은 순"
         link={pathName.highestRated}
-        fetchData={getAlbumList.bind(this, { albumType: "averageScore" })}
+        args={{ albumType: "averageScore" }}
       />
     </>
   );
