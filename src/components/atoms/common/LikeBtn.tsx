@@ -29,17 +29,12 @@ const Container = styled.div`
   font-size: 0.9rem;
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
-  border: 1.5px solid ${color.COLOR_LIGHTGRAY_BACKGROUND};
   background-color: ${color.COLOR_LIGHTGRAY_BACKGROUND};
 
   display: flex;
   align-items: center;
   gap: 5px;
-  transition: 0.2s;
 
-  &:hover {
-    border-color: ${color.COLOR_MAIN};
-  }
   &.active {
     border-color: ${color.COLOR_MAIN};
     background-color: ${color.COLOR_MAIN};
