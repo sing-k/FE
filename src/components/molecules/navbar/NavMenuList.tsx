@@ -13,9 +13,8 @@ const NavMenuList = () => {
   const location = useLocation();
 
   useEffect(() => {
-    let [_, path, ...rest] = location.pathname.split("/");
+    let path = location.pathname.split("/")[1];
     setCurrentTab(`/${path}`);
-    // console.log(rest); //배포 에러 때문에 추가 추후에 삭제 바람
   }, [location]);
 
   return (

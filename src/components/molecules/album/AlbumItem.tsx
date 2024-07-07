@@ -32,7 +32,7 @@ const AlbumItem = ({
   const navigate = useNavigate();
 
   const goAlbumDetailPage = () => {
-    navigate(`${pathName.album}/${data.id}`);
+    navigate(`${pathName.albumDetail}/${data.id}`);
   };
 
   return (

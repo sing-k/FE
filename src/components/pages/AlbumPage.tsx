@@ -7,9 +7,8 @@ import { AlbumSearchList } from "../organisms/album";
 
 import AlbumSection from "../organisms/album/AlbumSection";
 
-import { pathName } from "../../App";
-
 import { AlbumType } from "../../types/albumType";
+import { pathName } from "../../App";
 
 const AlbumPage = () => {
   //   const { isPc } = useMediaQueries();
@@ -55,17 +54,17 @@ const AlbumPage = () => {
       <AlbumSection
         title="최근 평가된 앨범"
         link={pathName.recentReview}
-        args={{ albumType: "recent" }}
+        albumType="recent"
       />
       <AlbumSection
         title="평가 많은 순"
         link={pathName.mostReview}
-        args={{ albumType: "reviewCount" }}
+        albumType="reviewCount"
       />
       <AlbumSection
         title="평점 높은 순"
         link={pathName.highestRated}
-        args={{ albumType: "averageScore" }}
+        albumType="averageScore"
       />
     </>
   );

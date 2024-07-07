@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import React, { useEffect, useRef } from "react";
 
+import styled from "styled-components";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
@@ -7,18 +8,63 @@ import { IoArrowBack } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
 
-import { AlbumType } from "../../../types/albumType";
+import { AlbumRequestType } from "../../../api/album";
 import { pathName } from "../../../App";
-import { albumListDummy } from "../../../dummy/album";
+
+import { useInfiniteAlbumListQuery } from "../../../hooks/queries/album";
 
 import AlbumItem from "../../molecules/album/AlbumItem";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 
 type Props = {
   category: string;
-  items?: AlbumType[];
+  albumType: AlbumRequestType;
 };
 
-const AlbumPageTemplate = ({ category, items = albumListDummy }: Props) => {
+const AlbumPageTemplate = ({ category, albumType }: Props) => {
+  const {
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteAlbumListQuery(albumType);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+
+    const { clientHeight, scrollHeight, scrollTop } = scrollRef.current;
+
+    // 스크롤 마지막 도달 endReached
+    if (clientHeight + scrollTop >= scrollHeight - 5) {
+      if (hasNextPage && !isFetchingNextPage) {
+        // 다음 페이지가 있고, 데이터 패칭 중이 아니라면
+        fetchNextPage();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      handleScroll();
+      scrollRef.current.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (scrollRef.current) {
+        scrollRef.current.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [hasNextPage, fetchNextPage, isFetchingNextPage]);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+
   return (
     <Container>
       <Header>
@@ -28,10 +74,16 @@ const AlbumPageTemplate = ({ category, items = albumListDummy }: Props) => {
         <AlbumCategory>{category}</AlbumCategory>
       </Header>
 
-      <CardContainer>
-        {items.map((data) => (
-          <AlbumItem key={data.id} data={data} type="card" />
+      <CardContainer ref={scrollRef}>
+        {data?.pages.map((page, idx) => (
+          <React.Fragment key={idx}>
+            {page.map((data) => (
+              <AlbumItem key={data.id} data={data} type="card" />
+            ))}
+          </React.Fragment>
         ))}
+
+        {isFetchingNextPage && <Loading />}
       </CardContainer>
     </Container>
   );
@@ -46,7 +98,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 1rem;
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 3rem;
 `;
 
 const Header = styled.div`
@@ -82,4 +134,6 @@ const CardContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
   width: 100%;
+  max-height: 100vh;
+  overflow-y: scroll;
 `;
