@@ -41,7 +41,11 @@ export const validationRules = {
     },
   },
   birthday: {
-    required: "생년월일은 필수 입력입니다",
+    required: "생년월일은 필수 입력입니다.",
+    pattern: {
+      value: /^(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
+      message: "생년월일은 YYYY-MM-DD 형식이어야 합니다.",
+    },
   },
   gender: {
     required: "성별은 필수 입력입니다.",

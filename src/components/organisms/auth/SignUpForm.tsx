@@ -266,6 +266,11 @@ const SignUpForm = () => {
           onDateChange={handelDateChange}
           register={register("birthday", validationRules.birthday)}
         />
+        <ValidDiv>
+          {errors.birthday ? (
+            <AuthValidMessage text={errors.birthday.message}></AuthValidMessage>
+          ) : undefined}
+        </ValidDiv>
         <FieldName text="성별" />
         <GenderForm onGenderChange={handleGenderChange} />
         <AuthPostButton
