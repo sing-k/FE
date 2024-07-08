@@ -11,7 +11,6 @@ import { AlbumType } from "../../types/albumType";
 import { pathName } from "../../App";
 
 const AlbumPage = () => {
-  //   const { isPc } = useMediaQueries();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
@@ -19,16 +18,14 @@ const AlbumPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("accessToken");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
       try {
         if (query) {
           await callApi(
             `/api/albums/search?query=${query}&offset=0&limit=20`,
             "get",
-            {
-              headers,
-            }
+            // {
+            //   headers,
+            // }
           );
         }
       } catch (error) {

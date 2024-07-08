@@ -54,7 +54,7 @@ export const handleSubmitData = async (data: any) => {
       gender: gender,
       name: name,
     });
-    return res.data.statusCode;
+    return res.data;
   } catch (error) {
     console.error("API 호출 중 오류가 발생했습니다.", error);
   }

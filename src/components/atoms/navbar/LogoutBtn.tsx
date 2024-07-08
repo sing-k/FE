@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 import { useApi } from "../../../hooks";
-import { getToken, clearTokens } from "../../../utils/auth/tokenStorage";
+import { clearTokens } from "../../../utils/auth/tokenStorage";
 import { useNavigate } from "react-router-dom";
 import { pathName } from "../../../App";
 
@@ -10,18 +10,7 @@ const LogoutBtn = () => {
   const navigate = useNavigate();
   const { callApi, statusCode } = useApi();
   const handleLogout = async () => {
-    const accessToken = getToken("accessToken"); // 액세스 토큰 가져오기
-    const refreshToken = getToken("refreshToken");
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
-
-    await callApi(
-      "/api/auth/logout",
-      "post",
-      { accessToken: accessToken, refreshToken: refreshToken },
-      headers,
-    );
+    await callApi("/api/auth/logout", "post");
   };
   if (statusCode === 200) {
     clearTokens();

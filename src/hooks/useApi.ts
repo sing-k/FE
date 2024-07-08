@@ -35,7 +35,6 @@ const useApi = () => {
         setData(response.data.data);
       }
       if (response.data.statusCode === 401) {
-        //나중에 여기를 reissue 로직을 추가하면 될것같음 : 현재는 임의로 로컬스토리지에 삭제하고 재로그인하도록 유도
         clearTokens();
         navigate("/");
       }
