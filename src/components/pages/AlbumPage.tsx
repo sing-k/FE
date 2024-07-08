@@ -9,7 +9,7 @@ import AlbumSection from "../organisms/album/AlbumSection";
 
 import { AlbumType } from "../../types/albumType";
 import { pathName } from "../../App";
-
+import Loading from "../common/Loading";
 const AlbumPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -36,7 +36,7 @@ const AlbumPage = () => {
     fetchData();
   }, [query]);
   if (query) {
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loading />;
     if (statusCode !== 200) return <p>Error loading albums</p>;
   }
   return (
