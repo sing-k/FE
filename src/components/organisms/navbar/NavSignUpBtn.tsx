@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
+import { pathName } from "../../../App";
 
 const NavSignUpBtn = () => {
   return (
     <Container>
-      <StyledLink to="/login">로그인</StyledLink>
+      <StyledLink to={`${pathName.login}`}>로그인</StyledLink>
 
-      <StyledLink to="/signup">회원가입</StyledLink>
+      <StyledLink to={`${pathName.signUp}`}>회원가입</StyledLink>
     </Container>
   );
 };
