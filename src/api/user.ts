@@ -3,9 +3,18 @@ import client from "../config/axios";
 
 //회원 정보 조회
 export const getMemberInfo = async () => {
-  const response = await client.get("/api/members/me");
-  return response.data.data;
+  try {
+    const response = await client.get("/api/members/me");
+    if (response.data.statusCode !== 200) {
+      throw new Error(response.data.message || "Unknown error");
+    }
+    return response.data.data;
+  } catch (error) {
+    console.error("API 호출 중 오류가 발생했습니다.", error);
+    return null;
+  }
 };
+
 //프로필 이미지 업로드
 export const uploadProfileImage = (formData: FormData) => {
   return client.put("/api/members/me/profile-image", formData, {

@@ -13,7 +13,6 @@ export const useMemberInfoQuery = () => {
   return useQuery({
     queryKey: ["memberInfo"],
     queryFn: getMemberInfo,
-    // enabled: !!token, // 토큰이 있을 때만 쿼리를 실행
   });
 };
 //프로필 이미지 수정
