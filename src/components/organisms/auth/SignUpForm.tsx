@@ -58,10 +58,14 @@ const SignUpForm = () => {
 
   const handleVerificationCodeConfirmationClick = async () => {
     try {
+      const email = watch("email") || "";
+      const emailcode = watch("emailcode") || "";
+
       const response = await handleVerificationCodeConfirmation(
-        watch("email"),
-        watch("emailcode"),
+        email,
+        emailcode,
       );
+
       if (response && response.statusCode === 200) {
         setIsEmailValid(true);
         setEmailErrorMessage("");
@@ -96,9 +100,11 @@ const SignUpForm = () => {
   const handleValid = async (data: FormType) => {
     try {
       const result = await handleSubmitData(data);
-      if (result.statusCode === 200) {
+      if (result.statusCode === 201) {
         alert("회원가입을 완료하였습니다. 로그인 페이지로 이동합니다.");
         navigate(`${pathName.login}`);
+      } else {
+        alert(result.message); // 에러 메시지를 사용자에게 알림
       }
     } catch (err) {
       console.log(err, "err");
