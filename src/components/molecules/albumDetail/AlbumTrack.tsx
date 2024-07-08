@@ -26,10 +26,10 @@ const AlbumTrack = ({ track }: Props) => {
   return (
     <>
       <Container>
-        <Wrapper>
+        <Wrapper style={{ flex: 1 }}>
           <Number>{track.trackNumber}</Number>
           <TrackName>{track.name}</TrackName>
-          <Artist>아티스트 이름</Artist>
+          <Artist>{track.artists[0].name}</Artist>
         </Wrapper>
 
         <Wrapper>
@@ -60,6 +60,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 0.8rem;
+  gap: 1rem;
 `;
 
 const Wrapper = styled.div`
@@ -75,11 +76,14 @@ const Number = styled.p`
 
 const TrackName = styled.p`
   font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.5rem;
 `;
 
 const Artist = styled.p`
   color: ${color.COLOR_GRAY_TEXT};
   font-size: 0.9rem;
+  font-weight: bold;
 `;
 
 const Time = styled.p`

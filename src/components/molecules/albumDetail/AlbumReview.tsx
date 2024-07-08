@@ -7,41 +7,45 @@ import color from "../../../styles/color";
 
 import { FaUser, FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 
+import { AlbumReviewType } from "../../../types/albumReviewType";
+
+import { dateTimeFormat } from "../../../utils/date";
+
 import StarRating from "../../atoms/albumDetail/StarRating";
 
-const AlbumReview = () => {
+type Props = {
+  data: AlbumReviewType;
+};
+
+const AlbumReview = ({ data }: Props) => {
   return (
     <Container>
       <Wrapper>
         <StarRatingDiv>
-          <StarRating rating={4.5} />
-          4.5
+          <StarRating rating={data.score} />
+          {data.score}
         </StarRatingDiv>
-        2024-06-01
+        {dateTimeFormat(data.createdAt)}
       </Wrapper>
 
-      <ReviewText>
-        이 앨범은
-        킹갓제너럴엠페러마제스티골져스프레셔스뷰리풀하이클래스엘레강스럭셔리클래식지니어스원더풀러블리월드탑클래스
-        입니다. 감사합니다
-      </ReviewText>
+      <ReviewText>{data.content}</ReviewText>
 
       <Wrapper>
         <WriterDiv>
           <WriterImgDiv>
             <FaUser color={"white"} />
           </WriterImgDiv>
-          민숭이
+          {data.reviewer.nickname ? data.reviewer.nickname : "닉네임없음"}
         </WriterDiv>
 
         <BtnDiv>
           <Btn>
             <FaRegThumbsUp />
-            123
+            {data.pros}
           </Btn>
           <Btn>
             <FaRegThumbsDown />
-            43
+            {data.cons}
           </Btn>
         </BtnDiv>
       </Wrapper>

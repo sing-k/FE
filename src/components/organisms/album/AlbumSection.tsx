@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
@@ -9,25 +7,25 @@ import AlbumCarousel from "./AlbumCarousel";
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
 
-import { AlbumType } from "../../../types/albumType";
+import { AlbumRequestType } from "../../../api/album";
+
+import { useAlbumListQuery } from "../../../hooks/queries/album";
+
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 
 type AlbumSectionType = {
   title: string;
   link: string;
-  fetchData: () => any;
+  albumType: AlbumRequestType;
 };
 
-const AlbumSection = ({ title, link, fetchData }: AlbumSectionType) => {
-  const [items, setItems] = useState<AlbumType[]>();
+const AlbumSection = ({ title, link, albumType }: AlbumSectionType) => {
+  const { data, isLoading, isError, error } = useAlbumListQuery(albumType);
 
-  useEffect(() => {
-    fetchData().then((res: any) => {
-      // console.log(res.data.items);
-      setItems(res.data.items as AlbumType[]);
-    });
-  }, [fetchData]);
-
-  if (!items) return;
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+  if (!data) return;
 
   return (
     <Container>
@@ -36,7 +34,7 @@ const AlbumSection = ({ title, link, fetchData }: AlbumSectionType) => {
         <MoreBtn to={link}>더보기</MoreBtn>
       </Header>
 
-      <AlbumCarousel items={items} />
+      <AlbumCarousel items={data} />
     </Container>
   );
 };

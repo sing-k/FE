@@ -22,6 +22,7 @@ const AlbumReviewInput = () => {
         setInput={setInput}
         button={{
           text: "등록",
+          onClickButton: () => {},
         }}
         placeholder="감상평을 작성해 주세요!"
         textarea={true}

@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 
 import UserInfo from "../../common/UserInfo";
 import LikeBtn from "../../atoms/common/LikeBtn";
+import CommentMenu from "./CommentMenu";
 
 interface WriterType {
   id: string;
@@ -44,7 +44,7 @@ const Comment = (data: CommentType) => {
           {data.createdAt}
         </UserWrapper>
 
-        <Dots />
+        <CommentMenu />
       </Wrapper>
 
       <Wrapper style={{ alignItems: "flex-start" }}>
@@ -120,11 +120,6 @@ const UserWrapper = styled.div`
   color: ${color.COLOR_GRAY_TEXT};
   font-size: 0.8rem;
   gap: 10px;
-`;
-
-const Dots = styled(BsThreeDotsVertical)`
-  cursor: pointer;
-  color: ${color.COLOR_GRAY_TEXT};
 `;
 
 const ContentsWrapper = styled.div`

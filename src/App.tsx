@@ -30,9 +30,10 @@ export const pathName = {
   signUp: "/signUp",
   login: "/login",
   album: "/album",
-  recentReview: "/album/recentReview",
-  mostReview: "/album/mostReview",
-  highestRated: "/album/highestRated",
+  recentReview: "/album/recent",
+  mostReview: "/album/reviewCount",
+  highestRated: "/album/averageScore",
+  albumDetail: "/album/detail",
   musicRecommendationBoard: "/musicRecommendationBoard",
   board: "/board",
   musicRecommendationPost: "/musicRecommendationBoard/post",
@@ -57,7 +58,10 @@ function App() {
           <Route path={pathName.mostReview} element={<MostReview />} />
           <Route path={pathName.highestRated} element={<HighestRated />} />
 
-          <Route path={`${pathName.album}/:id`} element={<AlbumDetailPage />} />
+          <Route
+            path={`${pathName.albumDetail}/:id`}
+            element={<AlbumDetailPage />}
+          />
 
           <Route
             path={pathName.musicRecommendationBoard}

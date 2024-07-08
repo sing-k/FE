@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import { FaCog } from "react-icons/fa";
-
 import UserInfo from "../../common/UserInfo";
 import { PostCommentNum, PostLikeNum } from "../../atoms";
+import PostMenu from "../../molecules/board/PostMenu";
 
 const PostInfo = () => {
   return (
@@ -15,7 +14,7 @@ const PostInfo = () => {
       <TitleWrapper>
         <Title>게시글 제목 부분</Title>
 
-        <EditBtn />
+        <PostMenu />
       </TitleWrapper>
 
       <InfoWrapper>
@@ -48,11 +47,6 @@ const TitleWrapper = styled.div`
 const Title = styled.div`
   font-size: 1.6rem;
   font-weight: bold;
-`;
-
-const EditBtn = styled(FaCog)`
-  cursor: pointer;
-  color: ${color.COLOR_GRAY_TEXT};
 `;
 
 const InfoWrapper = styled.div`

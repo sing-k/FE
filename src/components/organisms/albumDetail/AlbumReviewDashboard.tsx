@@ -7,6 +7,8 @@ import { useAlbumReviewStatisticQuery } from "../../../hooks/queries/albumDetail
 import AlbumReviewRating from "../../molecules/albumDetail/AlbumReviewRating";
 import AlbumScorePercentage from "../../molecules/albumDetail/AlbumScorePercentage";
 import AlbumGenderPercentage from "../../molecules/albumDetail/AlbumGenderPercentage";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 
 type Props = {
   albumId: string;
@@ -16,8 +18,8 @@ const AlbumReviewDashboard = ({ albumId }: Props) => {
   const { data, isLoading, isError, error } =
     useAlbumReviewStatisticQuery(albumId);
 
-  if (isLoading) return <>로딩중 {"><"}</>;
-  if (isError) return <>미친 에러 {error.message}</>;
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
 
   return (
     <Container>

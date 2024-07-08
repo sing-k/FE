@@ -14,7 +14,7 @@ type Props = {
 };
 
 const AlbumDetailCard = ({ data }: Props) => {
-  const { images, type, name, artists, releasedAt } = data;
+  const { images, type, name, artists, releasedAt, count, averageScore } = data;
 
   const { isMobile } = useMediaQueries();
 
@@ -39,8 +39,8 @@ const AlbumDetailCard = ({ data }: Props) => {
         artist={artists[0].name}
         releaseDate={releasedAt}
         genre={"일렉트로닉"}
-        rating={3}
-        reviewCount={10}
+        rating={averageScore}
+        reviewCount={count}
       />
 
       <BadgeImage src={Badge} />

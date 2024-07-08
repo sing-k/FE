@@ -7,6 +7,7 @@ export interface TrackType {
   playable: boolean;
   previewUrl: string;
   duration: number;
+  artists: AlbumArtistType[];
 }
 
 export interface AlbumDetailType {
@@ -15,6 +16,8 @@ export interface AlbumDetailType {
   type: string;
   releasedAt: string;
   trackCount: number;
+  count: number;
+  averageScore: number;
   artists: AlbumArtistType[];
   tracks: TrackType[];
   images: AlbumImageType[];
