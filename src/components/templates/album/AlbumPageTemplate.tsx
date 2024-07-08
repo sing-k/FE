@@ -82,9 +82,9 @@ const AlbumPageTemplate = ({ category, albumType }: Props) => {
             ))}
           </React.Fragment>
         ))}
-
-        {isFetchingNextPage && <Loading />}
       </CardContainer>
+
+      {isFetchingNextPage && <Loading />}
     </Container>
   );
 };
