@@ -42,7 +42,7 @@ const AlbumPageTemplate = ({ category, albumType }: Props) => {
 
     // 스크롤 마지막 도달 endReached
     if (clientHeight + scrollTop >= scrollHeight - 5) {
-      if (hasNextPage && !isFetchingNextPage) {
+      if (!isLoading && hasNextPage && !isFetchingNextPage) {
         // 다음 페이지가 있고, 데이터 패칭 중이 아니라면
         fetchNextPage();
       }

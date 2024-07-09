@@ -66,13 +66,15 @@ export const getAlbumList = async ({
     if (pageParam) {
       const { cursorId, cursorData } = pageParam as AlbumPageParam;
       // console.log({ cursorId, cursorData });
-      if (cursorId && cursorData) {
+      if (cursorId !== "" && cursorData !== "") {
         url += `&cursor-id=${cursorId}&${queryName}=${cursorData}`;
       }
     }
 
     const res = await client.get(url);
-    // console.log("res: ", res.data);
+
+    if (res.data?.statusCode !== 200) return [];
+
     return res.data.data.items as AlbumType[];
   } catch (err) {
     throw new Error(`get album ${albumType} list error `);

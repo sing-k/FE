@@ -33,7 +33,7 @@ export const useInfiniteAlbumListQuery = (albumType: AlbumRequestType) => {
 
       const lastData = lastPage[lastPage.length - 1];
       const cursorId = lastData.id;
-      const cursorData =
+      let cursorData =
         albumType === "recent"
           ? lastData.modifiedAt
           : albumType === "averageScore"
@@ -41,6 +41,13 @@ export const useInfiniteAlbumListQuery = (albumType: AlbumRequestType) => {
             : albumType === "reviewCount"
               ? lastData.count
               : "";
+
+      if (
+        albumType === "averageScore" &&
+        Number.isInteger(lastData.averageScore)
+      ) {
+        cursorData = lastData.averageScore.toFixed(1);
+      }
 
       const nextPageParam = { cursorId, cursorData } as AlbumPageParam;
 
