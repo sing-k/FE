@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import YouTube from "react-youtube";
 
+import { isYouTubeURL } from "../../../utils/url";
+
 import LinkInput from "./LinkInput";
 
 const SelectYoutubeForm = () => {
@@ -16,6 +18,12 @@ const SelectYoutubeForm = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
+
+    if (!isYouTubeURL(url)) {
+      setVideoId("");
+      return;
+    }
+
     const id = new URLSearchParams(new URL(url).search).get("v");
 
     setVideoId(id as string);
@@ -28,6 +36,7 @@ const SelectYoutubeForm = () => {
         setInput={setInput}
         handleChange={handleChange}
         placeholder="추천할 유튜브 동영상 링크를 입력해 주세요!"
+        linkId={videoId}
       />
 
       {videoId && (

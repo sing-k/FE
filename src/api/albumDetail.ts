@@ -1,10 +1,18 @@
 import client from "../config/axios";
 
 export const getAlbumDetail = async (albumId: string) => {
-  const res = await client.get(`/api/albums/${albumId}`);
+  try {
+    const res = await client.get(`/api/albums/${albumId}`);
 
-  if (res.status === 200) {
-    return res.data.data;
+    if (res.status === 200) {
+      if (res.data?.statusCode === 200) {
+        return res.data.data;
+      } else {
+        return false;
+      }
+    }
+  } catch (_) {
+    throw new Error("getAlbumDetail Error");
   }
 };
 

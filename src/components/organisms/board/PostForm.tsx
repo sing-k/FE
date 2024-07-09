@@ -14,16 +14,8 @@ type Props = {
 };
 
 const PostForm = ({ fieldValues, children }: Props) => {
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = fieldValues;
+  const { register, control } = fieldValues;
 
-  if (errors) {
-    // 배포 오류를 위한 추가 추후 삭제 바람
-    console.log(errors);
-  }
   return (
     <Container>
       <TitleInput
