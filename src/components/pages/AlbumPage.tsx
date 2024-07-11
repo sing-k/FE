@@ -9,9 +9,8 @@ import AlbumSection from "../organisms/album/AlbumSection";
 
 import { AlbumType } from "../../types/albumType";
 import { pathName } from "../../App";
-
+import Loading from "../common/Loading";
 const AlbumPage = () => {
-  //   const { isPc } = useMediaQueries();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
@@ -19,16 +18,14 @@ const AlbumPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("accessToken");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
       try {
         if (query) {
           await callApi(
             `/api/albums/search?query=${query}&offset=0&limit=20`,
             "get",
-            {
-              headers,
-            }
+            // {
+            //   headers,
+            // }
           );
         }
       } catch (error) {
@@ -39,7 +36,7 @@ const AlbumPage = () => {
     fetchData();
   }, [query]);
   if (query) {
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loading />;
     if (statusCode !== 200) return <p>Error loading albums</p>;
   }
   return (

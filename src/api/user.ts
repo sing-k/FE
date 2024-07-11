@@ -3,41 +3,35 @@ import client from "../config/axios";
 
 //회원 정보 조회
 export const getMemberInfo = async () => {
-  const token = localStorage.getItem("accessToken");
-  const headers = token ? { Authorization: `Bearer ${token}` } : {};
-  const response = await client.get("/api/members/me", { headers });
-  return response.data.data;
+  try {
+    const response = await client.get("/api/members/me");
+    if (response.data.statusCode !== 200) {
+      throw new Error(response.data.message || "Unknown error");
+    }
+    return response.data.data;
+  } catch (error) {
+    console.error("API 호출 중 오류가 발생했습니다.", error);
+    return null;
+  }
 };
+
 //프로필 이미지 업로드
 export const uploadProfileImage = (formData: FormData) => {
-  const token = localStorage.getItem("accessToken");
   return client.put("/api/members/me/profile-image", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
     },
   });
 };
 //프로필 이미지 삭제
 export const deleteProfileImage = () => {
-  const token = localStorage.getItem("accessToken");
   return client.delete("/api/members/me/profile-image", {
     headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
     },
   });
 };
 //닉네임 수정
 export const updateNickname = ({ newNickname }: { newNickname: string }) => {
-  const token = localStorage.getItem("accessToken");
-  return client.put(
-    "/api/members/me",
-    { nickname: newNickname },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
+  return client.put("/api/members/me", { nickname: newNickname });
 };

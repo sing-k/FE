@@ -1,47 +1,44 @@
-export type TextType = {
+// 텍스트 타입 정의
+export interface TextType {
   text: string;
-};
+}
 
-export type AuthInputType = {
+// 인증 입력 필드 타입 정의
+export interface AuthInputType {
   value?: string | number;
   placeholder?: string;
-  onChange?: () => void;
-};
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-export type ButtonType = {
+// 버튼 타입 정의
+export interface ButtonType {
   type?: "button" | "reset" | "submit";
   text: string;
   isActive: boolean;
   disabled?: boolean;
   onClick?: () => Promise<void> | void;
-};
+}
 
-export type TAuthInput = {
-  label?: string;
-  name: string;
-  registerOptions: any;
-  placeholder?: string;
-  type?: string;
-  errors?: any;
-};
-
-export type FormType = {
+// 폼 데이터 타입 정의
+export interface FormType {
   email: string;
   password: string;
   nickname: string;
   birthday: string;
   gender: string;
   name: string;
-  emailcode?: number;
+  emailcode?: string;
   passwordConfirm?: string;
-};
+}
 
-export type LoginType = {
+// 로그인 데이터 타입 정의
+export interface LoginType {
   email: string;
   password: string;
-};
+}
 
-export type UserDataType = {
+// 사용자 데이터 타입 정의
+export interface UserDataType {
   birthday: string;
   createdAt: string;
   email: string;
@@ -51,4 +48,4 @@ export type UserDataType = {
   modifiedAt: string;
   name: string;
   nickname: string;
-};
+}

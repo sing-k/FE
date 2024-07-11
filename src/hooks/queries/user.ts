@@ -10,11 +10,9 @@ import {
 
 //회원 정보 get
 export const useMemberInfoQuery = () => {
-  const token = localStorage.getItem("accessToken");
   return useQuery({
     queryKey: ["memberInfo"],
     queryFn: getMemberInfo,
-    enabled: !!token, // 토큰이 있을 때만 쿼리를 실행
   });
 };
 //프로필 이미지 수정
