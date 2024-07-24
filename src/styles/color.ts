@@ -46,4 +46,6 @@ export default {
   COLOR_GRADIENT_PINK: "#FFA1F6",
 
   COLOR_BOX_SHADOW_COLOR: "rgba(217, 217, 217, 0.7)",
+
+  COLOR_LINE_BLUE: "#5033FF",
 };

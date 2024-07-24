@@ -1,6 +1,7 @@
 //회원 관련 api 함수
 import client from "../config/axios";
-
+import { getDefaultDates } from "../utils/date";
+import { ActivityListType } from "../types/activityHistoryType";
 //회원 정보 조회
 export const getMemberInfo = async () => {
   try {
@@ -34,4 +35,36 @@ export const deleteProfileImage = () => {
 //닉네임 수정
 export const updateNickname = ({ newNickname }: { newNickname: string }) => {
   return client.put("/api/members/me", { nickname: newNickname });
+};
+
+export const getHistoryGraph = async (
+  startDate?: string,
+  endDate?: string,
+  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY",
+) => {
+  try {
+    const { startDate: defaultStartDate, endDate: defaultEndDate } =
+      getDefaultDates();
+    const response = await client.get("/api/activity/graph", {
+      params: {
+        startDate: startDate || defaultStartDate,
+        endDate: endDate || defaultEndDate,
+        type,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error("활동 그래프를 불러올 수 없습니다.", error);
+    return null;
+  }
+};
+
+export const getActivityList = async (
+  offset: number,
+  limit: number,
+): Promise<ActivityListType> => {
+  const response = await client.get("/api/activity/list", {
+    params: { offset, limit },
+  });
+  return response.data.data;
 };

@@ -1,11 +1,21 @@
 //유저 관련 리액트 쿼리
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
+import {
+  ActivityDataType,
+  ActivityListType,
+} from "../../types/activityHistoryType";
 import {
   getMemberInfo,
   uploadProfileImage,
   updateNickname,
   deleteProfileImage,
+  getHistoryGraph,
+  getActivityList,
 } from "../../api/user";
 
 //회원 정보 get
@@ -15,6 +25,7 @@ export const useMemberInfoQuery = () => {
     queryFn: getMemberInfo,
   });
 };
+
 //프로필 이미지 수정
 export const useUploadProfileImageMutation = () => {
   const queryClient = useQueryClient();
@@ -56,5 +67,26 @@ export const useUpdateNicknameMutation = () => {
     onError: error => {
       console.error("닉네임 변경 실패:", error);
     },
+  });
+};
+
+//활동히스토리 그래프 조회
+export const useActivityHistoryGraphQuery = (
+  startDate?: string,
+  endDate?: string,
+  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY",
+) => {
+  return useQuery<ActivityDataType[], Error>({
+    queryKey: ["historyGraph", { startDate, endDate, type }],
+    queryFn: () => getHistoryGraph(startDate, endDate, type),
+    enabled: !!startDate && !!endDate,
+  });
+};
+
+export const useActivityListQuery = (offset: number, limit: number) => {
+  return useQuery<ActivityListType, Error>({
+    queryKey: ["activityList", offset, limit],
+    queryFn: () => getActivityList(offset, limit),
+    placeholderData: keepPreviousData,
   });
 };

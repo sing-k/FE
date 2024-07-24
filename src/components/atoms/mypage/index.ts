@@ -10,3 +10,5 @@ export { default as MyBoardType } from "./MyBoardType";
 export { default as MyThumbnailImg } from "./MyThumbnailImg";
 export { default as MyThumbnailType } from "./MyThumbnailType";
 export { default as MyGenre } from "./MyGenre";
+export { default as DateInput } from "./DateInput";
+export { default as TypeSelect } from "./TypeSelect";

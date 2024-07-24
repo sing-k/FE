@@ -16,15 +16,25 @@ const MyPageTabMenu = ({ tabObj, currentTab, onClickTab }: Props) => {
   return (
     <>
       <Container>
-        {Object.keys(tabObj).map(key => (
-          <Tab
-            key={key}
-            className={key === currentTab ? "active" : "none"}
-            onClick={onClickTab.bind(this, key)}
-          >
-            {tabObj[key]} <span>ㅣ {0}</span>
-          </Tab>
-        ))}
+        {Object.keys(tabObj).map(key =>
+          key === "activityHistory" ? (
+            <Tab
+              key={key}
+              className={key === currentTab ? "active" : "none"}
+              onClick={onClickTab.bind(this, key)}
+            >
+              {tabObj[key]}
+            </Tab>
+          ) : (
+            <Tab
+              key={key}
+              className={key === currentTab ? "active" : "none"}
+              onClick={onClickTab.bind(this, key)}
+            >
+              {tabObj[key]} <span>ㅣ {0}</span>
+            </Tab>
+          ),
+        )}
       </Container>
     </>
   );
