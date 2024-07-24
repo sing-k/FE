@@ -11,11 +11,14 @@ import {
   MyComment,
   MyPageTabMenu,
   ProfileEditModal,
+  MyActivityHistory,
 } from "../organisms";
 import { pathName } from "../../App";
 import useModal from "../../hooks/useModal";
 import { useMediaQueries } from "../../hooks";
+
 const tabObj = {
+  activityHistory: "활동 히스토리",
   albumReview: "평가한앨범",
   recommendMusic: "음악추천글",
   freeBoard: "자유글",
@@ -28,7 +31,9 @@ const Mypage = () => {
   const { data } = useMemberInfoQuery();
   const navigate = useNavigate();
   const location = useLocation();
-  const [currentTab, setCurrentTab] = useState<TabKey | string>("albumReview");
+  const [currentTab, setCurrentTab] = useState<TabKey | string>(
+    "activityHistory",
+  );
   const { isOpen, openModal, closeModal } = useModal();
   const { isMobile } = useMediaQueries();
   const onClickTab = (key?: string) => {
@@ -42,7 +47,7 @@ const Mypage = () => {
     if (currentTab) {
       setCurrentTab(currentTab);
     } else {
-      setCurrentTab("albumReview");
+      setCurrentTab("activityHistory");
     }
   }, [location]);
 
@@ -59,6 +64,7 @@ const Mypage = () => {
         />
       </TabContainer>
       <ContentContainer>
+        {currentTab === "activityHistory" && <MyActivityHistory />}
         {currentTab === "albumReview" && <MyAlbumReview />}
         {currentTab === "recommendMusic" && <MyMusicRecommendation />}
         {currentTab === "freeBoard" && <MyFreeBoard />}
