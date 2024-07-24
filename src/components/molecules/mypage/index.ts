@@ -7,3 +7,5 @@ export { default as MyFreeBoardFooter } from "./MyFreeBoardFooter";
 export { default as MyCommentFooter } from "./MyCommentFooter";
 export { default as MyMusicHeader } from "./MyMusicHeader";
 export { default as MyMusicFooter } from "./MyMusicFooter";
+export { default as MyActivityList } from "./MyActivityList";
+export { default as MyActivityGraph } from "./MyActivityGraph";
