@@ -63,6 +63,7 @@ const Title = styled.div`
   border-bottom: 1px solid ${color.COLOR_DARKGRAY_TEXT};
   background-color: ${color.COLOR_MAIN_SKYBLUE};
   border-radius: 5px 5px 0 0;
+  text-align: start;
 `;
 const Div = styled.div`
   ${glassEffectStyle()};
