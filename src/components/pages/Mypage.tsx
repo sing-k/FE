@@ -49,13 +49,22 @@ const Mypage = () => {
     } else {
       setCurrentTab("activityHistory");
     }
-  }, [location]);
+
+    if (location.pathname === `${pathName.myPage}${pathName.editProfile}`) {
+      openModal();
+    } else {
+      closeModal();
+    }
+  }, [location, openModal, closeModal]);
 
   if (currentTab === "") return null;
 
   return (
     <Container>
-      <MyInfo data={data} openModal={openModal} />
+      <MyInfo
+        data={data}
+        openModal={() => navigate(`${pathName.myPage}${pathName.editProfile}`)}
+      />
       <TabContainer $isMobile={isMobile}>
         <MyPageTabMenu
           tabObj={tabObj}
@@ -73,7 +82,7 @@ const Mypage = () => {
       <ProfileEditModal
         userData={data}
         isOpen={isOpen}
-        closeModal={closeModal}
+        closeModal={() => navigate(pathName.myPage)}
       />
     </Container>
   );
