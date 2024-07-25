@@ -47,6 +47,7 @@ const Container = styled.div`
   flex-direction: column;
   border-radius: 5px;
   border: 1px solid ${color.COLOR_DARKGRAY_TEXT};
+  overflow-x: scroll;
 `;
 const ActivityContainer = styled.div`
   ${glassEffectStyle()};
