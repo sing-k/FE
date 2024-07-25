@@ -4,7 +4,11 @@ import { Text } from "../../common";
 import color from "../../../styles/color";
 import IconImage from "../../../assets/img/singk-logo.png";
 
-const MyBoardHeader = () => {
+type MyBoardHeaderProps = {
+  showDeleteBtn?: boolean;
+};
+
+const MyBoardHeader = ({ showDeleteBtn = true }: MyBoardHeaderProps) => {
   return (
     <Container>
       <MyIcon src={IconImage} rounded={true} />
@@ -17,7 +21,7 @@ const MyBoardHeader = () => {
         <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
           2024.06.25
         </Text>
-        <MyDeleteBtn />
+        {showDeleteBtn && <MyDeleteBtn />}
       </ColumnDiv>
     </Container>
   );

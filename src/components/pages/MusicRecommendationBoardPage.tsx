@@ -4,6 +4,11 @@ import Input from "../common/Input";
 import styled from "styled-components";
 import { TbMusicSearch } from "react-icons/tb";
 import RecommendCard from "../molecules/recommendBoard/RecommendBoardCard";
+import MyMusicRecommendation from "../organisms/mypage/MyMusicRecommendation";
+import { MyMusicHeader, MyMusicFooter, MyBoardHeader } from "../molecules/";
+import { MyThumbnailImg } from "../atoms/mypage/index";
+import Thumbnail from "../../assets/img/singk-logo.png";
+import { glassEffectStyle } from "../../styles/style";
 
 const MusicRecommendationBoardPage = () => {
   return (
@@ -18,14 +23,32 @@ const MusicRecommendationBoardPage = () => {
           }}
         />
       </Container>
-      <CardContainer>
-        <RecommendCard />
-        <RecommendCard />
-        <RecommendCard />
-        <RecommendCard />
-        <RecommendCard />
-        <RecommendCard />
-      </CardContainer>
+      <BottomContainer>
+        <Card>
+          <MyThumbnailImg src={Thumbnail} type="text" />
+          <MyMusicHeader />
+          <MyBoardHeader showDeleteBtn={false} />
+          <MyMusicFooter />
+        </Card>
+        <Card>
+          <MyThumbnailImg src={Thumbnail} type="youtube" />
+          <MyMusicHeader />
+          <MyBoardHeader showDeleteBtn={false} />
+          <MyMusicFooter />
+        </Card>
+        <Card>
+          <MyThumbnailImg src={Thumbnail} type="youtube" />
+          <MyMusicHeader />
+          <MyBoardHeader showDeleteBtn={false} />
+          <MyMusicFooter />
+        </Card>
+        <Card>
+          <MyThumbnailImg src={Thumbnail} type="youtube" />
+          <MyMusicHeader />
+          <MyBoardHeader showDeleteBtn={false} />
+          <MyMusicFooter />
+        </Card>
+      </BottomContainer>
     </BoardListTemplate>
   );
 };
@@ -38,28 +61,22 @@ const Container = styled.div`
   gap: 1rem; /* Optional: add some space between elements */
 `;
 
-const CardContainer = styled.div`
+const BottomContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  justify-content: center; /* Center the grid items */
+  padding: 0;
+`;
+
+const Card = styled.div`
+  ${glassEffectStyle()}
+  min-width: 280px;
+  padding: 1rem;
+  border-radius: 5px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 1rem; /* Space between cards */
-
-  @media (max-width: 1024px) {
-    justify-content: center;
-  }
-
-  @media (max-width: 768px) {
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 0.5rem;
-    padding: 0.5rem;
-  }
-
-  @media (max-width: 480px) {
-    flex-wrap: wrap;
-    justify-content: center;
-    overflow-x: hidden;
-    gap: 1rem;
-  }
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0.5rem;
+  justify-content: center;
 `;
