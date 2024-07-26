@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Text } from "../../common";
 import { MyBoardHeader, MyCommentFooter } from "../../molecules";
 import { glassEffectStyle } from "../../../styles/style";
-import color from "../../../styles/color";
 const MyComment = () => {
   return (
     <Container>
