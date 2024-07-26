@@ -37,3 +37,30 @@ export const getAlbumReviewList = async ({
     return res.data.data;
   }
 };
+
+export type AlbumReviewArgs = {
+  albumId: string;
+  content: string;
+  score: number;
+};
+
+export const postAlbumReivew = async ({
+  albumId,
+  content,
+  score,
+}: AlbumReviewArgs): Promise<boolean> => {
+  try {
+    const res = await client.post(`/api/reviews/albums/${albumId}`, {
+      content,
+      score,
+    });
+
+    if (res.data.statusCode !== 200) {
+      throw new Error();
+    }
+
+    return true;
+  } catch (_) {
+    return false;
+  }
+};

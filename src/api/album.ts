@@ -72,9 +72,14 @@ export const getAlbumList = async ({
     }
 
     const res = await client.get(url);
-    // console.log("res: ", res.data);
+
+    if (res.data.statusCode !== 200) {
+      throw new Error(res.data.message || "Album List Error");
+    }
+
     return res.data.data.items as AlbumType[];
   } catch (err) {
-    throw new Error(`get album ${albumType} list error `);
+    console.log(err);
+    return [];
   }
 };
