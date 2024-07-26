@@ -7,7 +7,7 @@ import IconImage from "../../../assets/img/singk-logo.png";
 const MyAlbumReviewHeader = () => {
   return (
     <Container>
-      <MyIcon src={IconImage} rounded={false} />
+      <MyIcon src={IconImage} $rounded={false} />
       <TitleDiv>
         <Text color="black" size="1rem" bold="700">
           Discord(TAK Remix)
