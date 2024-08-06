@@ -1,37 +1,34 @@
 import { useState } from "react";
-
-import DatePicker from "react-datepicker";
-
 import styled from "styled-components";
-
-import "react-datepicker/dist/react-datepicker.css"; // 수정된 부분
-
-import { FaRegCalendarCheck } from "react-icons/fa";
-
-import { convertTime } from "../../../utils/auth/convertTime";
 
 type AuthCalendarProps = {
   onDateChange: (date: string) => void;
   register: any;
 };
+
 const AuthCalendar = ({ onDateChange, register }: AuthCalendarProps) => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const handleDateChange = (date: Date) => {
+  const [startDate, setStartDate] = useState<string>(
+    new Date().toISOString().split("T")[0],
+  );
+
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const date = event.target.value;
     setStartDate(date);
-    const formattedDate = convertTime(date).split("T")[0];
-    onDateChange(formattedDate);
+    onDateChange(date);
   };
+
+  const today = new Date().toISOString().split("T")[0];
   return (
     <Container>
       <StyledLabel>
-        <DatePicker
+        <StyledInput
           {...register}
-          selected={startDate}
-          dateFormat="yyyy-MM-dd"
+          type="date"
+          value={startDate}
           onChange={handleDateChange}
-          customInput={<StyledInput />}
+          max={today}
+          onClick={e => e.currentTarget.showPicker()}
         />
-        <FaRegCalendarCheck size="1.5rem" color="#6741ff" />
       </StyledLabel>
     </Container>
   );
@@ -40,9 +37,7 @@ const AuthCalendar = ({ onDateChange, register }: AuthCalendarProps) => {
 export default AuthCalendar;
 
 const Container = styled.div`
-  .react-datepicker-wrapper {
-    width: 100%;
-  }
+  width: 100%;
 `;
 const StyledLabel = styled.label`
   width: 100%;
@@ -54,13 +49,13 @@ const StyledLabel = styled.label`
   }
 `;
 const StyledInput = styled.input`
-  font-size: 0.8rem !important;
-  border: 1px solid #aeaeae !important;
-  border-radius: 8px !important;
-  width: 90% !important;
-  height: 20% !important;
-  padding: 2.5% !important;
-  margin: 2% 0 2% 0 !important;
+  font-size: 0.8rem;
+  border: 1px solid #aeaeae;
+  border-radius: 8px;
+  width: 100%;
+  height: 20%;
+  padding: 2.5%;
+  margin: 2% 0 2% 0;
   text-align: center;
   &:focus {
     outline: none;
