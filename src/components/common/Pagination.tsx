@@ -39,9 +39,12 @@ const Pagination = ({
 
   return (
     <Container>
-      <Button onClick={handlePrevGroup} disabled={startPage === 0}>
-        <IoIosArrowBack />
-      </Button>
+      {totalPages !== 0 ? (
+        <Button onClick={handlePrevGroup} disabled={startPage === 0}>
+          <IoIosArrowBack />
+        </Button>
+      ) : undefined}
+
       {Array.from({ length: endPage - startPage }, (_, index) => (
         <Button
           key={startPage + index}
@@ -58,9 +61,11 @@ const Pagination = ({
           {startPage + index + 1}
         </Button>
       ))}
-      <Button onClick={handleNextGroup} disabled={endPage >= totalPages}>
-        <IoIosArrowForward />
-      </Button>
+      {totalPages !== 0 ? (
+        <Button onClick={handleNextGroup} disabled={endPage >= totalPages}>
+          <IoIosArrowForward />
+        </Button>
+      ) : undefined}
     </Container>
   );
 };
