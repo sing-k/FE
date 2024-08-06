@@ -16,7 +16,7 @@ const MyInfo = ({ data, openModal }: MyInfoProps) => {
     <Container $isMobile={isMobile}>
       <NavbarProfileImg data={data} width={"100px"} />
       <MyInfoSection data={data} openModal={openModal} />
-      <MyAverageRating />
+      {data.statistics && <MyAverageRating data={data.statistics} />}
     </Container>
   );
 };

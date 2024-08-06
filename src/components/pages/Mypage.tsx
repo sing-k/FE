@@ -16,7 +16,7 @@ import {
 import { pathName } from "../../App";
 import useModal from "../../hooks/useModal";
 import { useMediaQueries } from "../../hooks";
-
+import Loading from "../common/Loading";
 const tabObj = {
   activityHistory: "활동 히스토리",
   albumReview: "평가한앨범",
@@ -28,7 +28,7 @@ const tabObj = {
 type TabKey = keyof typeof tabObj;
 
 const Mypage = () => {
-  const { data } = useMemberInfoQuery();
+  const { data, isLoading } = useMemberInfoQuery();
   const navigate = useNavigate();
   const location = useLocation();
   const [currentTab, setCurrentTab] = useState<TabKey | string>(
@@ -58,7 +58,9 @@ const Mypage = () => {
   }, [location, openModal, closeModal]);
 
   if (currentTab === "") return null;
-
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <Container>
       <MyInfo

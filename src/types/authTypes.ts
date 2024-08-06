@@ -48,4 +48,12 @@ export interface UserDataType {
   modifiedAt: string;
   name: string;
   nickname: string;
+  statistics: UserDataStatistics;
+}
+
+export interface UserDataStatistics {
+  averageReviewScore: number;
+  totalActivityScore: number;
+  totalReview: number;
+  totalReviewScore: number;
 }
