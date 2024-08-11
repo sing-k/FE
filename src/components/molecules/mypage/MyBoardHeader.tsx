@@ -11,7 +11,7 @@ type MyBoardHeaderProps = {
 const MyBoardHeader = ({ showDeleteBtn = true }: MyBoardHeaderProps) => {
   return (
     <Container>
-      <MyIcon src={IconImage} rounded={true} />
+      <MyIcon src={IconImage} $rounded={true} />
       <TitleDiv>
         <Text color={color.COLOR_DARKGRAY_TEXT} size="1rem" bold="700">
           킹연두

@@ -76,7 +76,7 @@ const Container = styled.div`
   flex-direction: column;
   border-radius: 5px;
   border: 1px solid ${color.COLOR_DARKGRAY_TEXT};
-  overflow-x: scroll;
+  overflow-x: auto;
 `;
 const ColumnDiv = styled.div`
   display: flex;

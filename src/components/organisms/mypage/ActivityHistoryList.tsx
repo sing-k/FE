@@ -43,11 +43,12 @@ const ActivityHistoryList: React.FC = () => {
 export default ActivityHistoryList;
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   border-radius: 5px;
   border: 1px solid ${color.COLOR_DARKGRAY_TEXT};
-  overflow-x: scroll;
 `;
 const ActivityContainer = styled.div`
   ${glassEffectStyle()};

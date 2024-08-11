@@ -1,21 +1,23 @@
+import { useState } from "react";
 import BoardListTemplate from "../templates/board/BoardListTemplate";
 import PostSelection from "../atoms/post/PostSelection";
 import Input from "../common/Input";
 import styled from "styled-components";
 import { TbMusicSearch } from "react-icons/tb";
-import RecommendCard from "../molecules/recommendBoard/RecommendBoardCard";
-import MyMusicRecommendation from "../organisms/mypage/MyMusicRecommendation";
 import { MyMusicHeader, MyMusicFooter, MyBoardHeader } from "../molecules/";
 import { MyThumbnailImg } from "../atoms/mypage/index";
 import Thumbnail from "../../assets/img/singk-logo.png";
 import { glassEffectStyle } from "../../styles/style";
 
 const MusicRecommendationBoardPage = () => {
+  const [input, setInput] = useState<string>("");
   return (
     <BoardListTemplate>
       <Container>
         <PostSelection />
         <Input
+          input={input}
+          setInput={setInput}
           width="0.2rem"
           placeholder="검색어 입력"
           button={{
@@ -25,7 +27,7 @@ const MusicRecommendationBoardPage = () => {
       </Container>
       <BottomContainer>
         <Card>
-          <MyThumbnailImg src={Thumbnail} type="text" />
+          <MyThumbnailImg src={Thumbnail} />
           <MyMusicHeader />
           <MyBoardHeader showDeleteBtn={false} />
           <MyMusicFooter />

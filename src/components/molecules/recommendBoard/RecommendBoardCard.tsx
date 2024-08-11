@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { PostCommentNum, PostLikeNum, PostWriter } from "../../atoms";
 import PostDay from "../../atoms/post/PostDay";
-import FreeBoardTitle from "../../atoms/freeBoard/FreeBoardTitle";
-import FreeBoardContents from "../../atoms/freeBoard/FreeBoardContents";
 import { glassEffectStyle } from "../../../styles/style";
 import RecommendGenre from "./../../atoms/recommendBoard/RecommendGenre";
 import RecommendBoardTitle from "./../../atoms/recommendBoard/RecommendBoardTitle";
@@ -77,13 +75,6 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-`;
-
-const Border = styled.div`
-  width: 90%;
-  height: 1.5px;
-  margin: auto;
-  background: linear-gradient(to right, #6d56ff, #ffa1f6);
 `;
 
 const FirstWrapper = styled.div`
