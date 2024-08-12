@@ -7,8 +7,14 @@ import styled from "styled-components";
 
 import { TbMusicSearch } from "react-icons/tb";
 
+import { useInfiniteFreePostListQuery } from "../../hooks/queries/freePost";
+
+import InfiniteScrollList from "../common/InfiniteScrollList";
+
 const BoardPage = () => {
   const [input, setInput] = useState<string>("");
+  const queryResult = useInfiniteFreePostListQuery();
+
   return (
     <>
       <BoardListTemplate>
@@ -24,12 +30,14 @@ const BoardPage = () => {
             }}
           />
         </Container>
-        <FreeBoardItem />
-        <FreeBoardItem />
-        <FreeBoardItem />
-        <FreeBoardItem />
-        <FreeBoardItem />
-        <FreeBoardItem />
+
+        <InfiniteScrollList
+          queryResult={queryResult}
+          ItemComponent={FreeBoardItem}
+          containerStyle={{
+            padding: "0 1rem 1rem",
+          }}
+        />
       </BoardListTemplate>
     </>
   );

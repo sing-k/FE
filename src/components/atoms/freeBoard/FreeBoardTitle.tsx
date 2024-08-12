@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
-const FreeBoardTitle = () => {
-  return <Title>심심한 사람 모여주세요! 음악 얘기 해요</Title>;
+type Props = {
+  title: string;
+};
+
+const FreeBoardTitle = ({ title }: Props) => {
+  return <Title>{title}</Title>;
 };
 
 export default FreeBoardTitle;
 
 const Title = styled.p`
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-top: 0.2rem;
 `;

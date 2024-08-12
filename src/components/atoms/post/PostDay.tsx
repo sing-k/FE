@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
 import color from "../../../styles/color";
+import { dateFormat } from "../../../utils/date";
 
-const PostDay = () => {
+type Props = {
+  createdAt: string;
+};
+
+const PostDay = ({ createdAt }: Props) => {
   return (
     <Container>
-      <Text>2024.06.01</Text>
+      <Text>{dateFormat(createdAt)}</Text>
     </Container>
   );
 };
