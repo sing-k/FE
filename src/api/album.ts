@@ -64,9 +64,17 @@ export const getAlbumList = async ({
     let url = `/api/albums/list/${endPoint}?limit=${ALBUM_LIST_LIMIT}`;
 
     if (pageParam) {
-      const { cursorId, cursorData } = pageParam as AlbumPageParam;
-      // console.log({ cursorId, cursorData });
-      if (cursorId && cursorData) {
+      let { cursorId, cursorData } = pageParam as AlbumPageParam;
+
+      if (cursorId !== "" && cursorData !== "") {
+        if (
+          queryName === "cursor-score" &&
+          typeof cursorData === "number" &&
+          Number.isInteger(cursorData)
+        ) {
+          cursorData = (cursorData as number).toFixed(1);
+        }
+
         url += `&cursor-id=${cursorId}&${queryName}=${cursorData}`;
       }
     }
