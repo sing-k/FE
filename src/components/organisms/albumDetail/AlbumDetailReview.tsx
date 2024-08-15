@@ -15,7 +15,7 @@ const AlbumDetailReview = ({ albumId }: Props) => {
     <Container>
       <AlbumReviewDashboard albumId={albumId} />
 
-      <AlbumReviewInput />
+      <AlbumReviewInput albumId={albumId} />
 
       <AlbumReviewList albumId={albumId} />
     </Container>

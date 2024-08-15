@@ -1,10 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  useMutation,
+  UseMutationResult,
+} from "@tanstack/react-query";
 
 import {
   getAlbumDetail,
   getAlbumReviewStatistic,
   getAlbumReviewList,
   AlbumReviewListArgs,
+  postAlbumReivew,
+  AlbumReviewArgs,
 } from "../../api/albumDetail";
 
 export const useAlbumDetailQuery = (albumId: string) => {
@@ -28,5 +35,20 @@ export const useAlbumReviewListQuery = (args: AlbumReviewListArgs) => {
     queryKey: ["albumReviewList", args],
     queryFn: () => getAlbumReviewList(args),
     enabled: !!args.albumId,
+  });
+};
+
+export const usePostAlbumReview = (
+  albumId: string
+): UseMutationResult<boolean, unknown, AlbumReviewArgs, unknown> => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: postAlbumReivew,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["albumReviewList", { albumId }],
+      });
+    },
   });
 };

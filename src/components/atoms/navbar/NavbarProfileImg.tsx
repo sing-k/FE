@@ -8,7 +8,7 @@ const NavbarProfileImg = ({ data, width = "50px" }: any) => {
   const imageSrc = data?.imageUrl;
   return (
     <Container style={{ width }}>
-      {imageSrc ? <Image src={imageSrc} /> : <NoneImage />}
+      {imageSrc ? <Image src={imageSrc} /> : <NoneImage size={"50%"} />}
     </Container>
   );
 };
@@ -26,6 +26,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
 `;
 
 const Image = styled.img`
@@ -36,5 +37,4 @@ const Image = styled.img`
 
 const NoneImage = styled(FaUser)`
   color: white;
-  font-size: 1.5rem;
 `;

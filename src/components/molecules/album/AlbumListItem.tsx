@@ -25,8 +25,8 @@ const AlbumListItem = ({ data }: Props) => {
         </div>
 
         <div>
-          <AlbumRating averageScore={data.averageScore} />
-          <AlbumRatingNum count={data.count} />
+          <AlbumRating averageScore={data.statistics.averageScore} />
+          <AlbumRatingNum count={data.statistics.count} />
           <Button>평가하기</Button>
         </div>
       </LayOut>

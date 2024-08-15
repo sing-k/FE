@@ -32,14 +32,14 @@ export const useInfiniteAlbumListQuery = (albumType: AlbumRequestType) => {
       }
 
       const lastData = lastPage[lastPage.length - 1];
-      const cursorId = lastData.id;
+      const cursorId = lastData.statistics.id;
       const cursorData =
         albumType === "recent"
           ? lastData.modifiedAt
           : albumType === "averageScore"
-            ? lastData.averageScore
+            ? lastData.statistics.averageScore
             : albumType === "reviewCount"
-              ? lastData.count
+              ? lastData.statistics.count
               : "";
 
       const nextPageParam = { cursorId, cursorData } as AlbumPageParam;

@@ -64,17 +64,30 @@ export const getAlbumList = async ({
     let url = `/api/albums/list/${endPoint}?limit=${ALBUM_LIST_LIMIT}`;
 
     if (pageParam) {
-      const { cursorId, cursorData } = pageParam as AlbumPageParam;
-      // console.log({ cursorId, cursorData });
-      if (cursorId && cursorData) {
+      let { cursorId, cursorData } = pageParam as AlbumPageParam;
+
+      if (cursorId !== "" && cursorData !== "") {
+        if (
+          queryName === "cursor-score" &&
+          typeof cursorData === "number" &&
+          Number.isInteger(cursorData)
+        ) {
+          cursorData = (cursorData as number).toFixed(1);
+        }
+
         url += `&cursor-id=${cursorId}&${queryName}=${cursorData}`;
       }
     }
 
     const res = await client.get(url);
-    // console.log("res: ", res.data);
+
+    if (res.data.statusCode !== 200) {
+      throw new Error(res.data.message || "Album List Error");
+    }
+
     return res.data.data.items as AlbumType[];
   } catch (err) {
-    throw new Error(`get album ${albumType} list error `);
+    console.log(err);
+    return [];
   }
 };

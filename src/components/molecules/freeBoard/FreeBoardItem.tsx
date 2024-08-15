@@ -1,40 +1,32 @@
 import styled from "styled-components";
 
-import { PostCommentNum, PostLikeNum, PostWriter } from "../../atoms";
+import { FreePostType } from "../../../types/freePostType";
 
+import { PostTitle } from "../../atoms";
 import PostDay from "../../atoms/post/PostDay";
-import FreeBoardTitle from "../../atoms/freeBoard/FreeBoardTitle";
-import FreeBoardContents from "../../atoms/freeBoard/FreeBoardContents";
-import { glassEffectStyle } from "../../../styles/style";
+import UserInfo from "../../common/UserInfo";
+import PostLikeComments from "../../atoms/post/PostLikeComments";
 
-const FreeBoardItem = () => {
+type Props = {
+  data: FreePostType;
+};
+
+const FreeBoardItem = ({ data }: Props) => {
+  const { title, writer, createdAt, like, comments } = data;
+
   return (
     <Container>
       <Contents>
         <Wrapper>
-          <SmallWrapper>
-            <PostWriter />
+          <UserInfo nickname={writer.nickname} profileImage={writer.imageUrl} />
 
-            {/* <PostTime /> */}
-          </SmallWrapper>
-
-          <SmallWrapper>
-            {/* <PostLikeNum />
-            <PostCommentNum /> */}
-            <PostDay />
-          </SmallWrapper>
+          <PostDay createdAt={createdAt} />
         </Wrapper>
 
         <Wrapper>
-          <FreeBoardTitle />
-        </Wrapper>
+          <PostTitle title={title} />
 
-        <Wrapper>
-          <FreeBoardContents />
-          <SmallWrapper>
-            <PostLikeNum />
-            <PostCommentNum />
-          </SmallWrapper>
+          <PostLikeComments like={like.count} comments={comments} />
         </Wrapper>
       </Contents>
 
@@ -45,20 +37,21 @@ const FreeBoardItem = () => {
 
 export default FreeBoardItem;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+  cursor: pointer;
+`;
 
 const Contents = styled.div`
-  ${glassEffectStyle()}
   width: 100%;
-  padding: 0.5rem 0.8rem;
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  border-radius: 0.3rem;
 `;
 
 const Border = styled.div`
-  width: 98%;
+  width: 100%;
   height: 1.5px;
   margin: auto;
   background: linear-gradient(to right, #6d56ff, #ffa1f6);
@@ -69,11 +62,5 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const SmallWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 1rem;
 `;

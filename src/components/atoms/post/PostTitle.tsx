@@ -1,12 +1,20 @@
 import styled from "styled-components";
 
-const PostTitle = () => {
-  return <Title>심심한 사람 모여주세요! 음악 얘기 해요</Title>;
+type Props = {
+  title: string;
+};
+
+const PostTitle = ({ title }: Props) => {
+  return <Title>{title}</Title>;
 };
 
 export default PostTitle;
 
 const Title = styled.p`
-  font-weight: 500;
+  font-weight: bold;
   font-size: 1rem;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

@@ -4,8 +4,11 @@ export const albumDummy: AlbumType = {
   id: "1FVw30SoC91lq1UZ6N9rwN",
   name: "Supernatural",
   releasedAt: "2024-06-21 00:00:00",
-  count: 0,
-  averageScore: 0,
+  statistics: {
+    id: 1,
+    count: 0,
+    averageScore: 0,
+  },
   artists: [
     {
       id: "6HvZYsbFfjnjFrWF950C9d",
@@ -40,8 +43,11 @@ export const albumListDummy: AlbumType[] = [
     id: "6XRGc3GNodkhSrPwHnx1KX",
     name: "NJWMX",
     releasedAt: "2023-12-19 00:00:00",
-    count: 0,
-    averageScore: 0.0,
+    statistics: {
+      id: 1,
+      count: 0,
+      averageScore: 0,
+    },
     artists: [
       {
         id: "6HvZYsbFfjnjFrWF950C9d",
@@ -74,8 +80,11 @@ export const albumListDummy: AlbumType[] = [
     id: "3ZWAsdjkvhG6PuUGIIwpQq",
     name: "Rebirth In Paradise",
     releasedAt: "2024-01-17 00:00:00",
-    count: 0,
-    averageScore: 0.0,
+    statistics: {
+      id: 2,
+      count: 0,
+      averageScore: 0,
+    },
     artists: [
       {
         id: "5ApXzDVk6mjD8qZLsBxMjH",
@@ -108,8 +117,11 @@ export const albumListDummy: AlbumType[] = [
     id: "1FVw30SoC91lq1UZ6N9rwN",
     name: "Supernatural",
     releasedAt: "2024-06-21 00:00:00",
-    count: 0,
-    averageScore: 0.0,
+    statistics: {
+      id: 3,
+      count: 0,
+      averageScore: 0,
+    },
     artists: [
       {
         id: "6HvZYsbFfjnjFrWF950C9d",
@@ -142,8 +154,11 @@ export const albumListDummy: AlbumType[] = [
     id: "5pLlVEL5tiXe0QvhaoOhi0",
     name: "Buddha Handsome",
     releasedAt: "2023-07-28 00:00:00",
-    count: 0,
-    averageScore: 0.0,
+    statistics: {
+      id: 4,
+      count: 0,
+      averageScore: 0,
+    },
     artists: [
       {
         id: "5ApXzDVk6mjD8qZLsBxMjH",
@@ -176,8 +191,11 @@ export const albumListDummy: AlbumType[] = [
     id: "0EhZEM4RRz0yioTgucDhJq",
     name: "How Sweet",
     releasedAt: "2024-05-24 00:00:00",
-    count: 0,
-    averageScore: 0.0,
+    statistics: {
+      id: 5,
+      count: 0,
+      averageScore: 0,
+    },
     artists: [
       {
         id: "6HvZYsbFfjnjFrWF950C9d",

@@ -7,9 +7,39 @@ import { glassEffectStyle } from "../../../styles/style";
 import AlbumStarPicker from "../../molecules/albumDetail/AlbumStarPicker";
 import Input from "../../common/Input";
 
-const AlbumReviewInput = () => {
+import { usePostAlbumReview } from "../../../hooks/queries/albumDetail";
+
+type Props = {
+  albumId: string;
+};
+
+const AlbumReviewInput = ({ albumId }: Props) => {
   const [stars, setStars] = useState<number>(0);
   const [input, setInput] = useState<string>("");
+
+  const postAlbumReviewMutation = usePostAlbumReview(albumId);
+
+  const checkValidation = (): boolean => {
+    if (stars === 0) {
+      alert("별점을 선택해주세요!");
+      return false;
+    }
+    if (input === "") {
+      alert("감상평을 작성해주세요!");
+      return false;
+    }
+    return true;
+  };
+
+  const onClickButton = async () => {
+    if (!checkValidation()) return;
+
+    postAlbumReviewMutation.mutate({
+      albumId,
+      content: input,
+      score: stars,
+    });
+  };
 
   return (
     <Container>
@@ -22,7 +52,7 @@ const AlbumReviewInput = () => {
         setInput={setInput}
         button={{
           text: "등록",
-          onClickButton: () => {},
+          onClickButton: onClickButton,
         }}
         placeholder="감상평을 작성해 주세요!"
         textarea={true}
