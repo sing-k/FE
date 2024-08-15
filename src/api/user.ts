@@ -40,7 +40,7 @@ export const updateNickname = ({ newNickname }: { newNickname: string }) => {
 export const getHistoryGraph = async (
   startDate?: string,
   endDate?: string,
-  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY",
+  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY"
 ) => {
   try {
     const { startDate: defaultStartDate, endDate: defaultEndDate } =
@@ -61,7 +61,7 @@ export const getHistoryGraph = async (
 
 export const getActivityList = async (
   offset: number,
-  limit: number,
+  limit: number
 ): Promise<ActivityListType> => {
   const response = await client.get("/api/activity/list", {
     params: { offset, limit },

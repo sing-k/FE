@@ -10,7 +10,6 @@ import { FaStar, FaMusic } from "react-icons/fa";
 import { useMediaQueries } from "../../hooks";
 import { useAlbumListQuery } from "../../hooks/queries/album";
 
-import { HomePostList } from "../organisms";
 import { AlbumCarousel } from "../organisms/album";
 import Loading from "../common/Loading";
 import ErrorMessage from "../common/ErrorMessage";
@@ -36,8 +35,7 @@ const MainPage = () => {
       </AlbumContainer>
 
       <PostListWrapper style={isPc ? { flexDirection: "row" } : {}}>
-        <HomePostList text="음악 추천 게시판" />
-        <HomePostList text="자유 게시판" />
+        {/* 자유게시글, 음악추천게시글 목록 */}
       </PostListWrapper>
 
       <Outlet />

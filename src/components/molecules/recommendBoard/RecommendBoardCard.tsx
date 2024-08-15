@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { PostCommentNum, PostLikeNum, PostWriter } from "../../atoms";
-import PostDay from "../../atoms/post/PostDay";
+import { PostCommentNum, PostLikeNum } from "../../atoms";
 import { glassEffectStyle } from "../../../styles/style";
 import RecommendGenre from "./../../atoms/recommendBoard/RecommendGenre";
 import RecommendBoardTitle from "./../../atoms/recommendBoard/RecommendBoardTitle";
@@ -23,13 +22,9 @@ const RecommendCard = () => {
         </FirstWrapper>
 
         <Wrapper>
-          <SmallWrapper>
-            <PostWriter />
-          </SmallWrapper>
+          <SmallWrapper>{/* <PostWriter /> */}</SmallWrapper>
 
-          <SmallWrapper>
-            <PostDay />
-          </SmallWrapper>
+          <SmallWrapper>{/* <PostDay /> */}</SmallWrapper>
         </Wrapper>
 
         <Wrapper>

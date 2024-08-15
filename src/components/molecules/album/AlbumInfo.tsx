@@ -5,7 +5,6 @@ import {
   AlbumRating,
   ArtistName,
   AlbumRatingNum,
-  AlbumGenre,
 } from "../../atoms";
 
 import { glassEffectStyle } from "../../../styles/style";
@@ -18,20 +17,14 @@ type Props = {
 const AlbumInfo = ({ data }: Props) => {
   return (
     <Container>
-      <Wrapper>
-        <AlbumName name={data.name} />
-      </Wrapper>
+      <AlbumName name={data.name} />
+
+      <ArtistName name={data.artists[0].name} />
 
       <Wrapper>
-        <ArtistName name={data.artists[0].name} />
+        <AlbumRating averageScore={data.statistics.averageScore} />
 
-        <AlbumRating averageScore={data.averageScore} />
-      </Wrapper>
-
-      <Wrapper>
-        <AlbumGenre />
-
-        <AlbumRatingNum count={data.count} />
+        <AlbumRatingNum count={data.statistics.count} />
       </Wrapper>
     </Container>
   );
@@ -55,5 +48,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 5px;
 `;

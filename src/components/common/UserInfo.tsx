@@ -13,7 +13,7 @@ const size = {
 type SizeType = keyof typeof size;
 
 type Props = {
-  profileImage?: string;
+  profileImage?: string | null;
   nickname: string;
   size?: SizeType;
 };
@@ -70,7 +70,7 @@ const Nickname = styled.p`
 `;
 
 const ImgSize = {
-  [size.S]: "1.5rem",
+  [size.S]: "1.2rem",
   [size.M]: "2rem",
   [size.L]: "3rem",
 };
