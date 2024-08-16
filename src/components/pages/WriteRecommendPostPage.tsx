@@ -69,13 +69,6 @@ const WriteRecommendPostPage = () => {
 
       const formData = new FormData();
 
-      formData.append(
-        "post",
-        new Blob([JSON.stringify(body)], {
-          type: "application/json",
-        })
-      );
-
       if (type === "ALBUM") {
         const albumId = albumLinkToId(albumLink);
         if (!albumId) {
@@ -97,6 +90,13 @@ const WriteRecommendPostPage = () => {
         formData.append("image", selectedFile);
       }
 
+      formData.append(
+        "post",
+        new Blob([JSON.stringify(body)], {
+          type: "application/json",
+        })
+      );
+
       const res = await client.post("/api/posts/recommend", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -104,6 +104,8 @@ const WriteRecommendPostPage = () => {
       });
 
       const { statusCode } = res.data;
+
+      console.log(res);
 
       if (String(statusCode).startsWith("2")) {
         alert("음악 추천 게시글이 등록되었습니다!");
