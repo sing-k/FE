@@ -48,19 +48,13 @@ export const postAlbumReivew = async ({
   albumId,
   content,
   score,
-}: AlbumReviewArgs): Promise<boolean> => {
-  try {
-    const res = await client.post(`/api/reviews/albums/${albumId}`, {
-      content,
-      score,
-    });
+}: AlbumReviewArgs) => {
+  const res = await client.post(`/api/reviews/albums/${albumId}`, {
+    content,
+    score,
+  });
 
-    if (res.data.statusCode !== 200) {
-      throw new Error();
-    }
-
-    return true;
-  } catch (_) {
-    return false;
+  if (res.data.statusCode === 400) {
+    throw new Error("이미 감상평을 작성한 앨범입니다.");
   }
 };

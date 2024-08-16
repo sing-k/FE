@@ -40,7 +40,7 @@ export const useAlbumReviewListQuery = (args: AlbumReviewListArgs) => {
 
 export const usePostAlbumReview = (
   albumId: string
-): UseMutationResult<boolean, unknown, AlbumReviewArgs, unknown> => {
+): UseMutationResult<unknown, unknown, AlbumReviewArgs, unknown> => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -49,6 +49,10 @@ export const usePostAlbumReview = (
       queryClient.invalidateQueries({
         queryKey: ["albumReviewList", { albumId }],
       });
+      alert("감상평이 등록되었습니다.");
+    },
+    onError: (errorMessage) => {
+      alert(errorMessage);
     },
   });
 };
