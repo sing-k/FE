@@ -11,7 +11,7 @@ import {
   MusicRecommendationBoardPage,
   BoardPage,
   WritePostPage,
-  WriteMusicRMPostPage,
+  WriteRecommendPostPage,
   MusicRMPostPage,
   FreePostPage,
   Mypage,
@@ -87,7 +87,7 @@ function App() {
         <Route path={pathName.post} element={<WritePostPage />} />
         <Route
           path={pathName.musicRecommendationPost}
-          element={<WriteMusicRMPostPage />}
+          element={<WriteRecommendPostPage />}
         />
       </Routes>
     </>

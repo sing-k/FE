@@ -1,32 +1,36 @@
-import { useState, ChangeEvent } from "react";
+import { useState, useEffect } from "react";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 
 import styled from "styled-components";
 
 import YouTube from "react-youtube";
 
 import LinkInput from "./LinkInput";
+import { youtubeLinkToId } from "../../../utils/linkValidation";
 
-const SelectYoutubeForm = () => {
-  const [input, setInput] = useState<string>("");
+type Props = {
+  register: UseFormRegister<FieldValues>;
+  youtubeLink: string;
+};
+
+const SelectYoutubeForm = ({ register, youtubeLink }: Props) => {
   const [videoId, setVideoId] = useState<string>("");
 
   const onReady = (event: any) => {
     event.target.pauseVideo();
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
-    const id = new URLSearchParams(new URL(url).search).get("v");
-
-    setVideoId(id as string);
-  };
+  useEffect(() => {
+    if (youtubeLink) {
+      setVideoId(youtubeLinkToId(youtubeLink));
+    }
+  }, [youtubeLink]);
 
   return (
     <Container>
       <LinkInput
-        input={input}
-        setInput={setInput}
-        handleChange={handleChange}
+        register={register}
+        name="youtubeLink"
         placeholder="추천할 유튜브 동영상 링크를 입력해 주세요!"
       />
 

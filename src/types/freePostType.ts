@@ -4,7 +4,7 @@ export type FreePostPageParam = {
 
 export type LikeType = {
   count: number;
-  like: boolean;
+  isLike: boolean;
 };
 
 export type WriterType = {
@@ -13,11 +13,13 @@ export type WriterType = {
   nickname: string;
 };
 
-export type FreePostType = {
+export interface FreePostType {
   id: string | number;
+  content: string;
   title: string;
   like: LikeType;
   comments: number;
   writer: WriterType;
   createdAt: string;
-};
+  modifiedAt: string;
+}

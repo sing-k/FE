@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
+
+import { pathName } from "../../../App";
+
 import { FreePostType } from "../../../types/freePostType";
 
 import { PostTitle } from "../../atoms";
@@ -12,10 +16,15 @@ type Props = {
 };
 
 const FreeBoardItem = ({ data }: Props) => {
-  const { title, writer, createdAt, like, comments } = data;
+  const { title, writer, createdAt, like, comments, id } = data;
+
+  const navigate = useNavigate();
+  const goFreePostDetailPage = () => {
+    navigate(`${pathName.board}/${id}`);
+  };
 
   return (
-    <Container>
+    <Container onClick={goFreePostDetailPage}>
       <Contents>
         <Wrapper>
           <UserInfo nickname={writer.nickname} profileImage={writer.imageUrl} />

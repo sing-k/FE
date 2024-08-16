@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SetStateAction } from "react";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 
 import styled from "styled-components";
 
@@ -7,32 +7,17 @@ import color from "../../../styles/color";
 import { FaLink } from "react-icons/fa";
 
 type Props = {
-  input: string;
-  setInput: React.Dispatch<SetStateAction<string>>;
-  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  register: UseFormRegister<FieldValues>;
+  name: string;
 };
 
-const LinkInput = ({ input, setInput, handleChange, placeholder }: Props) => {
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setInput(value);
-
-    if (handleChange) {
-      handleChange(e);
-    }
-  };
-
+const LinkInput = ({ placeholder, register, name }: Props) => {
   return (
     <Container>
       <FaLink color={color.COLOR_GRAY_TEXT} />
 
-      <Input
-        type="url"
-        placeholder={placeholder}
-        value={input}
-        onChange={onChange}
-      />
+      <Input type="url" placeholder={placeholder} {...register(name)} />
     </Container>
   );
 };
