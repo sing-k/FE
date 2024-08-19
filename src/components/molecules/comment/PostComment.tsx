@@ -54,7 +54,7 @@ const Comment = (data: CommentType) => {
           <ReCommentBtn>답글달기</ReCommentBtn>
         </ContentsWrapper>
 
-        <LikeBtn />
+        <LikeBtn count={12} />
       </Wrapper>
     </CommentWrapper>
   );

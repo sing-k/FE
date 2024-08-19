@@ -6,7 +6,11 @@ import { FaThumbsUp } from "react-icons/fa";
 
 import color from "../../../styles/color";
 
-const LikeBtn = () => {
+type Props = {
+  count: number;
+};
+
+const LikeBtn = ({ count }: Props) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
   const onClick = useCallback(() => {
@@ -15,7 +19,7 @@ const LikeBtn = () => {
 
   return (
     <Container onClick={onClick} className={isLiked ? "active" : "none"}>
-      <FaThumbsUp /> 12
+      <FaThumbsUp /> {count}
     </Container>
   );
 };

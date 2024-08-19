@@ -2,40 +2,51 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import UserInfo from "../../common/UserInfo";
-import { PostCommentNum, PostLikeNum } from "../../atoms";
-import PostMenu from "../../molecules/board/PostMenu";
+import { PostType, GeneralPostType } from "../../../types/post";
+import { RecommendGenreType } from "../../../types/recommendPostType";
 
-const PostInfo = () => {
+import UserInfo from "../../common/UserInfo";
+import PostMenu from "../../molecules/board/PostMenu";
+import RecommendGenre from "../../atoms/recommendBoard/RecommendGenre";
+import PostDay from "../../atoms/post/PostDay";
+import PostLikeComments from "../../atoms/post/PostLikeComments";
+
+type Props = {
+  type: PostType;
+  post: GeneralPostType;
+};
+
+const PostInfo = ({ type, post }: Props) => {
+  const { title, writer, like, comments, createdAt } = post;
+
   return (
     <>
-      <Genre>[발라드]</Genre>
+      {type === "recommend" && (
+        <RecommendGenre genre={post?.genre as RecommendGenreType} />
+      )}
 
       <TitleWrapper>
-        <Title>게시글 제목 부분</Title>
+        <Title>{title}</Title>
 
         <PostMenu />
       </TitleWrapper>
 
       <InfoWrapper>
-        <UserInfo nickname="영벨롭" size="S" />
+        <UserInfo
+          nickname={writer.nickname}
+          profileImage={writer.imageUrl}
+          size="S"
+        />
 
-        <Date>2024-06-01</Date>
+        <PostDay createdAt={createdAt} />
 
-        <PostLikeNum />
-
-        <PostCommentNum />
+        <PostLikeComments like={like.count} comments={comments} />
       </InfoWrapper>
     </>
   );
 };
 
 export default PostInfo;
-
-const Genre = styled.p`
-  font-weight: 600;
-  color: ${color.COLOR_GRAY_TEXT};
-`;
 
 const TitleWrapper = styled.div`
   width: 100%;
@@ -54,8 +65,4 @@ const InfoWrapper = styled.div`
   align-items: center;
   color: ${color.COLOR_GRAY_TEXT};
   gap: 1rem;
-`;
-
-const Date = styled.span`
-  font-size: 0.8rem;
 `;

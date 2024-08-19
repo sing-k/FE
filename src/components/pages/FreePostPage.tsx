@@ -1,21 +1,21 @@
-import { useEffect } from "react";
-import PostTemplate from "../templates/board/PostTemplate";
-import client from "../../config/axios";
 import { useParams } from "react-router-dom";
+
+import { useFreePostQuery } from "../../hooks/queries/freePost";
+
+import PostTemplate from "../templates/board/PostTemplate";
+import Loading from "../common/Loading";
+import ErrorMessage from "../common/ErrorMessage";
 
 const FreePostPage = () => {
   const { id } = useParams();
 
-  const temp = async () => {
-    const res = await client.get(`/api/posts/free/${id}`);
+  const { data, isLoading, isError, error } = useFreePostQuery(id as string);
 
-    console.log(res);
-  };
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+  if (!data) return <></>;
 
-  useEffect(() => {
-    temp();
-  }, []);
-  return <PostTemplate></PostTemplate>;
+  return <PostTemplate type={"free"} post={data}></PostTemplate>;
 };
 
 export default FreePostPage;

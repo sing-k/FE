@@ -29,3 +29,22 @@ export const getFreePostList = async ({
     return [];
   }
 };
+
+export const getFreePost = async ({
+  queryKey,
+}: QueryFunctionContext): Promise<FreePostType | undefined> => {
+  try {
+    const id = queryKey[1];
+
+    const res = await client.get(`/api/posts/free/${id}`);
+
+    if (res.data.statusCode !== 200) {
+      throw new Error(res.data.message || "Free Post Error");
+    }
+
+    return res.data.data as FreePostType;
+  } catch (err) {
+    console.log(err);
+    return undefined;
+  }
+};

@@ -2,20 +2,28 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
+import { PostType, GeneralPostType } from "../../../types/post";
+
 import PostInfo from "./PostInfo";
 import LikeBtn from "../../atoms/common/LikeBtn";
 
-const PostContents = () => {
+type Props = {
+  type: PostType;
+  post: GeneralPostType;
+};
+
+const PostContents = ({ type, post }: Props) => {
+  const { content, like } = post;
   return (
     <Container>
-      <PostInfo />
+      <PostInfo type={type} post={post} />
 
       <GrayLine />
 
-      <ContentsWrapper>dddddd</ContentsWrapper>
+      <ContentsWrapper dangerouslySetInnerHTML={{ __html: content }} />
 
       <LikeBtnWrapper>
-        <LikeBtn />
+        <LikeBtn count={like.count} />
       </LikeBtnWrapper>
     </Container>
   );

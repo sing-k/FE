@@ -8,18 +8,12 @@ type Props = {
 };
 
 const PostDay = ({ createdAt }: Props) => {
-  return (
-    <Container>
-      <Text>{dateFormat(createdAt)}</Text>
-    </Container>
-  );
+  return <Text>{dateFormat(createdAt)}</Text>;
 };
 
 export default PostDay;
 
-const Container = styled.div``;
-
-const Text = styled.span`
-  font-size: 0.7rem;
+const Text = styled.p`
+  font-size: 0.8rem;
   color: ${color.COLOR_GRAY_TEXT};
 `;
