@@ -14,11 +14,20 @@ export const recommendGenreType = {
   CLASSIC: "클래식",
 } as const;
 
+export const RECOMMEND_POST_LIMIT = 10;
+
+export type RecommendPostPageParam = {
+  offset: number;
+  sort?: "LATEST";
+  filter?: "TITLE" | "CONTENT" | "WRITER";
+  keyword?: string;
+};
+
 export type RecommendType = keyof typeof recommendType;
 
 export type RecommendGenreType = keyof typeof recommendGenreType;
 
-export interface RecommentPostType extends FreePostType {
+export interface RecommendPostType extends FreePostType {
   recommend: RecommendType;
   genre: RecommendGenreType;
   link: string;

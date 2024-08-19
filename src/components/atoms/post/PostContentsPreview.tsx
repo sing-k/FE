@@ -6,7 +6,6 @@ type Props = {
 };
 
 const PostContentsPreview = ({ contents }: Props) => {
-  console.log(contents);
   return (
     <Container
       dangerouslySetInnerHTML={{

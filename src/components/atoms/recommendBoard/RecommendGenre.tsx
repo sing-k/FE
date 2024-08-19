@@ -2,10 +2,19 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-const RecommendGenre = () => {
+import {
+  RecommendGenreType,
+  recommendGenreType,
+} from "../../../types/recommendPostType";
+
+type Props = {
+  genre: RecommendGenreType;
+};
+
+const RecommendGenre = ({ genre }: Props) => {
   return (
     <Container>
-      <Text>[장르]</Text>
+      <Text>[{recommendGenreType[genre]}]</Text>
     </Container>
   );
 };
@@ -18,6 +27,6 @@ const Container = styled.div`
 `;
 
 const Text = styled.span`
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: ${color.COLOR_GRAY_TEXT};
 `;

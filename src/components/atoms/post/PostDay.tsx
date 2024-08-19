@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import color from "../../../styles/color";
-import { dateTimeFormat } from "../../../utils/date";
+import { dateFormat } from "../../../utils/date";
 
 type Props = {
   createdAt: string;
@@ -10,7 +10,7 @@ type Props = {
 const PostDay = ({ createdAt }: Props) => {
   return (
     <Container>
-      <Text>{dateTimeFormat(createdAt)}</Text>
+      <Text>{dateFormat(createdAt)}</Text>
     </Container>
   );
 };

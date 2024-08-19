@@ -20,7 +20,7 @@ export const getFreePostList = async ({
     const res = await client.get(url);
 
     if (res.data.statusCode !== 200) {
-      throw new Error(res.data.message || "Album List Error");
+      throw new Error(res.data.message || "Free Post List Error");
     }
 
     return res.data.data.items as FreePostType[];
