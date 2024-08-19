@@ -5,7 +5,7 @@ import color from "../../../styles/color";
 import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 
 import UserInfo from "../../common/UserInfo";
-import LikeBtn from "../../atoms/common/LikeBtn";
+// import LikeBtn from "../../atoms/common/LikeBtn";
 import CommentMenu from "./CommentMenu";
 
 interface WriterType {
@@ -54,7 +54,7 @@ const Comment = (data: CommentType) => {
           <ReCommentBtn>답글달기</ReCommentBtn>
         </ContentsWrapper>
 
-        <LikeBtn count={12} />
+        {/* <LikeBtn count={12} /> */}
       </Wrapper>
     </CommentWrapper>
   );

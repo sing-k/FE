@@ -2,8 +2,10 @@
 import client from "../config/axios";
 import { getDefaultDates } from "../utils/date";
 import { ActivityListType } from "../types/activityHistoryType";
+import { UserDataType } from "../types/authTypes";
+
 //회원 정보 조회
-export const getMemberInfo = async () => {
+export const getMemberInfo = async (): Promise<UserDataType | null> => {
   try {
     const response = await client.get("/api/members/me");
     if (response.data.statusCode !== 200) {

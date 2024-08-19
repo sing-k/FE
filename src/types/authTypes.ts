@@ -37,6 +37,13 @@ export interface LoginType {
   password: string;
 }
 
+export interface UserStatistics {
+  averageReviewScore: number;
+  totalActivityScore: number;
+  totalReview: number;
+  totalReviewScore: number;
+}
+
 // 사용자 데이터 타입 정의
 export interface UserDataType {
   birthday: string;
@@ -48,4 +55,5 @@ export interface UserDataType {
   modifiedAt: string;
   name: string;
   nickname: string;
+  statistics: UserStatistics;
 }
