@@ -50,4 +50,5 @@ export default {
   COLOR_LINE_BLUE: "#5033FF",
 
   COLOR_YOUTUBE_RED: "#ff0000",
+  COLOR_RECOMMEND_LABEL: "#efefef",
 };

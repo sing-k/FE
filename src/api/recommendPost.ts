@@ -36,3 +36,22 @@ export const getRecommendPostList = async ({
     return [];
   }
 };
+
+export const getRecommendPost = async ({
+  queryKey,
+}: QueryFunctionContext): Promise<RecommendPostType | undefined> => {
+  try {
+    const id = queryKey[1];
+
+    const res = await client.get(`/api/posts/recommend/${id}`);
+
+    if (!String(res.data.statusCode).startsWith("2")) {
+      throw new Error(res.data.message || "Recommend Post Error");
+    }
+
+    return res.data.data as RecommendPostType;
+  } catch (err) {
+    console.log(err);
+    return undefined;
+  }
+};

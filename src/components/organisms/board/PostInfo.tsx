@@ -2,14 +2,18 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import { PostType, GeneralPostType } from "../../../types/post";
-import { RecommendGenreType } from "../../../types/recommendPostType";
+import { PostType, GeneralPostType } from "../../../types/postType";
+import {
+  RecommendGenreType,
+  RecommendType,
+} from "../../../types/recommendPostType";
 
 import UserInfo from "../../common/UserInfo";
 import PostMenu from "../../molecules/board/PostMenu";
 import RecommendGenre from "../../atoms/recommendBoard/RecommendGenre";
 import PostDay from "../../atoms/post/PostDay";
 import PostLikeComments from "../../atoms/post/PostLikeComments";
+import RecommendTypeLabel from "../../atoms/recommendBoard/RecommendTypeLabel";
 
 type Props = {
   type: PostType;
@@ -25,11 +29,22 @@ const PostInfo = ({ type, post }: Props) => {
         <RecommendGenre genre={post?.genre as RecommendGenreType} />
       )}
 
-      <TitleWrapper>
-        <Title>{title}</Title>
+      <Wrapper style={{ width: "100%" }}>
+        <Wrapper>
+          {type === "recommend" && (
+            <RecommendTypeLabel
+              recommend={post?.recommend as RecommendType}
+              style={{
+                backdropFilter: "none",
+                backgroundColor: color.COLOR_RECOMMEND_LABEL,
+              }}
+            />
+          )}
+          <Title>{title}</Title>
+        </Wrapper>
 
         <PostMenu />
-      </TitleWrapper>
+      </Wrapper>
 
       <InfoWrapper>
         <UserInfo
@@ -48,10 +63,10 @@ const PostInfo = ({ type, post }: Props) => {
 
 export default PostInfo;
 
-const TitleWrapper = styled.div`
-  width: 100%;
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
   justify-content: space-between;
 `;
 

@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 
 import { glassEffectStyle } from "../../../styles/style";
@@ -10,14 +12,15 @@ import { RecommendType } from "../../../types/recommendPostType";
 
 type Props = {
   recommend: RecommendType;
+  style?: React.CSSProperties;
 };
 
-const RecommendTypeLabel = ({ recommend }: Props) => {
+const RecommendTypeLabel = ({ recommend, style = {} }: Props) => {
   return (
-    <Container>
+    <Container style={style}>
       {recommend === "YOUTUBE" ? (
         <YoutubeIcon />
-      ) : recommend === "ALBUM" ? (
+      ) : recommend === "IMAGE" ? (
         <Text>글</Text>
       ) : (
         <LogoImg src={Logo} />
@@ -29,6 +32,7 @@ const RecommendTypeLabel = ({ recommend }: Props) => {
 export default RecommendTypeLabel;
 
 const Container = styled.div`
+  ${glassEffectStyle()}
   border-radius: 3px;
   height: 1.5rem;
   display: flex;
@@ -37,7 +41,6 @@ const Container = styled.div`
 `;
 
 const Text = styled.p`
-  ${glassEffectStyle()}
   height: 100%;
   padding: 0 0.5rem;
   display: flex;
@@ -51,7 +54,6 @@ const Text = styled.p`
 `;
 
 const LogoImg = styled.img`
-  ${glassEffectStyle()}
   height: 100%;
   object-fit: contain;
   border-radius: inherit;
@@ -59,5 +61,6 @@ const LogoImg = styled.img`
 
 const YoutubeIcon = styled(FaYoutube)`
   color: ${color.COLOR_YOUTUBE_RED};
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  margin: 0 0.3rem;
 `;

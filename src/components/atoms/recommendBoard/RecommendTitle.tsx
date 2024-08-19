@@ -21,6 +21,7 @@ const RecommendTitle = ({ title, recommend }: Props) => {
 export default RecommendTitle;
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -28,4 +29,7 @@ const Container = styled.div`
 
 const Title = styled.p`
   font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

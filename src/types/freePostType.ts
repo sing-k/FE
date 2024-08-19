@@ -1,4 +1,4 @@
-import { LikeType, WriterType } from "./post";
+import { LikeType, WriterType } from "./postType";
 
 export type FreePostPageParam = {
   offset: number;

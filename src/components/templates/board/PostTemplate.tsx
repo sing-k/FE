@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { GeneralPostType, PostType } from "../../../types/post";
+import { GeneralPostType, PostType } from "../../../types/postType";
 
 import PostContents from "../../organisms/board/PostContents";
 import PostComments from "../../organisms/board/PostComments";
@@ -11,8 +11,6 @@ type Props = {
 };
 
 const PostTemplate = ({ type, post }: Props) => {
-  console.log(post);
-
   return (
     <Container>
       <PostContents type={type} post={post} />

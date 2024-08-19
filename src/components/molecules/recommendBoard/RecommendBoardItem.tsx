@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { glassEffectStyle } from "../../../styles/style";
 
+import { useNavigate } from "react-router-dom";
+
+import { pathName } from "../../../App";
+
 import { RecommendPostType } from "../../../types/recommendPostType";
 
 import RecommendThumbnail from "../../atoms/recommendBoard/RecommendThumbnail";
@@ -15,11 +19,25 @@ type Props = {
 };
 
 const RecommendBoardItem = ({ data }: Props) => {
-  const { link, recommend, title, writer, createdAt, like, comments, genre } =
-    data;
+  const {
+    link,
+    recommend,
+    title,
+    writer,
+    createdAt,
+    like,
+    comments,
+    genre,
+    id,
+  } = data;
+  const navigate = useNavigate();
+
+  const goRecommendPostDetailPage = () => {
+    navigate(`${pathName.musicRecommendationBoard}/${id}`);
+  };
 
   return (
-    <Container>
+    <Container onClick={goRecommendPostDetailPage}>
       <ThumbnailContainer>
         <RecommendThumbnail link={link} recommend={recommend} />
       </ThumbnailContainer>

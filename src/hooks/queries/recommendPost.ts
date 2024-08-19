@@ -1,6 +1,9 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { getRecommendPostList } from "../../api/recommendPost";
+import {
+  getRecommendPost,
+  getRecommendPostList,
+} from "../../api/recommendPost";
 import {
   RECOMMEND_POST_LIMIT,
   RecommendPostPageParam,
@@ -27,5 +30,13 @@ export const useInfiniteRecommendPostListQuery = () => {
 
       return nextPageParam;
     },
+  });
+};
+
+export const useRecommendPostQuery = (id: string) => {
+  return useQuery({
+    queryKey: ["recommendPost", id],
+    queryFn: getRecommendPost,
+    enabled: !!id,
   });
 };

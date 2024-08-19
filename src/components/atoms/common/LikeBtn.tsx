@@ -8,10 +8,12 @@ import color from "../../../styles/color";
 
 type Props = {
   count: number;
+  like?: boolean;
+  onClick?: () => void;
 };
 
-const LikeBtn = ({ count }: Props) => {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+const LikeBtn = ({ count, like = false }: Props) => {
+  const [isLiked, setIsLiked] = useState<boolean>(like);
 
   const onClick = useCallback(() => {
     setIsLiked(!isLiked);
