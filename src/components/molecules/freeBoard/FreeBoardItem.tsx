@@ -10,13 +10,14 @@ import { PostTitle } from "../../atoms";
 import PostDay from "../../atoms/post/PostDay";
 import UserInfo from "../../common/UserInfo";
 import PostLikeComments from "../../atoms/post/PostLikeComments";
+import PostContentsPreview from "../../atoms/post/PostContentsPreview";
 
 type Props = {
   data: FreePostType;
 };
 
 const FreeBoardItem = ({ data }: Props) => {
-  const { title, writer, createdAt, like, comments, id } = data;
+  const { title, writer, createdAt, like, comments, id, content } = data;
 
   const navigate = useNavigate();
   const goFreePostDetailPage = () => {
@@ -36,6 +37,10 @@ const FreeBoardItem = ({ data }: Props) => {
           <PostTitle title={title} />
 
           <PostLikeComments like={like.count} comments={comments} />
+        </Wrapper>
+
+        <Wrapper>
+          <PostContentsPreview contents={content} />
         </Wrapper>
       </Contents>
 
