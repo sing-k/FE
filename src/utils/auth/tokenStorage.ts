@@ -5,3 +5,7 @@ export const saveLoginState = () => {
 export const clearTokens = () => {
   localStorage.removeItem("loginState");
 };
+
+export const getLoginState = () => {
+  return localStorage.getItem("loginState");
+};

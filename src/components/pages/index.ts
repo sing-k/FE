@@ -9,7 +9,7 @@ export { default as AlbumDetailPage } from "./AlbumDetailPage";
 export { default as MusicRecommendationBoardPage } from "./MusicRecommendationBoardPage";
 export { default as BoardPage } from "./BoardPage";
 export { default as WritePostPage } from "./WritePostPage";
-export { default as WriteMusicRMPostPage } from "./WriteMusicRMPostPage";
+export { default as WriteRecommendPostPage } from "./WriteRecommendPostPage";
 export { default as MusicRMPostPage } from "./MusicRMPostPage";
 export { default as FreePostPage } from "./FreePostPage";
 export { default as Mypage } from "./Mypage";

@@ -2,20 +2,56 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
+import { PostType, GeneralPostType } from "../../../types/postType";
+import { RecommendType } from "../../../types/recommendPostType";
+
 import PostInfo from "./PostInfo";
 import LikeBtn from "../../atoms/common/LikeBtn";
+import RecommendContents from "../../atoms/recommendBoard/RecommendContents";
 
-const PostContents = () => {
+import {
+  useLikeFreePost,
+  useLikeRecommendPost,
+} from "../../../hooks/queries/like";
+
+type Props = {
+  type: PostType;
+  post: GeneralPostType;
+};
+
+const PostContents = ({ type, post }: Props) => {
+  const { content, like, id, writer } = post;
+
+  const likeRecommendMutation = useLikeRecommendPost(String(id));
+  const likeFreePostMutation = useLikeFreePost(String(id));
+
   return (
     <Container>
-      <PostInfo />
+      <PostInfo type={type} post={post} />
 
       <GrayLine />
 
-      <ContentsWrapper>dddddd</ContentsWrapper>
+      {type === "recommend" && (
+        <RecommendContents
+          recommend={post?.recommend as RecommendType}
+          link={post?.link as string}
+        />
+      )}
+
+      <ContentsWrapper dangerouslySetInnerHTML={{ __html: content }} />
 
       <LikeBtnWrapper>
-        <LikeBtn />
+        <LikeBtn
+          count={like.count}
+          like={like.like}
+          id={id as string}
+          writerId={writer.id as string}
+          mutate={
+            type === "free"
+              ? likeFreePostMutation.mutate
+              : likeRecommendMutation.mutate
+          }
+        />
       </LikeBtnWrapper>
     </Container>
   );

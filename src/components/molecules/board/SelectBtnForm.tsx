@@ -8,10 +8,14 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
+interface Item {
+  [key: string]: string;
+}
+
 type Props = {
   name: string;
   label: string;
-  items: string[];
+  items: Item;
   field: any;
   register: UseFormRegister<FieldValues>;
 };
@@ -26,13 +30,13 @@ const SelectBtnForm = ({ name, register, label, items, field }: Props) => {
       <input type="hidden" {...register(name, { required: true })} />
 
       <ItemWrapper>
-        {items.map((item, idx) => (
+        {Object.keys(items).map((itemKey, idx) => (
           <Item
-            key={`${item}${idx}`}
-            className={value === item ? "selected" : "none"}
-            onClick={() => onChange(item)}
+            key={`${itemKey}${idx}`}
+            className={value === itemKey ? "selected" : "none"}
+            onClick={() => onChange(itemKey)}
           >
-            {item}
+            {items[itemKey]}
           </Item>
         ))}
       </ItemWrapper>

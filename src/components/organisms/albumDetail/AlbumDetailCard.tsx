@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 
 import { glassEffectStyle } from "../../../styles/style";
@@ -11,9 +13,10 @@ import { AlbumDetailType } from "../../../types/albumDetailType";
 
 type Props = {
   data: AlbumDetailType;
+  style?: React.CSSProperties;
 };
 
-const AlbumDetailCard = ({ data }: Props) => {
+const AlbumDetailCard = ({ data, style = {} }: Props) => {
   const { images, type, name, artists, releasedAt, count, averageScore } = data;
 
   const { isMobile } = useMediaQueries();
@@ -22,8 +25,8 @@ const AlbumDetailCard = ({ data }: Props) => {
     <Container
       style={
         isMobile
-          ? { flexDirection: "column", alignItems: "flex-start" }
-          : { flexDirection: "row", alignItems: "center" }
+          ? { flexDirection: "column", alignItems: "flex-start", ...style }
+          : { flexDirection: "row", alignItems: "center", ...style }
       }
     >
       <AlbumImage

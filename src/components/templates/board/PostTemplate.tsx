@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
+import { GeneralPostType, PostType } from "../../../types/postType";
+
 import PostContents from "../../organisms/board/PostContents";
 import PostComments from "../../organisms/board/PostComments";
 
-const PostTemplate = () => {
+type Props = {
+  type: PostType;
+  post: GeneralPostType;
+};
+
+const PostTemplate = ({ type, post }: Props) => {
   return (
     <Container>
-      <PostContents />
+      <PostContents type={type} post={post} />
 
-      <PostComments />
+      <PostComments type={type} postId={post.id} />
     </Container>
   );
 };

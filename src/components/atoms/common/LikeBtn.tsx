@@ -1,21 +1,43 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 import styled from "styled-components";
 
 import { FaThumbsUp } from "react-icons/fa";
 
 import color from "../../../styles/color";
+import { useMemberInfoQuery } from "../../../hooks/queries/user";
+import { LikeMutationArgs } from "../../../hooks/queries/like";
 
-const LikeBtn = () => {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+type Props = {
+  count: number;
+  like: boolean;
+  id: string;
+  writerId: string;
+  mutate: (args: LikeMutationArgs) => void;
+};
 
-  const onClick = useCallback(() => {
-    setIsLiked(!isLiked);
-  }, [isLiked]);
+const LikeBtn = ({ count, like = false, id, writerId, mutate }: Props) => {
+  const { data } = useMemberInfoQuery();
+
+  const [isLike, setIsLike] = useState<boolean>(like);
+
+  const onClick = () => {
+    if (!data) {
+      alert("로그인이 필요합니다!");
+      return;
+    }
+    if (String(data.id) == writerId) {
+      alert("본인이 작성한 글에 대해서는 좋아요가 불가능합니다!");
+      return;
+    }
+
+    mutate({ id, isLike });
+    setIsLike(!isLike);
+  };
 
   return (
-    <Container onClick={onClick} className={isLiked ? "active" : "none"}>
-      <FaThumbsUp /> 12
+    <Container onClick={onClick} className={isLike ? "active" : "none"}>
+      <FaThumbsUp /> {count}
     </Container>
   );
 };

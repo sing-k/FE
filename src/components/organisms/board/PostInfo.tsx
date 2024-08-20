@@ -2,29 +2,76 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import UserInfo from "../../common/UserInfo";
-import { PostCommentNum, PostLikeNum } from "../../atoms";
-import PostMenu from "../../molecules/board/PostMenu";
+import { useNavigate } from "react-router-dom";
 
-const PostInfo = () => {
+import { PostType, GeneralPostType } from "../../../types/postType";
+import {
+  RecommendGenreType,
+  RecommendType,
+} from "../../../types/recommendPostType";
+
+import UserInfo from "../../common/UserInfo";
+import RecommendGenre from "../../atoms/recommendBoard/RecommendGenre";
+import PostDay from "../../atoms/post/PostDay";
+import PostLikeComments from "../../atoms/post/PostLikeComments";
+import RecommendTypeLabel from "../../atoms/recommendBoard/RecommendTypeLabel";
+import OptionsMenu from "../../common/OptionsMenu";
+
+type Props = {
+  type: PostType;
+  post: GeneralPostType;
+};
+
+const PostInfo = ({ type, post }: Props) => {
+  const { title, writer, like, comments, createdAt } = post;
+
+  const navigate = useNavigate();
+
+  const handleUpdate = () => {
+    if (type === "free") {
+    } else {
+    }
+  };
+
+  const handleDelete = () => {};
+
   return (
     <>
-      <Genre>[발라드]</Genre>
+      {type === "recommend" && (
+        <RecommendGenre genre={post?.genre as RecommendGenreType} />
+      )}
 
-      <TitleWrapper>
-        <Title>게시글 제목 부분</Title>
+      <Wrapper style={{ width: "100%" }}>
+        <Wrapper>
+          {type === "recommend" && (
+            <RecommendTypeLabel
+              recommend={post?.recommend as RecommendType}
+              style={{
+                backdropFilter: "none",
+                backgroundColor: color.COLOR_RECOMMEND_LABEL,
+              }}
+            />
+          )}
+          <Title>{title}</Title>
+        </Wrapper>
 
-        <PostMenu />
-      </TitleWrapper>
+        <OptionsMenu
+          writerId={writer.id as string}
+          handleUpdate={handleUpdate}
+          handleDelete={handleDelete}
+        />
+      </Wrapper>
 
       <InfoWrapper>
-        <UserInfo nickname="영벨롭" size="S" />
+        <UserInfo
+          nickname={writer.nickname}
+          profileImage={writer.imageUrl}
+          size="S"
+        />
 
-        <Date>2024-06-01</Date>
+        <PostDay createdAt={createdAt} />
 
-        <PostLikeNum />
-
-        <PostCommentNum />
+        <PostLikeComments like={like.count} comments={comments} />
       </InfoWrapper>
     </>
   );
@@ -32,15 +79,10 @@ const PostInfo = () => {
 
 export default PostInfo;
 
-const Genre = styled.p`
-  font-weight: 600;
-  color: ${color.COLOR_GRAY_TEXT};
-`;
-
-const TitleWrapper = styled.div`
-  width: 100%;
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
   justify-content: space-between;
 `;
 
@@ -54,8 +96,4 @@ const InfoWrapper = styled.div`
   align-items: center;
   color: ${color.COLOR_GRAY_TEXT};
   gap: 1rem;
-`;
-
-const Date = styled.span`
-  font-size: 0.8rem;
 `;
