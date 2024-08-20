@@ -92,6 +92,8 @@ const PostComments = ({ type, postId }: Props) => {
             data={comment}
             parentId={parentId}
             setParentId={setParentId}
+            postId={postId}
+            type={type}
           />
         ))}
       </CommentWrapper>

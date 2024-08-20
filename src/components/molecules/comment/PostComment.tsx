@@ -7,24 +7,41 @@ import color from "../../../styles/color";
 import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 
 import { CommentType } from "../../../types/commentType";
+import { PostType } from "../../../types/postType";
 
 import { dateTimeFormat } from "../../../utils/date";
 
 import UserInfo from "../../common/UserInfo";
 import CommentMenu from "./CommentMenu";
 import LikeBtn from "../../atoms/common/LikeBtn";
+import {
+  useLikeFreeComment,
+  useLikeRecommendComment,
+} from "../../../hooks/queries/like";
 
 interface Props {
   data: CommentType;
   setParentId: React.Dispatch<React.SetStateAction<string>>;
   parentId: string;
+  postId: string;
+  type: PostType;
 }
 
 interface CommentProps extends Props {
   commentId: string;
 }
 
-const Comment = ({ data, setParentId, parentId, commentId }: CommentProps) => {
+const Comment = ({
+  data,
+  setParentId,
+  parentId,
+  commentId,
+  postId,
+  type,
+}: CommentProps) => {
+  const likeFreeCommentMutation = useLikeFreeComment(postId);
+  const likeRecommendCommentMutation = useLikeRecommendComment(postId);
+
   const onClickRecomment = () => {
     if (parentId === commentId) {
       setParentId("");
@@ -61,26 +78,26 @@ const Comment = ({ data, setParentId, parentId, commentId }: CommentProps) => {
           like={data.like.like}
           id={data.id}
           writerId={data.writer.id}
-          mutate={() => {}}
+          mutate={
+            type === "free"
+              ? likeFreeCommentMutation.mutate
+              : likeRecommendCommentMutation.mutate
+          }
         />
       </Wrapper>
     </CommentWrapper>
   );
 };
 
-const PostComment = ({ data, setParentId, parentId }: Props) => {
+const PostComment = (props: Props) => {
+  const { data, parentId } = props;
   const { children } = data;
 
   return (
     <Container
       style={data.id === parentId ? { borderColor: color.COLOR_MAIN } : {}}
     >
-      <Comment
-        data={data}
-        setParentId={setParentId}
-        parentId={parentId}
-        commentId={data.id}
-      />
+      <Comment {...props} commentId={data.id} />
 
       {children &&
         children.length > 0 &&
@@ -88,12 +105,7 @@ const PostComment = ({ data, setParentId, parentId }: Props) => {
           <ReCommentWrapper key={child.id}>
             <MdOutlineSubdirectoryArrowRight color={color.COLOR_GRAY_TEXT} />
 
-            <Comment
-              data={child}
-              setParentId={setParentId}
-              commentId={data.id}
-              parentId={parentId}
-            />
+            <Comment {...props} data={child} commentId={data.id} />
           </ReCommentWrapper>
         ))}
     </Container>

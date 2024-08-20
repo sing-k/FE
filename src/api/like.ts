@@ -43,3 +43,43 @@ export const likeRecommendPost = async ({
     return false;
   }
 };
+
+export const likeFreeComment = async ({
+  id,
+  isLike,
+}: LikeMutationArgs): Promise<boolean> => {
+  try {
+    const method = isLike ? "delete" : "post";
+    const res = await client({
+      url: `/api/likes/posts/free/comments/${id}`,
+      method,
+    });
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const likeRecommendComment = async ({
+  id,
+  isLike,
+}: LikeMutationArgs): Promise<boolean> => {
+  try {
+    const method = isLike ? "delete" : "post";
+    const res = await client({
+      url: `/api/likes/posts/recommend/comments/${id}`,
+      method,
+    });
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
