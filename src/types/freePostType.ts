@@ -5,7 +5,7 @@ export type FreePostPageParam = {
 };
 
 export interface FreePostType {
-  id: string | number;
+  id: string;
   content: string;
   title: string;
   like: LikeType;

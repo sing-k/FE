@@ -15,7 +15,7 @@ const PostTemplate = ({ type, post }: Props) => {
     <Container>
       <PostContents type={type} post={post} />
 
-      <PostComments />
+      <PostComments type={type} postId={post.id} />
     </Container>
   );
 };

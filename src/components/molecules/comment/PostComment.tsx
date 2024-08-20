@@ -1,47 +1,49 @@
+import React from "react";
+
 import styled from "styled-components";
 
 import color from "../../../styles/color";
 
 import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 
+import { CommentType } from "../../../types/commentType";
+
+import { dateTimeFormat } from "../../../utils/date";
+
 import UserInfo from "../../common/UserInfo";
-// import LikeBtn from "../../atoms/common/LikeBtn";
 import CommentMenu from "./CommentMenu";
+import LikeBtn from "../../atoms/common/LikeBtn";
 
-interface WriterType {
-  id: string;
-  profileImg?: string;
-  nickname: string;
+interface Props {
+  data: CommentType;
+  setParentId: React.Dispatch<React.SetStateAction<string>>;
+  parentId: string;
 }
 
-interface CommentType {
-  id: string;
-  writer: WriterType;
-  createdAt: string;
-  likes: number;
-  content: string;
+interface CommentProps extends Props {
+  commentId: string;
 }
 
-export interface DataType extends CommentType {
-  recomment?: CommentType[];
-}
+const Comment = ({ data, setParentId, parentId, commentId }: CommentProps) => {
+  const onClickRecomment = () => {
+    if (parentId === commentId) {
+      setParentId("");
+    } else {
+      setParentId(commentId);
+    }
+  };
 
-interface PostCommentProps {
-  data: DataType;
-}
-
-const Comment = (data: CommentType) => {
   return (
     <CommentWrapper>
       <Wrapper>
         <UserWrapper>
           <UserInfo
-            profileImage={data.writer.profileImg}
+            profileImage={data.writer.imageUrl}
             nickname={data.writer.nickname}
             size="S"
           />
 
-          {data.createdAt}
+          {dateTimeFormat(data.createdAt)}
         </UserWrapper>
 
         <CommentMenu />
@@ -51,29 +53,47 @@ const Comment = (data: CommentType) => {
         <ContentsWrapper>
           <Contents>{data.content}</Contents>
 
-          <ReCommentBtn>답글달기</ReCommentBtn>
+          <ReCommentBtn onClick={onClickRecomment}>답글달기</ReCommentBtn>
         </ContentsWrapper>
 
-        {/* <LikeBtn count={12} /> */}
+        <LikeBtn
+          count={data.like.count}
+          like={data.like.like}
+          id={data.id}
+          writerId={data.writer.id}
+          mutate={() => {}}
+        />
       </Wrapper>
     </CommentWrapper>
   );
 };
 
-const PostComment = ({ data }: PostCommentProps) => {
-  const { recomment, ...rest } = data;
+const PostComment = ({ data, setParentId, parentId }: Props) => {
+  const { children } = data;
 
   return (
-    <Container>
-      <Comment {...rest} />
+    <Container
+      style={data.id === parentId ? { borderColor: color.COLOR_MAIN } : {}}
+    >
+      <Comment
+        data={data}
+        setParentId={setParentId}
+        parentId={parentId}
+        commentId={data.id}
+      />
 
-      {recomment &&
-        recomment.length > 0 &&
-        recomment.map((recmt) => (
-          <ReCommentWrapper key={recmt.id}>
+      {children &&
+        children.length > 0 &&
+        children.map((child) => (
+          <ReCommentWrapper key={child.id}>
             <MdOutlineSubdirectoryArrowRight color={color.COLOR_GRAY_TEXT} />
 
-            <Comment {...recmt} />
+            <Comment
+              data={child}
+              setParentId={setParentId}
+              commentId={data.id}
+              parentId={parentId}
+            />
           </ReCommentWrapper>
         ))}
     </Container>
@@ -86,6 +106,7 @@ const Container = styled.div`
   width: 100%;
   background-color: white;
   padding: 0.8rem;
+  border: 1px solid white;
   border-radius: 5px;
 
   display: flex;
