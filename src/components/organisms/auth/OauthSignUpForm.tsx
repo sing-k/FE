@@ -16,13 +16,11 @@ import {
 } from "../../atoms";
 import { FieldName, GenderForm, TitleLink } from "../../molecules";
 import { validationRules } from "../../../utils/auth/validationRules";
-import {
-  handelCheckNickNameExists,
-  handleSubmitData,
-} from "../../../utils/auth/authApi";
+import { handelCheckNickNameExists } from "../../../utils/auth/authApi";
 
-import { FormType } from "../../../types/authTypes";
+import { OauthFormType } from "../../../types/authTypes";
 import { pathName } from "../../../App";
+import { useUpdateUserMutation } from "../../../hooks/queries/user";
 
 const OauthSignUpForm = () => {
   const {
@@ -31,11 +29,12 @@ const OauthSignUpForm = () => {
     watch,
     setValue,
     formState: { errors, isValid },
-  } = useForm<FormType>({ mode: "onBlur" });
+  } = useForm<OauthFormType>({ mode: "onBlur" });
   const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState<string>("");
   const { isPc, isTablet, isMobile } = useMediaQueries();
   const navigate = useNavigate();
+  const mutation = useUpdateUserMutation();
 
   const handelCheckNickNameExistsClick = async () => {
     try {
@@ -58,19 +57,18 @@ const OauthSignUpForm = () => {
   const handelDateChange = (date: string) => {
     setValue("birthday", date);
   };
-  const handleValid = async (data: FormType) => {
-    try {
-      const result = await handleSubmitData(data);
-      if (result.statusCode === 201) {
-        alert("회원가입을 완료하였습니다. 로그인 페이지로 이동합니다.");
-        navigate(`${pathName.login}`);
-      } else {
-        alert(result.message); // 에러 메시지를 사용자에게 알림
-      }
-    } catch (err) {
-      console.log(err, "err");
-      alert("입력사항을 확인해주세요 ");
-    }
+  const handleValid = (data: OauthFormType) => {
+    console.log(data);
+    mutation.mutate(data, {
+      onSuccess: () => {
+        alert("회원가입이 성공적으로 완료되었습니다.");
+        navigate(`${pathName.home}`);
+      },
+      onError: error => {
+        alert("입력사항을 확인해주세요");
+        console.error("회원정보 변경 실패:", error);
+      },
+    });
   };
 
   const handleError = (errors: any) => console.error(errors);

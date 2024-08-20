@@ -30,6 +30,14 @@ export interface FormType {
   emailcode?: string;
   passwordConfirm?: string;
 }
+//oauth 로그인 데이터 타입 정의
+
+export interface OauthFormType {
+  name: string;
+  nickname: string;
+  birthday: string;
+  gender: string;
+}
 
 // 로그인 데이터 타입 정의
 export interface LoginType {

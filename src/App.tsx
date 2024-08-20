@@ -41,7 +41,7 @@ export const pathName = {
   post: "/board/post",
   myPage: "/myPage",
   editProfile: "/editProfile",
-  OauthSignUp: "/oauthSignUp",
+  OauthSignUp: "/oauth/signUp",
 } as const;
 
 export type PathType = (typeof pathName)[keyof typeof pathName];

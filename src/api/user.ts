@@ -2,7 +2,7 @@
 import client from "../config/axios";
 import { getDefaultDates } from "../utils/date";
 import { ActivityListType } from "../types/activityHistoryType";
-import { UserDataType } from "../types/authTypes";
+import { UserDataType, OauthFormType } from "../types/authTypes";
 import { checkAPIResponseValidation } from ".";
 
 //회원 정보 조회
@@ -40,10 +40,20 @@ export const updateNickname = ({ newNickname }: { newNickname: string }) => {
   return client.put("/api/members/me", { nickname: newNickname });
 };
 
+//회원 수정
+export const updateMemberData = (data: OauthFormType) => {
+  return client.put("/api/members/me", {
+    name: data.name,
+    nickname: data.nickname,
+    birthday: data.birthday,
+    gender: data.gender,
+  });
+};
+
 export const getHistoryGraph = async (
   startDate?: string,
   endDate?: string,
-  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY"
+  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY",
 ) => {
   try {
     const { startDate: defaultStartDate, endDate: defaultEndDate } =
@@ -64,7 +74,7 @@ export const getHistoryGraph = async (
 
 export const getActivityList = async (
   offset: number,
-  limit: number
+  limit: number,
 ): Promise<ActivityListType> => {
   const response = await client.get("/api/activity/list", {
     params: { offset, limit },
