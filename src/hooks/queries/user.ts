@@ -16,7 +16,11 @@ import {
   deleteProfileImage,
   getHistoryGraph,
   getActivityList,
+  logoutRequest,
 } from "../../api/user";
+
+import { clearTokens } from "../../utils/auth/tokenStorage";
+import { pathName } from "../../App";
 
 //회원 정보 get
 export const useMemberInfoQuery = () => {
@@ -35,7 +39,7 @@ export const useUploadProfileImageMutation = () => {
       console.log("프로필 사진 업로드 성공");
       queryClient.invalidateQueries({ queryKey: ["memberInfo"] });
     },
-    onError: error => {
+    onError: (error) => {
       console.error("프로필 사진 업로드 실패:", error);
     },
   });
@@ -49,7 +53,7 @@ export const useDeleteProfileImageMutation = () => {
       console.log("프로필 사진 삭제 성공");
       queryClient.invalidateQueries({ queryKey: ["memberInfo"] });
     },
-    onError: error => {
+    onError: (error) => {
       console.error("프로필 사진 삭제 실패:", error);
     },
   });
@@ -64,7 +68,7 @@ export const useUpdateNicknameMutation = () => {
       console.log("닉네임 변경 성공");
       queryClient.invalidateQueries({ queryKey: ["memberInfo"] });
     },
-    onError: error => {
+    onError: (error) => {
       console.error("닉네임 변경 실패:", error);
     },
   });
@@ -74,7 +78,7 @@ export const useUpdateNicknameMutation = () => {
 export const useActivityHistoryGraphQuery = (
   startDate?: string,
   endDate?: string,
-  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY",
+  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY"
 ) => {
   return useQuery<ActivityDataType[], Error>({
     queryKey: ["historyGraph", { startDate, endDate, type }],
@@ -88,5 +92,22 @@ export const useActivityListQuery = (offset: number, limit: number) => {
     queryKey: ["activityList", offset, limit],
     queryFn: () => getActivityList(offset, limit),
     placeholderData: keepPreviousData,
+  });
+};
+
+export const useLogoutMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: logoutRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["memberInfo"],
+        refetchType: "none",
+      });
+
+      clearTokens();
+      window.location.replace(`${pathName.home}`);
+    },
   });
 };
