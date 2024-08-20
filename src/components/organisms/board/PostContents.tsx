@@ -8,12 +8,11 @@ import { RecommendType } from "../../../types/recommendPostType";
 import PostInfo from "./PostInfo";
 import LikeBtn from "../../atoms/common/LikeBtn";
 import RecommendContents from "../../atoms/recommendBoard/RecommendContents";
+
 import {
-  likeFreePost,
-  likeRecommendPost,
-  unlikeFreePost,
-  unlikeRecommendPost,
-} from "../../../api/like";
+  useLikeFreePost,
+  useLikeRecommendPost,
+} from "../../../hooks/queries/like";
 
 type Props = {
   type: PostType;
@@ -22,6 +21,9 @@ type Props = {
 
 const PostContents = ({ type, post }: Props) => {
   const { content, like, id, writer } = post;
+
+  const likeRecommendMutation = useLikeRecommendPost(String(id));
+  const likeFreePostMutation = useLikeFreePost(String(id));
 
   return (
     <Container>
@@ -44,9 +46,10 @@ const PostContents = ({ type, post }: Props) => {
           like={like.like}
           id={id as string}
           writerId={writer.id as string}
-          handleLike={type === "recommend" ? likeRecommendPost : likeFreePost}
-          handleUnlike={
-            type === "recommend" ? unlikeRecommendPost : unlikeFreePost
+          mutate={
+            type === "free"
+              ? likeFreePostMutation.mutate
+              : likeRecommendMutation.mutate
           }
         />
       </LikeBtnWrapper>

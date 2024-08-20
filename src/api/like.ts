@@ -1,9 +1,19 @@
-import { checkAPIResponseValidation } from ".";
 import client from "../config/axios";
 
-export const likeFreePost = async (id: string): Promise<boolean> => {
+import { checkAPIResponseValidation } from ".";
+
+import { LikeMutationArgs } from "../hooks/queries/like";
+
+export const likeFreePost = async ({
+  id,
+  isLike,
+}: LikeMutationArgs): Promise<boolean> => {
   try {
-    const res = await client.post(`/api/likes/posts/free/${id}`);
+    const method = isLike ? "delete" : "post";
+    const res = await client({
+      url: `/api/likes/posts/free/${id}`,
+      method,
+    });
 
     checkAPIResponseValidation(res);
 
@@ -14,35 +24,16 @@ export const likeFreePost = async (id: string): Promise<boolean> => {
   }
 };
 
-export const unlikeFreePost = async (id: string): Promise<boolean> => {
+export const likeRecommendPost = async ({
+  id,
+  isLike,
+}: LikeMutationArgs): Promise<boolean> => {
   try {
-    const res = await client.delete(`/api/likes/posts/free/${id}`);
-
-    checkAPIResponseValidation(res);
-
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
-};
-
-export const likeRecommendPost = async (id: string): Promise<boolean> => {
-  try {
-    const res = await client.post(`/api/likes/posts/recommend/${id}`);
-
-    checkAPIResponseValidation(res);
-
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
-};
-
-export const unlikeRecommendPost = async (id: string): Promise<boolean> => {
-  try {
-    const res = await client.delete(`/api/likes/posts/recommend/${id}`);
+    const method = isLike ? "delete" : "post";
+    const res = await client({
+      url: `/api/likes/posts/recommend/${id}`,
+      method,
+    });
 
     checkAPIResponseValidation(res);
 

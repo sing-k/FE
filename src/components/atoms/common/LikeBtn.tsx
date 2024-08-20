@@ -6,27 +6,20 @@ import { FaThumbsUp } from "react-icons/fa";
 
 import color from "../../../styles/color";
 import { useMemberInfoQuery } from "../../../hooks/queries/user";
+import { LikeMutationArgs } from "../../../hooks/queries/like";
 
 type Props = {
   count: number;
   like: boolean;
   id: string;
   writerId: string;
-  handleLike: (id: any) => void;
-  handleUnlike: (id: any) => void;
+  mutate: (args: LikeMutationArgs) => void;
 };
 
-const LikeBtn = ({
-  count,
-  like = false,
-  id,
-  writerId,
-  handleLike,
-  handleUnlike,
-}: Props) => {
+const LikeBtn = ({ count, like = false, id, writerId, mutate }: Props) => {
   const { data } = useMemberInfoQuery();
 
-  const [isLiked, setIsLiked] = useState<boolean>(like);
+  const [isLike, setIsLike] = useState<boolean>(like);
 
   const onClick = () => {
     if (!data) {
@@ -38,16 +31,12 @@ const LikeBtn = ({
       return;
     }
 
-    if (isLiked) {
-      handleUnlike(id);
-    } else {
-      handleLike(id);
-    }
-    setIsLiked(!isLiked);
+    mutate({ id, isLike });
+    setIsLike(!isLike);
   };
 
   return (
-    <Container onClick={onClick} className={isLiked ? "active" : "none"}>
+    <Container onClick={onClick} className={isLike ? "active" : "none"}>
       <FaThumbsUp /> {count}
     </Container>
   );

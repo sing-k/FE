@@ -8,6 +8,7 @@ type Props = {
 const PostContentsPreview = ({ contents }: Props) => {
   return (
     <Container
+      className="post-contents-preview"
       dangerouslySetInnerHTML={{
         __html: contents,
       }}
@@ -18,10 +19,16 @@ const PostContentsPreview = ({ contents }: Props) => {
 export default PostContentsPreview;
 
 const Container = styled.div`
+  display: flex;
   width: 100%;
-  color: ${color.COLOR_GRAY_TEXT};
-  font-size: 0.8rem;
+  max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  * {
+    color: ${color.COLOR_GRAY_TEXT} !important;
+    font-weight: normal !important;
+    font-size: 0.8rem !important;
+  }
 `;
