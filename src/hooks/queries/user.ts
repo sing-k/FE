@@ -19,14 +19,17 @@ import {
   logoutRequest,
 } from "../../api/user";
 
-import { clearTokens } from "../../utils/auth/tokenStorage";
+import { clearTokens, getLoginState } from "../../utils/auth/tokenStorage";
 import { pathName } from "../../App";
 
 //회원 정보 get
 export const useMemberInfoQuery = () => {
+  const isLogin = getLoginState();
+
   return useQuery({
     queryKey: ["memberInfo"],
     queryFn: getMemberInfo,
+    enabled: !!isLogin,
   });
 };
 
