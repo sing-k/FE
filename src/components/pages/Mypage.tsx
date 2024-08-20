@@ -63,10 +63,14 @@ const Mypage = () => {
   }
   return (
     <Container>
-      <MyInfo
-        data={data}
-        openModal={() => navigate(`${pathName.myPage}${pathName.editProfile}`)}
-      />
+      {data && (
+        <MyInfo
+          data={data}
+          openModal={() =>
+            navigate(`${pathName.myPage}${pathName.editProfile}`)
+          }
+        />
+      )}
       <TabContainer $isMobile={isMobile}>
         <MyPageTabMenu
           tabObj={tabObj}
