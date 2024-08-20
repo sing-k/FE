@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
+import { useNavigate } from "react-router-dom";
+
 import { PostType, GeneralPostType } from "../../../types/postType";
 import {
   RecommendGenreType,
@@ -9,11 +11,11 @@ import {
 } from "../../../types/recommendPostType";
 
 import UserInfo from "../../common/UserInfo";
-import PostMenu from "../../molecules/board/PostMenu";
 import RecommendGenre from "../../atoms/recommendBoard/RecommendGenre";
 import PostDay from "../../atoms/post/PostDay";
 import PostLikeComments from "../../atoms/post/PostLikeComments";
 import RecommendTypeLabel from "../../atoms/recommendBoard/RecommendTypeLabel";
+import OptionsMenu from "../../common/OptionsMenu";
 
 type Props = {
   type: PostType;
@@ -22,6 +24,16 @@ type Props = {
 
 const PostInfo = ({ type, post }: Props) => {
   const { title, writer, like, comments, createdAt } = post;
+
+  const navigate = useNavigate();
+
+  const handleUpdate = () => {
+    if (type === "free") {
+    } else {
+    }
+  };
+
+  const handleDelete = () => {};
 
   return (
     <>
@@ -43,7 +55,11 @@ const PostInfo = ({ type, post }: Props) => {
           <Title>{title}</Title>
         </Wrapper>
 
-        <PostMenu />
+        <OptionsMenu
+          writerId={writer.id as string}
+          handleUpdate={handleUpdate}
+          handleDelete={handleDelete}
+        />
       </Wrapper>
 
       <InfoWrapper>

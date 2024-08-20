@@ -81,3 +81,75 @@ export const getRecommendPostComments = async ({
     return [];
   }
 };
+
+export type UpdateCommentContext = {
+  commentId: string;
+  content: string;
+};
+
+export const updateFreePostComment = async ({
+  commentId,
+  content,
+}: UpdateCommentContext): Promise<boolean> => {
+  try {
+    const res = await client.put(`/api/posts/free/comments/${commentId}`, {
+      content,
+    });
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const updateRecommendPostComment = async ({
+  commentId,
+  content,
+}: UpdateCommentContext): Promise<boolean> => {
+  try {
+    const res = await client.put(`/api/posts/recommend/comments/${commentId}`, {
+      content,
+    });
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const deleteFreePostComment = async (
+  commentId: string
+): Promise<boolean> => {
+  try {
+    const res = await client.delete(`/api/posts/free/comments/${commentId}`);
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+export const deleteRecommendPostComment = async (
+  commentId: string
+): Promise<boolean> => {
+  try {
+    const res = await client.delete(
+      `/api/posts/recommend/comments/${commentId}`
+    );
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};

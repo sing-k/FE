@@ -7,6 +7,7 @@ type InputButtonType = {
   icon?: React.ReactNode;
   text?: string;
   onClickButton?: () => void;
+  buttonStyle?: React.CSSProperties;
 };
 
 type Props = {
@@ -76,7 +77,12 @@ const Input = ({
       </BorderBox>
 
       {button?.text && (
-        <TextBtn onClick={button?.onClickButton}>{button.text}</TextBtn>
+        <TextBtn
+          style={button?.buttonStyle ? button?.buttonStyle : {}}
+          onClick={button?.onClickButton}
+        >
+          {button.text}
+        </TextBtn>
       )}
     </Container>
   );
