@@ -48,4 +48,7 @@ export default {
   COLOR_BOX_SHADOW_COLOR: "rgba(217, 217, 217, 0.7)",
 
   COLOR_LINE_BLUE: "#5033FF",
+
+  COLOR_YOUTUBE_RED: "#ff0000",
+  COLOR_RECOMMEND_LABEL: "#efefef",
 };

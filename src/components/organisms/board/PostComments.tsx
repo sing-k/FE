@@ -1,67 +1,100 @@
+import { useEffect, useState } from "react";
+
 import styled from "styled-components";
 
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 
-import { DataType } from "../../molecules/comment/PostComment";
+import { PostType } from "../../../types/postType";
+import { CommentContext } from "../../../types/commentType";
 
+import {
+  useFreeCommentMutation,
+  useFreePostCommentsQuery,
+  useRecommendCommentMutation,
+  useRecommendPostCommentsQuery,
+} from "../../../hooks/queries/comment";
+
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 import Input from "../../common/Input";
 import PostComment from "../../molecules/comment/PostComment";
-import { useState } from "react";
 
-const dummy: DataType[] = [
-  {
-    id: "commentId1",
-    writer: {
-      id: "writer1",
-      profileImg: undefined,
-      nickname: "영벨롭",
-    },
-    createdAt: "2024-06-01 13:00",
-    likes: 10,
-    content: "댓글 내용 댓글 내용 댓글 내용",
-    recomment: [],
-  },
-  {
-    id: "commentId2",
-    writer: {
-      id: "writer2",
-      profileImg: undefined,
-      nickname: "배만춘",
-    },
-    createdAt: "2024-06-01 13:30",
-    likes: 20,
-    content: "댓글 내용 댓글 내용 댓글 내용",
-    recomment: [
-      {
-        id: "recommentId1",
-        writer: {
-          id: "writer1",
-          profileImg: undefined,
-          nickname: "영벨롭",
-        },
-        createdAt: "2024-06-01 13:50",
-        likes: 10,
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      },
-    ],
-  },
-];
+type Props = {
+  type: PostType;
+  postId: string;
+};
 
-const PostComments = () => {
+const PostComments = ({ type, postId }: Props) => {
   const [input, setInput] = useState<string>("");
+  const [count, setCount] = useState<number>(0);
+  const [parentId, setParentId] = useState<string>("");
+
+  const { data, isLoading, isError, error } =
+    type === "free"
+      ? useFreePostCommentsQuery(postId)
+      : useRecommendPostCommentsQuery(postId);
+
+  const freeCommentMutation = useFreeCommentMutation(postId);
+  const recommendCommentMutation = useRecommendCommentMutation(postId);
+
+  const onClickButton = async () => {
+    if (!input) {
+      alert("댓글 내용을 작성해주세요!");
+      return;
+    }
+
+    const ctx: CommentContext = {
+      postId,
+      content: input,
+      parentId,
+    };
+
+    let res = false;
+
+    if (type === "free") {
+      res = await freeCommentMutation.mutateAsync(ctx);
+    } else {
+      res = await recommendCommentMutation.mutateAsync(ctx);
+    }
+
+    if (res) {
+      alert("댓글이 작성되었습니다.");
+      setInput("");
+    }
+  };
+
+  useEffect(() => {
+    if (data) {
+      let totalCount = data.length;
+      data.forEach((el) => {
+        totalCount += el.children.length;
+      });
+      setCount(totalCount);
+    }
+  }, [data]);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+  if (!data) return <></>;
 
   return (
     <Container>
       <Text>
         댓글
-        <Num>12</Num>
+        <Num>{count}</Num>
       </Text>
 
       <CommentWrapper>
-        {dummy.map((data) => (
-          <PostComment key={data.id} data={data} />
+        {data.map((comment) => (
+          <PostComment
+            key={comment.id}
+            data={comment}
+            parentId={parentId}
+            setParentId={setParentId}
+            postId={postId}
+            type={type}
+          />
         ))}
       </CommentWrapper>
 
@@ -70,8 +103,8 @@ const PostComments = () => {
         setInput={setInput}
         placeholder="댓글을 입력해주세요"
         width="100%"
-        button={{ text: "등록" }}
-        textarea={true}
+        button={{ text: "등록", onClickButton }}
+        textarea={false}
       />
     </Container>
   );

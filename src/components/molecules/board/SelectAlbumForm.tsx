@@ -1,19 +1,58 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 
 import styled from "styled-components";
 
-import LinkInput from "./LinkInput";
+import color from "../../../styles/color";
 
-const SelectAlbumForm = () => {
-  const [input, setInput] = useState<string>("");
+import { albumLinkToId } from "../../../utils/linkValidation";
+import { getAlbumDetail } from "../../../api/albumDetail";
+import { AlbumDetailType } from "../../../types/albumDetailType";
+
+import LinkInput from "./LinkInput";
+import AlbumDetailCard from "../../organisms/albumDetail/AlbumDetailCard";
+
+type Props = {
+  register: UseFormRegister<FieldValues>;
+  albumLink: string;
+};
+
+const SelectAlbumForm = ({ register, albumLink }: Props) => {
+  const [albumData, setAlbumData] = useState<AlbumDetailType | null>(null);
+
+  const getAlbumData = async () => {
+    const albumId = albumLinkToId(albumLink);
+
+    if (!albumId || albumId === "") return;
+
+    const res = await getAlbumDetail(albumId);
+
+    setAlbumData(res);
+  };
+
+  useEffect(() => {
+    if (albumLink) {
+      getAlbumData();
+    }
+  }, [albumLink]);
 
   return (
     <Container>
       <LinkInput
-        input={input}
-        setInput={setInput}
         placeholder="추천할 앨범의 페이지 링크를 입력해 주세요!"
+        register={register}
+        name="albumLink"
       />
+
+      {albumData && (
+        <AlbumDetailCard
+          data={albumData}
+          style={{
+            border: `1px solid ${color.COLOR_LIGHTGRAY_BORDER}`,
+            marginTop: "1rem",
+          }}
+        />
+      )}
     </Container>
   );
 };

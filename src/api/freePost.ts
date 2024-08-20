@@ -20,12 +20,31 @@ export const getFreePostList = async ({
     const res = await client.get(url);
 
     if (res.data.statusCode !== 200) {
-      throw new Error(res.data.message || "Album List Error");
+      throw new Error(res.data.message || "Free Post List Error");
     }
 
     return res.data.data.items as FreePostType[];
   } catch (err) {
     console.log(err);
     return [];
+  }
+};
+
+export const getFreePost = async ({
+  queryKey,
+}: QueryFunctionContext): Promise<FreePostType | undefined> => {
+  try {
+    const id = queryKey[1];
+
+    const res = await client.get(`/api/posts/free/${id}`);
+
+    if (res.data.statusCode !== 200) {
+      throw new Error(res.data.message || "Free Post Error");
+    }
+
+    return res.data.data as FreePostType;
+  } catch (err) {
+    console.log(err);
+    return undefined;
   }
 };

@@ -1,16 +1,27 @@
 import { useState } from "react";
+
+import { TbMusicSearch } from "react-icons/tb";
+
+import styled from "styled-components";
+
+import { useInfiniteRecommendPostListQuery } from "../../hooks/queries/recommendPost";
+
 import BoardListTemplate from "../templates/board/BoardListTemplate";
 import PostSelection from "../atoms/post/PostSelection";
 import Input from "../common/Input";
-import styled from "styled-components";
-import { TbMusicSearch } from "react-icons/tb";
-import { MyMusicHeader, MyMusicFooter, MyBoardHeader } from "../molecules/";
-import { MyThumbnailImg } from "../atoms/mypage/index";
-import Thumbnail from "../../assets/img/singk-logo.png";
-import { glassEffectStyle } from "../../styles/style";
+import EmptyMessage from "../common/EmptyMessage";
+import InfiniteScrollList from "../common/InfiniteScrollList";
+import RecommendBoardItem from "../molecules/recommendBoard/RecommendBoardItem";
+import { useMediaQueries } from "../../hooks";
 
 const MusicRecommendationBoardPage = () => {
   const [input, setInput] = useState<string>("");
+  const queryResult = useInfiniteRecommendPostListQuery();
+
+  const { isPc, isTablet } = useMediaQueries();
+
+  const cols = isPc ? 3 : isTablet ? 2 : 1;
+
   return (
     <BoardListTemplate>
       <Container>
@@ -25,32 +36,22 @@ const MusicRecommendationBoardPage = () => {
           }}
         />
       </Container>
-      <BottomContainer>
-        <Card>
-          <MyThumbnailImg src={Thumbnail} />
-          <MyMusicHeader />
-          <MyBoardHeader showDeleteBtn={false} />
-          <MyMusicFooter />
-        </Card>
-        <Card>
-          <MyThumbnailImg src={Thumbnail} type="youtube" />
-          <MyMusicHeader />
-          <MyBoardHeader showDeleteBtn={false} />
-          <MyMusicFooter />
-        </Card>
-        <Card>
-          <MyThumbnailImg src={Thumbnail} type="youtube" />
-          <MyMusicHeader />
-          <MyBoardHeader showDeleteBtn={false} />
-          <MyMusicFooter />
-        </Card>
-        <Card>
-          <MyThumbnailImg src={Thumbnail} type="youtube" />
-          <MyMusicHeader />
-          <MyBoardHeader showDeleteBtn={false} />
-          <MyMusicFooter />
-        </Card>
-      </BottomContainer>
+
+      {queryResult?.data?.pages[0]?.length === 0 ? (
+        <EmptyMessage message="음악추천게시글이 없습니다." />
+      ) : (
+        <InfiniteScrollList
+          queryResult={queryResult}
+          ItemComponent={RecommendBoardItem}
+          containerStyle={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${cols}, 1fr)`,
+            gap: "1rem",
+            background: "none",
+            backdropFilter: "none",
+          }}
+        />
+      )}
     </BoardListTemplate>
   );
 };
@@ -61,24 +62,4 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 1rem; /* Optional: add some space between elements */
-`;
-
-const BottomContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-  justify-content: center; /* Center the grid items */
-  padding: 0;
-`;
-
-const Card = styled.div`
-  ${glassEffectStyle()}
-  min-width: 280px;
-  padding: 1rem;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 0.5rem;
-  justify-content: center;
 `;

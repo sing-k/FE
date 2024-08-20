@@ -10,6 +10,7 @@ import { TbMusicSearch } from "react-icons/tb";
 import { useInfiniteFreePostListQuery } from "../../hooks/queries/freePost";
 
 import InfiniteScrollList from "../common/InfiniteScrollList";
+import EmptyMessage from "../common/EmptyMessage";
 
 const BoardPage = () => {
   const [input, setInput] = useState<string>("");
@@ -31,13 +32,17 @@ const BoardPage = () => {
           />
         </Container>
 
-        <InfiniteScrollList
-          queryResult={queryResult}
-          ItemComponent={FreeBoardItem}
-          containerStyle={{
-            padding: "0 1rem 1rem",
-          }}
-        />
+        {queryResult?.data?.pages[0]?.length === 0 ? (
+          <EmptyMessage message="자유게시글이 없습니다." />
+        ) : (
+          <InfiniteScrollList
+            queryResult={queryResult}
+            ItemComponent={FreeBoardItem}
+            containerStyle={{
+              padding: "0 1rem 1rem",
+            }}
+          />
+        )}
       </BoardListTemplate>
     </>
   );

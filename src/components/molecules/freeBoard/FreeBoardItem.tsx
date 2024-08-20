@@ -1,21 +1,31 @@
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
+
+import { pathName } from "../../../App";
+
 import { FreePostType } from "../../../types/freePostType";
 
 import { PostTitle } from "../../atoms";
 import PostDay from "../../atoms/post/PostDay";
 import UserInfo from "../../common/UserInfo";
 import PostLikeComments from "../../atoms/post/PostLikeComments";
+import PostContentsPreview from "../../atoms/post/PostContentsPreview";
 
 type Props = {
   data: FreePostType;
 };
 
 const FreeBoardItem = ({ data }: Props) => {
-  const { title, writer, createdAt, like, comments } = data;
+  const { title, writer, createdAt, like, comments, id, content } = data;
+
+  const navigate = useNavigate();
+  const goFreePostDetailPage = () => {
+    navigate(`${pathName.board}/${id}`);
+  };
 
   return (
-    <Container>
+    <Container onClick={goFreePostDetailPage}>
       <Contents>
         <Wrapper>
           <UserInfo nickname={writer.nickname} profileImage={writer.imageUrl} />
@@ -27,6 +37,10 @@ const FreeBoardItem = ({ data }: Props) => {
           <PostTitle title={title} />
 
           <PostLikeComments like={like.count} comments={comments} />
+        </Wrapper>
+
+        <Wrapper>
+          <PostContentsPreview contents={content} />
         </Wrapper>
       </Contents>
 

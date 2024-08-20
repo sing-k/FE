@@ -3,9 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import color from "../../styles/color";
 
-type MenuItemType = {
+export type MenuItemType = {
   text: string;
-  handleClickItem?: () => void;
+  handleClickItem: () => void;
 };
 
 type Props = {
@@ -14,13 +14,19 @@ type Props = {
   menuList: MenuItemType[];
 };
 
-const DropDownMenu = ({ menuList }: Props) => {
+const DropDownMenu = ({ menuList, setOpenMenu }: Props) => {
   if (!menuList || menuList.length === 0) return;
 
   return (
     <Container>
       {menuList.map((item) => (
-        <Item key={item.text} onClick={item.handleClickItem}>
+        <Item
+          key={item.text}
+          onClick={() => {
+            setOpenMenu(false);
+            item.handleClickItem();
+          }}
+        >
           {item.text}
         </Item>
       ))}

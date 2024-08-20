@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { FieldValues, Controller, Control } from "react-hook-form";
 
 import styled from "styled-components";
 
@@ -6,37 +7,48 @@ import color from "../../../styles/color";
 
 import { FaPlus } from "react-icons/fa";
 
-const SelectImageForm = () => {
-  const [file, setFile] = useState<File | null>(null);
+type Props = {
+  selectedFile: File | null;
+  control: Control<FieldValues>;
+};
+
+const SelectImageForm = ({ selectedFile, control }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>("");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  if (file) {
-    // file 선언 후 사용하지 않았다는 에러 제거 위함 나중에 제거해주세요
-    console.log(file);
-  }
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-      setFile(selectedFile);
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageSrc(reader.result);
-      };
-      reader.readAsDataURL(selectedFile);
+  useEffect(() => {
+    if (selectedFile) {
+      const src = URL.createObjectURL(selectedFile);
+      setImageSrc(src);
     }
-  };
+  }, [selectedFile]);
 
   return (
     <>
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        style={{ display: "none" }}
+      <Controller
+        name="selectedFile"
+        control={control}
+        render={({ field }) => {
+          const { onChange } = field;
+
+          const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files && e.target.files[0]) {
+              const file = e.target.files[0];
+              onChange(file);
+            }
+          };
+
+          return (
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+          );
+        }}
       />
 
       <ImageDiv onClick={() => fileInputRef?.current?.click()}>
