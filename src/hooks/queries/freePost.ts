@@ -14,10 +14,11 @@ import {
   deleteFreePost,
 } from "../../api/freePost";
 import { FreePostPageParam, FreePostType } from "../../types/freePostType";
+import { SearchPostContext } from "../../types/postType";
 
-export const useInfiniteFreePostListQuery = () => {
+export const useInfiniteFreePostListQuery = (ctx: SearchPostContext) => {
   return useInfiniteQuery({
-    queryKey: ["infiniteFreePostList"],
+    queryKey: ["infiniteFreePostList", ctx],
     queryFn: getFreePostList,
     initialPageParam: { offset: 0 } as FreePostPageParam,
     getNextPageParam: (

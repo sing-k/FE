@@ -8,18 +8,24 @@ import {
   RecommendPostRequestType,
 } from "../types/recommendPostType";
 import { checkAPIResponseValidation } from ".";
+import { SearchPostContext } from "../types/postType";
 
 export const getRecommendPostList = async ({
+  queryKey,
   pageParam,
 }: QueryFunctionContext): Promise<RecommendPostType[]> => {
   try {
+    const ctx = queryKey[1] as SearchPostContext;
+    const { sort, filter, keyword } = ctx;
+
     let url = `/api/posts/recommend?limit=${RECOMMEND_POST_LIMIT}`;
 
     if (pageParam) {
-      const { offset, sort, filter, keyword } =
-        pageParam as RecommendPostPageParam;
+      const { offset } = pageParam as RecommendPostPageParam;
 
-      url += `&offset=${offset}&sort=${sort ? sort : "LATEST"}`;
+      url += `&offset=${offset}`;
+
+      url += `&sort=${sort ? sort : "LATEST"}`;
 
       if (filter && keyword) {
         url += `&filter=${filter}&keyword=${keyword}`;

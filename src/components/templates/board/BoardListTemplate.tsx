@@ -83,5 +83,8 @@ const ListWrapper = styled.div`
   ${glassEffectStyle()}
   width: 100%;
   border-radius: 5px;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

@@ -1,36 +1,31 @@
 import { useState } from "react";
-import BoardListTemplate from "../templates/board/BoardListTemplate";
-import FreeBoardItem from "../molecules/freeBoard/FreeBoardItem";
-import PostSelection from "./../atoms/post/PostSelection";
-import Input from "../common/Input";
-import styled from "styled-components";
-
-import { TbMusicSearch } from "react-icons/tb";
 
 import { useInfiniteFreePostListQuery } from "../../hooks/queries/freePost";
 
+import { PostFilterType, postFilterType } from "../../types/postType";
+
+import BoardListTemplate from "../templates/board/BoardListTemplate";
+import FreeBoardItem from "../molecules/freeBoard/FreeBoardItem";
 import InfiniteScrollList from "../common/InfiniteScrollList";
 import EmptyMessage from "../common/EmptyMessage";
+import SearchPost from "../organisms/board/SearchPost";
 
 const BoardPage = () => {
-  const [input, setInput] = useState<string>("");
-  const queryResult = useInfiniteFreePostListQuery();
+  const [keyword, setKeyword] = useState<string>("");
+  const [filter, setFilter] = useState<PostFilterType>(
+    Object.keys(postFilterType)[0] as PostFilterType
+  );
+
+  const queryResult = useInfiniteFreePostListQuery({
+    sort: "LATEST",
+    keyword,
+    filter,
+  });
 
   return (
     <>
       <BoardListTemplate>
-        <Container>
-          <PostSelection />
-          <Input
-            input={input}
-            setInput={setInput}
-            width="0.2rem"
-            placeholder={"검색어 입력"}
-            button={{
-              icon: <TbMusicSearch size="1.2rem" />,
-            }}
-          />
-        </Container>
+        <SearchPost setFilter={setFilter} setKeyword={setKeyword} />
 
         {queryResult?.data?.pages[0]?.length === 0 ? (
           <EmptyMessage message="자유게시글이 없습니다." />
@@ -49,9 +44,3 @@ const BoardPage = () => {
 };
 
 export default BoardPage;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem; /* Optional: add some space between elements */
-`;

@@ -17,10 +17,11 @@ import {
   RecommendPostPageParam,
   RecommendPostType,
 } from "../../types/recommendPostType";
+import { SearchPostContext } from "../../types/postType";
 
-export const useInfiniteRecommendPostListQuery = () => {
+export const useInfiniteRecommendPostListQuery = (ctx: SearchPostContext) => {
   return useInfiniteQuery({
-    queryKey: ["infiniteRecommendPostList"],
+    queryKey: ["infiniteRecommendPostList", ctx],
     queryFn: getRecommendPostList,
     initialPageParam: { offset: 0 } as RecommendPostPageParam,
     getNextPageParam: (
