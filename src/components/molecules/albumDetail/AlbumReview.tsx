@@ -12,20 +12,42 @@ import { AlbumReviewType } from "../../../types/albumReviewType";
 import { dateTimeFormat } from "../../../utils/date";
 
 import StarRating from "../../atoms/albumDetail/StarRating";
+import OptionsMenu from "../../common/OptionsMenu";
+import { useDeleteAlbumReviewMutation } from "../../../hooks/queries/albumDetail";
 
 type Props = {
   data: AlbumReviewType;
+  albumId: string;
 };
 
-const AlbumReview = ({ data }: Props) => {
+const AlbumReview = ({ data, albumId }: Props) => {
+  const deleteAlbumReviewMutation = useDeleteAlbumReviewMutation(albumId);
+
+  const handleDelete = async () => {
+    if (!window.confirm("앨범 감상평을 삭제하시겠습니까?")) return;
+
+    await deleteAlbumReviewMutation.mutateAsync({
+      reviewId: data.id,
+      albumId,
+    });
+  };
+
   return (
     <Container>
       <Wrapper>
-        <StarRatingDiv>
+        <SmallWrapper>
           <StarRating rating={data.score} />
           {data.score}
-        </StarRatingDiv>
-        {dateTimeFormat(data.createdAt)}
+        </SmallWrapper>
+
+        <SmallWrapper>
+          {dateTimeFormat(data.createdAt)}
+
+          <OptionsMenu
+            writerId={data.reviewer.id as string}
+            handleDelete={handleDelete}
+          />
+        </SmallWrapper>
       </Wrapper>
 
       <ReviewText>{data.content}</ReviewText>
@@ -38,7 +60,7 @@ const AlbumReview = ({ data }: Props) => {
           {data.reviewer.nickname ? data.reviewer.nickname : "닉네임없음"}
         </WriterDiv>
 
-        <BtnDiv>
+        <SmallWrapper>
           <Btn>
             <FaRegThumbsUp />
             {data.pros}
@@ -47,7 +69,7 @@ const AlbumReview = ({ data }: Props) => {
             <FaRegThumbsDown />
             {data.cons}
           </Btn>
-        </BtnDiv>
+        </SmallWrapper>
       </Wrapper>
     </Container>
   );
@@ -65,17 +87,6 @@ const Container = styled.div`
   gap: 0.5rem;
 `;
 
-const StarRatingDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
-const ReviewText = styled.p`
-  line-height: 1.5rem;
-  font-size: 1rem;
-`;
-
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
@@ -84,6 +95,19 @@ const Wrapper = styled.div`
   font-size: 0.9rem;
   color: ${color.COLOR_GRAY_TEXT};
   font-weight: 500;
+`;
+
+const SmallWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+`;
+
+const ReviewText = styled.p`
+  line-height: 1.5rem;
+  font-size: 1rem;
 `;
 
 const WriterDiv = styled.div`
@@ -100,14 +124,6 @@ const WriterImgDiv = styled.div`
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: ${color.COLOR_LIGHTGRAY_BACKGROUND};
-`;
-
-const BtnDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
 `;
 
 const Btn = styled.div`

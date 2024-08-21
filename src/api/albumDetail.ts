@@ -1,3 +1,4 @@
+import { checkAPIResponseValidation } from ".";
 import client from "../config/axios";
 
 export const getAlbumDetail = async (albumId: string) => {
@@ -56,5 +57,28 @@ export const postAlbumReivew = async ({
 
   if (res.data.statusCode === 400) {
     throw new Error("이미 감상평을 작성한 앨범입니다.");
+  }
+};
+
+export type DeleteAlbumReviewContext = {
+  albumId: string;
+  reviewId: string;
+};
+
+export const deleteAlbumReivew = async ({
+  reviewId,
+  albumId,
+}: DeleteAlbumReviewContext): Promise<boolean> => {
+  try {
+    const res = await client.delete(
+      `/api/reviews/${reviewId}/albums/${albumId}`
+    );
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
   }
 };

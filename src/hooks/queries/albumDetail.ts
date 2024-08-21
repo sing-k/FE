@@ -12,6 +12,7 @@ import {
   AlbumReviewListArgs,
   postAlbumReivew,
   AlbumReviewArgs,
+  deleteAlbumReivew,
 } from "../../api/albumDetail";
 
 export const useAlbumDetailQuery = (albumId: string) => {
@@ -50,6 +51,22 @@ export const usePostAlbumReview = (
         queryKey: ["albumReviewList", { albumId }],
       });
       alert("감상평이 등록되었습니다.");
+    },
+    onError: (errorMessage) => {
+      alert(errorMessage);
+    },
+  });
+};
+
+export const useDeleteAlbumReviewMutation = (albumId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteAlbumReivew,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["albumReviewList", { albumId }],
+      });
     },
     onError: (errorMessage) => {
       alert(errorMessage);
