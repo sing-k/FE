@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
 
-import { FaUser, FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 import { AlbumReviewType } from "../../../types/albumReviewType";
 
@@ -14,6 +14,7 @@ import { dateTimeFormat } from "../../../utils/date";
 import StarRating from "../../atoms/albumDetail/StarRating";
 import OptionsMenu from "../../common/OptionsMenu";
 import { useDeleteAlbumReviewMutation } from "../../../hooks/queries/albumDetail";
+// import AlbumVotingBtns from "./AlbumVotingBtns";
 
 type Props = {
   data: AlbumReviewType;
@@ -60,16 +61,12 @@ const AlbumReview = ({ data, albumId }: Props) => {
           {data.reviewer.nickname ? data.reviewer.nickname : "닉네임없음"}
         </WriterDiv>
 
-        <SmallWrapper>
-          <Btn>
-            <FaRegThumbsUp />
-            {data.pros}
-          </Btn>
-          <Btn>
-            <FaRegThumbsDown />
-            {data.cons}
-          </Btn>
-        </SmallWrapper>
+        {/* <AlbumVotingBtns
+          albumId={albumId}
+          reviewId={data.id}
+          pros={data.pros}
+          cons={data.cons}
+        /> */}
       </Wrapper>
     </Container>
   );
@@ -124,15 +121,4 @@ const WriterImgDiv = styled.div`
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: ${color.COLOR_LIGHTGRAY_BACKGROUND};
-`;
-
-const Btn = styled.div`
-  ${glassEffectStyle()}
-  cursor: pointer;
-  padding: 0.5rem 0.8rem;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
 `;

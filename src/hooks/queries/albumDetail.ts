@@ -1,9 +1,4 @@
-import {
-  useQuery,
-  useQueryClient,
-  useMutation,
-  UseMutationResult,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 import {
   getAlbumDetail,
@@ -11,7 +6,6 @@ import {
   getAlbumReviewList,
   AlbumReviewListArgs,
   postAlbumReivew,
-  AlbumReviewArgs,
   deleteAlbumReivew,
 } from "../../api/albumDetail";
 
@@ -39,18 +33,21 @@ export const useAlbumReviewListQuery = (args: AlbumReviewListArgs) => {
   });
 };
 
-export const usePostAlbumReview = (
-  albumId: string
-): UseMutationResult<unknown, unknown, AlbumReviewArgs, unknown> => {
+export const usePostAlbumReview = (albumId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: postAlbumReivew,
     onSuccess: () => {
       queryClient.invalidateQueries({
+        queryKey: ["album", albumId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["albumReviewStatistic", albumId],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["albumReviewList", { albumId }],
       });
-      alert("감상평이 등록되었습니다.");
     },
     onError: (errorMessage) => {
       alert(errorMessage);
@@ -64,6 +61,12 @@ export const useDeleteAlbumReviewMutation = (albumId: string) => {
   return useMutation({
     mutationFn: deleteAlbumReivew,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["album", albumId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["albumReviewStatistic", albumId],
+      });
       queryClient.invalidateQueries({
         queryKey: ["albumReviewList", { albumId }],
       });
