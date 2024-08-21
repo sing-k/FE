@@ -1,8 +1,15 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import {
   getRecommendPost,
   getRecommendPostList,
+  postRecommendPost,
+  updateRecommendPost,
 } from "../../api/recommendPost";
 import {
   RECOMMEND_POST_LIMIT,
@@ -38,5 +45,37 @@ export const useRecommendPostQuery = (id: string) => {
     queryKey: ["recommendPost", id],
     queryFn: getRecommendPost,
     enabled: !!id,
+  });
+};
+
+export const useRecommendPostMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: postRecommendPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteRecommendPostList"],
+        refetchType: "all",
+      });
+    },
+  });
+};
+
+export const useUpdateRecommendPostMutation = (postId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateRecommendPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteRecommendPostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["recommendPost", postId],
+        refetchType: "all",
+      });
+    },
   });
 };

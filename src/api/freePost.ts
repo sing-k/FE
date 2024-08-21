@@ -2,6 +2,7 @@ import client from "../config/axios";
 
 import { QueryFunctionContext } from "@tanstack/react-query";
 import { FreePostType, FreePostPageParam } from "../types/freePostType";
+import { checkAPIResponseValidation } from ".";
 
 export const FREE_POST_LIMIT = 10;
 
@@ -46,5 +47,55 @@ export const getFreePost = async ({
   } catch (err) {
     console.log(err);
     return undefined;
+  }
+};
+
+type PostFreePostContext = {
+  title: string;
+  content: string;
+};
+
+export const postFreePost = async ({
+  title,
+  content,
+}: PostFreePostContext): Promise<boolean> => {
+  try {
+    const res = await client.post(`/api/posts/free`, {
+      title,
+      content,
+    });
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+type UpdateFreePostContext = {
+  postId: string;
+  title: string;
+  content: string;
+};
+
+export const updateFreePost = async ({
+  postId,
+  title,
+  content,
+}: UpdateFreePostContext): Promise<boolean> => {
+  try {
+    const res = await client.put(`/api/posts/free/${postId}`, {
+      title,
+      content,
+    });
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
   }
 };

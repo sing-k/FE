@@ -53,3 +53,17 @@ export const youtubeLinkToId = (link: string): string => {
 
   return videoId;
 };
+
+export const parsingAlbumId = (link: string): string => {
+  const substrings = link.split("/");
+
+  return substrings[substrings.length - 1];
+};
+
+export const parsingAlbumImageSrc = (link: string): string => {
+  const albumId = "/" + parsingAlbumId(link);
+
+  const ret = link.replace(albumId, "").trim();
+
+  return ret;
+};

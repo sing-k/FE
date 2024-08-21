@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { RecommendType } from "../../../types/recommendPostType";
 import RecommendYoutube from "./RecommendYoutube";
+import { parsingAlbumImageSrc } from "../../../utils/linkValidation";
 
 type Props = {
   link: string;
@@ -13,7 +14,7 @@ const RecommendThumbnail = ({ link, recommend }: Props) => {
     <RecommendYoutube youtubeLink={link} style={{ height: "100%" }} />
   ) : (
     <Container>
-      <Image src={link} />
+      <Image src={recommend === "ALBUM" ? parsingAlbumImageSrc(link) : link} />
     </Container>
   );
 };

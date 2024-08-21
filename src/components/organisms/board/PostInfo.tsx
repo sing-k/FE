@@ -17,19 +17,23 @@ import PostLikeComments from "../../atoms/post/PostLikeComments";
 import RecommendTypeLabel from "../../atoms/recommendBoard/RecommendTypeLabel";
 import OptionsMenu from "../../common/OptionsMenu";
 
+import { pathName } from "../../../App";
+
 type Props = {
   type: PostType;
   post: GeneralPostType;
 };
 
 const PostInfo = ({ type, post }: Props) => {
-  const { title, writer, like, comments, createdAt } = post;
+  const { title, writer, like, comments, createdAt, id } = post;
 
   const navigate = useNavigate();
 
   const handleUpdate = () => {
     if (type === "free") {
+      navigate(`${pathName.updatePost}/${id}`);
     } else {
+      navigate(`${pathName.updateRecommendPost}/${id}`);
     }
   };
 

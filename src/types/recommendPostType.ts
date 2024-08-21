@@ -39,4 +39,5 @@ export interface RecommendPostRequestType {
   type: RecommendType;
   genre: RecommendGenreType;
   link?: string;
+  file?: File;
 }

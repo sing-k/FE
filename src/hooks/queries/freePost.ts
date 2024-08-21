@@ -1,9 +1,16 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import {
   getFreePostList,
   FREE_POST_LIMIT,
   getFreePost,
+  postFreePost,
+  updateFreePost,
 } from "../../api/freePost";
 import { FreePostPageParam, FreePostType } from "../../types/freePostType";
 
@@ -35,5 +42,37 @@ export const useFreePostQuery = (id: string) => {
     queryKey: ["freePost", id],
     queryFn: getFreePost,
     enabled: !!id,
+  });
+};
+
+export const useFreePostMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: postFreePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteFreePostList"],
+        refetchType: "all",
+      });
+    },
+  });
+};
+
+export const useUpdateFreePostMutation = (postId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateFreePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteFreePostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["freePost", postId],
+        refetchType: "all",
+      });
+    },
   });
 };

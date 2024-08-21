@@ -8,6 +8,7 @@ import color from "../../../styles/color";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import TabMenu from "../../common/TabMenu";
+import { getLoginState } from "../../../utils/auth/tokenStorage";
 
 type Props = {
   children?: React.ReactNode;
@@ -45,7 +46,9 @@ const BoardListTemplate = ({ children }: Props) => {
           onClickTab={onClickTab}
         />
 
-        <WriteBtn onClick={onClickWriteBtn}>글쓰기</WriteBtn>
+        {getLoginState() && (
+          <WriteBtn onClick={onClickWriteBtn}>글쓰기</WriteBtn>
+        )}
       </TabWrapper>
 
       <ListWrapper>{children}</ListWrapper>

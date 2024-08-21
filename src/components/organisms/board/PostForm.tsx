@@ -31,7 +31,6 @@ const PostForm = ({ fieldValues, children }: Props) => {
       <Controller
         name="content"
         control={control}
-        defaultValue=""
         rules={{ required: "게시글 내용을 작성해주세요" }}
         render={({ field }) => {
           return (
