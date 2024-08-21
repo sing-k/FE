@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 
 import {
+  deleteRecommendPost,
   getRecommendPost,
   getRecommendPostList,
   postRecommendPost,
@@ -75,6 +76,24 @@ export const useUpdateRecommendPostMutation = (postId: string) => {
       queryClient.invalidateQueries({
         queryKey: ["recommendPost", postId],
         refetchType: "all",
+      });
+    },
+  });
+};
+
+export const useDeleteRecommendPostMutation = (postId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteRecommendPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteRecommendPostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["recommendPost", postId],
+        refetchType: "none",
       });
     },
   });

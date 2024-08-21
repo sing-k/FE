@@ -11,6 +11,7 @@ import {
   getFreePost,
   postFreePost,
   updateFreePost,
+  deleteFreePost,
 } from "../../api/freePost";
 import { FreePostPageParam, FreePostType } from "../../types/freePostType";
 
@@ -72,6 +73,24 @@ export const useUpdateFreePostMutation = (postId: string) => {
       queryClient.invalidateQueries({
         queryKey: ["freePost", postId],
         refetchType: "all",
+      });
+    },
+  });
+};
+
+export const useDeleteFreePostMutation = (postId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteFreePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteFreePostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["freePost", postId],
+        refetchType: "none",
       });
     },
   });

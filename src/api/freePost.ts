@@ -99,3 +99,16 @@ export const updateFreePost = async ({
     return false;
   }
 };
+
+export const deleteFreePost = async (postId: string): Promise<boolean> => {
+  try {
+    const res = await client.delete(`/api/posts/free/${postId}`);
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};

@@ -140,3 +140,16 @@ export const updateRecommendPost = async ({
     return false;
   }
 };
+
+export const deleteRecommendPost = async (postId: string): Promise<boolean> => {
+  try {
+    const res = await client.delete(`/api/posts/recommend/${postId}`);
+
+    checkAPIResponseValidation(res);
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
