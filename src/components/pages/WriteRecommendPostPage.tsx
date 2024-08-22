@@ -17,12 +17,14 @@ import {
   recommendType,
 } from "../../types/recommendPostType";
 
-import { albumLinkToId, isValidYoutubeLink } from "../../utils/linkValidation";
 import { useNavigate } from "react-router-dom";
 import { pathName } from "../../App";
 import { useRecommendPostMutation } from "../../hooks/queries/recommendPost";
 import { WriteRecommendValues } from "../../types/writePostType";
-import { checkPostBody } from "../../utils/writePost";
+import {
+  checkPostBody,
+  getLinkFromRecommendValues,
+} from "../../utils/writePost";
 
 const WriteRecommendPostPage = () => {
   const fieldValues: UseFormReturn<WriteRecommendValues> =
@@ -57,11 +59,7 @@ const WriteRecommendPostPage = () => {
     if (!checkPostBody({ title, content }) || !type || !genre) return;
 
     const link =
-      type === "ALBUM"
-        ? albumLinkToId(albumLink)
-        : type === "YOUTUBE" && isValidYoutubeLink(youtubeLink)
-          ? youtubeLink
-          : undefined;
+      type === "IMAGE" ? undefined : getLinkFromRecommendValues(data);
 
     const res = await recommendPostMutation.mutateAsync({
       title,
@@ -80,6 +78,14 @@ const WriteRecommendPostPage = () => {
 
   return (
     <WritePostLayout
+      type="recommend"
+      previewPost={{
+        title: fieldValues.getValues("title"),
+        content: fieldValues.getValues("content"),
+        genre: fieldValues.getValues("genre"),
+        recommend: fieldValues.getValues("type"),
+        link: getLinkFromRecommendValues(fieldValues.getValues()),
+      }}
       headerText="음악 추천 게시글 작성"
       onClickPreview={() => console.log("preview")}
       onClickSubmit={handleSubmit(onSubmit)}

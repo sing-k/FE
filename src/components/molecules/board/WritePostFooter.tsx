@@ -2,7 +2,12 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
+import { PostType } from "../../../types/postType";
+import { PreviewPostType } from "../../../types/writePostType";
+
 type Props = {
+  type?: PostType;
+  previewPost?: PreviewPostType;
   onClickPreview?: () => void;
   onClickSubmit?: () => void;
 };
@@ -12,9 +17,13 @@ const WritePostFooter = ({ onClickPreview, onClickSubmit }: Props) => {
     <Container>
       <Inner>
         <Btn onClick={onClickPreview}>미리보기</Btn>
-        <Btn className="submit" onClick={onClickSubmit}>
-          등록
-        </Btn>
+
+        <Wrapper>
+          <Btn onClick={onClickPreview}>임시저장</Btn>
+          <Btn className="submit" onClick={onClickSubmit}>
+            등록
+          </Btn>
+        </Wrapper>
       </Inner>
     </Container>
   );
@@ -38,7 +47,13 @@ const Inner = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
 `;
 

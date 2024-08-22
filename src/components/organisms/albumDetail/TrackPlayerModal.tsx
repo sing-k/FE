@@ -1,26 +1,22 @@
-import React, {
-  useRef,
-  MouseEvent,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 
 import styled from "styled-components";
 
-import { IoMdClose } from "react-icons/io";
 import { FaRegStopCircle, FaPlayCircle } from "react-icons/fa";
 
 import { TrackType } from "../../../types/albumDetailType";
 import color from "../../../styles/color";
 import { useMediaQueries } from "../../../hooks";
 
+import Modal from "../../common/Modal";
+
 type Props = {
+  modalVisible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   track: TrackType;
 };
 
-const TrackPlayerModal = ({ track, setModalVisible }: Props) => {
+const TrackPlayerModal = ({ modalVisible, setModalVisible, track }: Props) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
 
@@ -29,12 +25,12 @@ const TrackPlayerModal = ({ track, setModalVisible }: Props) => {
 
   const { isMobile } = useMediaQueries();
 
-  const closeModal = (e: MouseEvent<any>) => {
-    if (e.target === e.currentTarget) {
-      setModalVisible(false);
-    }
+  // 모달 닫을 때 실행할 함수
+  const closeModal = () => {
+    setModalVisible(false);
   };
 
+  // 재생 버튼 클릭시 실행할 함수
   const onClickPlayButton = useCallback(() => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -75,7 +71,11 @@ const TrackPlayerModal = ({ track, setModalVisible }: Props) => {
   }, []);
 
   return (
-    <Container onClick={closeModal}>
+    <Modal
+      isOpen={modalVisible}
+      closeModal={closeModal}
+      width={isMobile ? "80%" : "50%"}
+    >
       <audio
         style={{ display: "none" }}
         ref={audioRef}
@@ -84,15 +84,10 @@ const TrackPlayerModal = ({ track, setModalVisible }: Props) => {
         onEnded={onEnded}
       />
 
-      <Modal
-        style={{
-          width: isMobile ? "80%" : "50%",
-        }}
-      >
-        <Wrapper>
+      <ContentsWrapper>
+        {/* <Wrapper>
           <Text>미리듣기 중...</Text>
-          <CloseBtn onClick={closeModal} />
-        </Wrapper>
+        </Wrapper> */}
 
         <PlayBtnWrapper>
           <TrackName>{track.name}</TrackName>
@@ -101,6 +96,10 @@ const TrackPlayerModal = ({ track, setModalVisible }: Props) => {
             {isPlaying ? <FaRegStopCircle /> : <FaPlayCircle />}
           </PlayBtn>
         </PlayBtnWrapper>
+
+        <Wrapper>
+          <Text>미리듣기 중...</Text>
+        </Wrapper>
 
         <Wrapper>
           <ProgressBar>
@@ -119,35 +118,18 @@ const TrackPlayerModal = ({ track, setModalVisible }: Props) => {
             )}
           </Duration>
         </Wrapper>
-      </Modal>
-    </Container>
+      </ContentsWrapper>
+    </Modal>
   );
 };
 
 export default TrackPlayerModal;
 
-const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Modal = styled.div`
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
+const ContentsWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 const Wrapper = styled.div`
@@ -161,11 +143,6 @@ const Text = styled.p`
   font-size: 0.9rem;
   font-weight: bold;
   color: ${color.COLOR_GRAY_TEXT};
-`;
-
-const CloseBtn = styled(IoMdClose)`
-  cursor: pointer;
-  font-size: 1.2rem;
 `;
 
 const PlayBtnWrapper = styled.div`

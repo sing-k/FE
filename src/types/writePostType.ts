@@ -14,3 +14,11 @@ export interface WriteRecommendValues extends WritePostValues {
   youtubeLink?: string;
   selectedFile?: File;
 }
+
+export interface PreviewPostType {
+  title?: string;
+  content?: string;
+  recommend?: RecommendType;
+  genre?: RecommendGenreType;
+  link?: string;
+}

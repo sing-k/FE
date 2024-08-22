@@ -2,6 +2,9 @@ import React from "react";
 
 import styled from "styled-components";
 
+import { PostType } from "../../types/postType";
+import { PreviewPostType } from "../../types/writePostType";
+
 import WritePostHeader from "../molecules/board/WritePostHeader";
 import WritePostFooter from "../molecules/board/WritePostFooter";
 
@@ -10,6 +13,8 @@ type Props = {
   children?: React.ReactNode;
   onClickPreview?: () => void;
   onClickSubmit?: () => void;
+  type?: PostType;
+  previewPost?: PreviewPostType;
 };
 
 const WritePostLayout = ({
@@ -17,7 +22,10 @@ const WritePostLayout = ({
   children,
   onClickPreview,
   onClickSubmit,
+  type,
+  previewPost,
 }: Props) => {
+  console.log(previewPost);
   return (
     <Layout>
       <WritePostHeader headerText={headerText} />
@@ -25,6 +33,8 @@ const WritePostLayout = ({
       <Contents>{children}</Contents>
 
       <WritePostFooter
+        type={type}
+        previewPost={previewPost}
         onClickPreview={onClickPreview}
         onClickSubmit={onClickSubmit}
       />

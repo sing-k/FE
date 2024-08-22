@@ -1,4 +1,5 @@
-import { WritePostValues } from "../types/writePostType";
+import { WritePostValues, WriteRecommendValues } from "../types/writePostType";
+import { albumLinkToId, isValidYoutubeLink } from "./linkValidation";
 
 export const checkPostBody = ({ title, content }: WritePostValues): boolean => {
   if (!title || title === "") {
@@ -13,4 +14,27 @@ export const checkPostBody = ({ title, content }: WritePostValues): boolean => {
   }
 
   return true;
+};
+
+export const getLinkFromRecommendValues = ({
+  type,
+  albumLink,
+  youtubeLink,
+  selectedFile,
+}: WriteRecommendValues): string => {
+  let ret = "";
+
+  if (type === "ALBUM" && albumLink) {
+    ret = albumLinkToId(albumLink);
+  } else if (
+    type === "YOUTUBE" &&
+    youtubeLink &&
+    isValidYoutubeLink(youtubeLink)
+  ) {
+    ret = youtubeLink;
+  } else if (type === "IMAGE" && selectedFile) {
+    ret = URL.createObjectURL(selectedFile);
+  }
+
+  return ret;
 };

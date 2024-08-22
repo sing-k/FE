@@ -44,7 +44,11 @@ const AlbumTrack = ({ track }: Props) => {
       </Container>
 
       {track.playable && modalVisible && (
-        <TrackPlayerModal track={track} setModalVisible={setModalVisible} />
+        <TrackPlayerModal
+          track={track}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
       )}
     </>
   );
