@@ -13,12 +13,13 @@ export interface WriteRecommendValues extends WritePostValues {
   albumLink?: string;
   youtubeLink?: string;
   selectedFile?: File;
+  link?: string;
 }
 
 export interface PreviewPostType {
   title?: string;
   content?: string;
-  recommend?: RecommendType;
+  type?: RecommendType;
   genre?: RecommendGenreType;
   link?: string;
 }

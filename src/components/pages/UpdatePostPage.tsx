@@ -69,9 +69,7 @@ const UpdatePostPage = () => {
       headerText="자유 게시글 수정"
       onClickSubmit={handleSubmit(onSubmit)}
       type="free"
-      previewPost={{
-        ...watch(),
-      }}
+      values={watch()}
     >
       <PostForm fieldValues={fieldValues} />
     </WritePostLayout>

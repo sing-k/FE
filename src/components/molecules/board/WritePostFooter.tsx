@@ -5,18 +5,41 @@ import styled from "styled-components";
 import color from "../../../styles/color";
 
 import { PostType } from "../../../types/postType";
-import { PreviewPostType } from "../../../types/writePostType";
+import {
+  WritePostValues,
+  WriteRecommendValues,
+} from "../../../types/writePostType";
+
+import {
+  saveTemporaryFreePost,
+  saveTemporaryRecommendPost,
+} from "../../../utils/auth/tokenStorage";
 
 import PreviewPostModal from "../../organisms/board/PreviewPostModal";
 
 type Props = {
   type: PostType;
-  previewPost: PreviewPostType;
   onClickSubmit?: () => void;
+  values: WritePostValues | WriteRecommendValues;
+  temporarySave?: boolean;
 };
 
-const WritePostFooter = ({ onClickSubmit, type, previewPost }: Props) => {
+const WritePostFooter = ({
+  onClickSubmit,
+  type,
+  values,
+  temporarySave,
+}: Props) => {
   const [preview, setPreview] = useState<boolean>(false);
+
+  const onClickSaveTemporary = () => {
+    if (type === "free") {
+      saveTemporaryFreePost(values);
+    } else {
+      saveTemporaryRecommendPost(values as WriteRecommendValues);
+    }
+    alert("임시 저장 되었습니다.");
+  };
 
   return (
     <>
@@ -25,7 +48,10 @@ const WritePostFooter = ({ onClickSubmit, type, previewPost }: Props) => {
           <Btn onClick={() => setPreview(true)}>미리보기</Btn>
 
           <Wrapper>
-            <Btn onClick={() => {}}>임시저장</Btn>
+            {temporarySave && (
+              <Btn onClick={onClickSaveTemporary}>임시저장</Btn>
+            )}
+
             <Btn className="submit" onClick={onClickSubmit}>
               등록
             </Btn>
@@ -36,9 +62,9 @@ const WritePostFooter = ({ onClickSubmit, type, previewPost }: Props) => {
       {preview && (
         <PreviewPostModal
           type={type}
-          previewPost={previewPost}
           isOpen={preview}
           setIsOpen={setPreview}
+          values={values}
         />
       )}
     </>

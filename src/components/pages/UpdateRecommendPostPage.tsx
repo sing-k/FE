@@ -18,8 +18,6 @@ import {
 import { WritePostValues } from "../../types/writePostType";
 import { checkPostBody } from "../../utils/writePost";
 
-import { parsingAlbumImageSrc } from "../../utils/linkValidation";
-
 import WritePostLayout from "../common/WritePostLayout";
 import PostForm from "../organisms/board/PostForm";
 import Loading from "../common/Loading";
@@ -79,14 +77,11 @@ const UpdateRecommendPostPage = () => {
       headerText="음악 추천 게시글 수정"
       onClickSubmit={handleSubmit(onSubmit)}
       type="recommend"
-      previewPost={{
+      values={{
         ...watch(),
-        recommend: data.recommend,
+        type: data.recommend,
         genre: data.genre,
-        link:
-          data.recommend === "ALBUM"
-            ? parsingAlbumImageSrc(data.link)
-            : data.link,
+        link: data.link,
       }}
     >
       <PostForm fieldValues={fieldValues}>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   useForm,
   UseFormReturn,
@@ -25,8 +27,17 @@ import {
   checkPostBody,
   getLinkFromRecommendValues,
 } from "../../utils/writePost";
+import {
+  clearTemporaryPost,
+  getLoginState,
+  getTemporaryRecommendPost,
+} from "../../utils/auth/tokenStorage";
 
 const WriteRecommendPostPage = () => {
+  const [savedPost, setSavedPost] = useState<WriteRecommendValues | undefined>(
+    undefined
+  );
+
   const fieldValues: UseFormReturn<WriteRecommendValues> =
     useForm<WriteRecommendValues>({
       defaultValues: {
@@ -40,12 +51,9 @@ const WriteRecommendPostPage = () => {
       },
     });
 
-  const { register, handleSubmit, control, watch } = fieldValues;
+  const { register, handleSubmit, control, watch, reset } = fieldValues;
 
   const type = watch("type");
-  const selectedFile = watch("selectedFile");
-  const albumLink = watch("albumLink");
-  const youtubeLink = watch("youtubeLink");
 
   const recommendPostMutation = useRecommendPostMutation();
 
@@ -54,7 +62,7 @@ const WriteRecommendPostPage = () => {
   const onSubmit: SubmitHandler<WriteRecommendValues> = async (
     data: WriteRecommendValues
   ) => {
-    const { title, content, type, genre } = data;
+    const { title, content, type, genre, selectedFile } = data;
 
     if (!checkPostBody({ title, content }) || !type || !genre) return;
 
@@ -73,20 +81,37 @@ const WriteRecommendPostPage = () => {
     if (res) {
       alert("음악 추천 게시글이 등록되었습니다!");
       navigate(`${pathName.musicRecommendationBoard}`);
+      clearTemporaryPost("recommend");
     }
   };
+
+  useEffect(() => {
+    if (savedPost) {
+      if (confirm("임시 저장된 음악 추천 게시글을 불러오시겠습니까?")) {
+        reset(savedPost);
+      }
+    }
+  }, [savedPost]);
+
+  useEffect(() => {
+    if (getLoginState()) {
+      const tmpPost = getTemporaryRecommendPost();
+
+      if (tmpPost) {
+        setSavedPost({ ...tmpPost });
+      } else {
+        setSavedPost(undefined);
+      }
+    }
+  }, []);
+
   return (
     <WritePostLayout
       type="recommend"
-      previewPost={{
-        title: watch("title"),
-        content: watch("content"),
-        genre: watch("genre"),
-        recommend: watch("type"),
-        link: getLinkFromRecommendValues(watch()),
-      }}
+      values={watch()}
       headerText="음악 추천 게시글 작성"
       onClickSubmit={handleSubmit(onSubmit)}
+      temporarySave={true}
     >
       <PostForm fieldValues={fieldValues}>
         <Controller
@@ -114,11 +139,17 @@ const WriteRecommendPostPage = () => {
         />
 
         {type === "IMAGE" ? (
-          <SelectImageForm selectedFile={selectedFile} control={control} />
+          <SelectImageForm
+            selectedFile={watch("selectedFile")}
+            control={control}
+          />
         ) : type === "ALBUM" ? (
-          <SelectAlbumForm register={register} albumLink={albumLink} />
+          <SelectAlbumForm register={register} albumLink={watch("albumLink")} />
         ) : type === "YOUTUBE" ? (
-          <SelectYoutubeForm register={register} youtubeLink={youtubeLink} />
+          <SelectYoutubeForm
+            register={register}
+            youtubeLink={watch("youtubeLink")}
+          />
         ) : null}
       </PostForm>
     </WritePostLayout>

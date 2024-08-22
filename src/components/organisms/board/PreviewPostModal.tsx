@@ -5,19 +5,23 @@ import styled from "styled-components";
 import { useMemberInfoQuery } from "../../../hooks/queries/user";
 
 import { PostType, GeneralPostType } from "../../../types/postType";
-import { PreviewPostType } from "../../../types/writePostType";
+import {
+  WritePostValues,
+  WriteRecommendValues,
+} from "../../../types/writePostType";
 
 import Modal from "../../common/Modal";
 import PostContents from "./PostContents";
+import { getLinkFromRecommendValues } from "../../../utils/writePost";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   type: PostType;
-  previewPost: PreviewPostType;
+  values: WritePostValues | WriteRecommendValues;
 };
 
-const PreviewPostModal = ({ isOpen, setIsOpen, type, previewPost }: Props) => {
+const PreviewPostModal = ({ isOpen, setIsOpen, type, values }: Props) => {
   const { data } = useMemberInfoQuery();
 
   if (!data) {
@@ -41,22 +45,37 @@ const PreviewPostModal = ({ isOpen, setIsOpen, type, previewPost }: Props) => {
   });
 
   useEffect(() => {
-    if (previewPost) {
+    if (values) {
       const now = String(new Date());
-      const { title, content, genre, recommend, link } = previewPost;
+      let {
+        title,
+        content,
+        type: recommend,
+        genre,
+        link,
+      } = values as WriteRecommendValues;
+
+      if (!title) title = "";
+      if (!content) content = "";
+
+      if (type === "recommend") {
+        link = link
+          ? link
+          : getLinkFromRecommendValues(values as WriteRecommendValues);
+      }
 
       setPost({
         ...post,
-        title: title ? title : "",
-        content: content ? content : "",
-        genre,
+        title,
+        content,
         recommend,
+        genre,
         link,
         createdAt: now,
         modifiedAt: now,
       });
     }
-  }, [previewPost]);
+  }, [values]);
 
   return (
     <Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} width="90%">
