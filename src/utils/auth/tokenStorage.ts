@@ -9,7 +9,7 @@ export const saveLoginState = () => {
 };
 
 export const clearTokens = () => {
-  localStorage.removeItem("loginState");
+  localStorage.clear();
 };
 
 export const getLoginState = () => {
