@@ -6,15 +6,19 @@ import { useMemberInfoQuery } from "../../../hooks/queries/user";
 
 import LogoImage from "../../common/LogoImage";
 import UserInfo from "../../common/UserInfo";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 
 type Props = {
   headerText: string;
 };
 
 const WritePostHeader = ({ headerText }: Props) => {
-  const { data } = useMemberInfoQuery();
+  const { data, isLoading, isError, error } = useMemberInfoQuery();
 
-  if (!data) return <>useMemberInfoQuery 값 없음</>;
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+  if (!data) return <></>;
 
   return (
     <Container>

@@ -57,7 +57,7 @@ const WritePostPage = () => {
   }, [savedPost]);
 
   useEffect(() => {
-    if (getLoginState()) {
+    if (getLoginState() && !savedPost) {
       const tmpPost = getTemporaryFreePost();
 
       if (tmpPost) setSavedPost({ ...tmpPost });

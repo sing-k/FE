@@ -94,7 +94,7 @@ const WriteRecommendPostPage = () => {
   }, [savedPost]);
 
   useEffect(() => {
-    if (getLoginState()) {
+    if (getLoginState() && !savedPost) {
       const tmpPost = getTemporaryRecommendPost();
 
       if (tmpPost) {
