@@ -1,12 +1,23 @@
 import styled from "styled-components";
 import { MyLikeRating, MyCommentRating, MyGenre } from "../../atoms";
-const MyMusicFooter = () => {
+
+interface MyMusicFooterProps {
+  genre: string;
+  likeCount: number;
+  commentCount: number;
+}
+
+const MyMusicFooter = ({
+  genre,
+  likeCount,
+  commentCount,
+}: MyMusicFooterProps) => {
   return (
     <Container>
-      <MyGenre>[장르]</MyGenre>
+      <MyGenre>{genre}</MyGenre>
       <RatingDiv>
-        <MyLikeRating />
-        <MyCommentRating />
+        <MyLikeRating likeCount={likeCount} />
+        <MyCommentRating commentCount={commentCount} />
       </RatingDiv>
     </Container>
   );

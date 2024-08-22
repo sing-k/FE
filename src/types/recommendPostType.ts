@@ -38,3 +38,10 @@ export interface RecommendPostRequestType {
   link?: string;
   file?: File;
 }
+
+export interface MyRecommendPostType {
+  items: RecommendPostType[];
+  limit: number;
+  offset: number;
+  total: number;
+}

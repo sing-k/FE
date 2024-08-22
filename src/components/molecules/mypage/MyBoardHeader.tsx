@@ -1,25 +1,29 @@
 import styled from "styled-components";
-import { MyDeleteBtn, MyIcon } from "../../atoms";
+import { MyDeleteBtn } from "../../atoms";
 import { Text } from "../../common";
 import color from "../../../styles/color";
-import IconImage from "../../../assets/img/singk-logo.png";
 
 type MyBoardHeaderProps = {
   showDeleteBtn?: boolean;
+  nickname: string;
+  createdAt: string;
 };
 
-const MyBoardHeader = ({ showDeleteBtn = true }: MyBoardHeaderProps) => {
+const MyBoardHeader = ({
+  nickname,
+  createdAt,
+  showDeleteBtn = true,
+}: MyBoardHeaderProps) => {
   return (
     <Container>
-      <MyIcon src={IconImage} $rounded={true} />
       <TitleDiv>
         <Text color={color.COLOR_DARKGRAY_TEXT} size="1rem" bold="700">
-          킹연두
+          {nickname}
         </Text>
       </TitleDiv>
       <ColumnDiv>
         <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
-          2024.06.25
+          {createdAt}
         </Text>
         {showDeleteBtn && <MyDeleteBtn />}
       </ColumnDiv>
@@ -32,7 +36,6 @@ export default MyBoardHeader;
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   gap: 0.5rem;
 `;

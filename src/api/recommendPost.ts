@@ -103,7 +103,7 @@ export const postRecommendPost = async ({
       "post",
       new Blob([JSON.stringify(body)], {
         type: "application/json",
-      })
+      }),
     );
 
     const res = await client.post("/api/posts/recommend", formData, {
@@ -157,5 +157,26 @@ export const deleteRecommendPost = async (postId: string): Promise<boolean> => {
   } catch (err) {
     console.log(err);
     return false;
+  }
+};
+
+export const getMyRecommendPost = async (offset: number, limit: number) => {
+  try {
+    const res = await client.get("/api/posts/recommend/me", {
+      params: {
+        offset,
+        limit,
+        sort: "LATEST",
+      },
+    });
+
+    if (res.data.statusCode !== 200) {
+      throw new Error(res.data.message || "Failed to fetch posts");
+    }
+
+    return res.data.data;
+  } catch (error) {
+    console.error("Error fetching my free posts:", error);
+    throw error;
   }
 };
