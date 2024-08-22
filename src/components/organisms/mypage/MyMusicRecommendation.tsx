@@ -61,13 +61,11 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
   display: grid;
   grid-template-columns: repeat(${props => props.cols}, 1fr);
-  gap: 1rem;
   width: 100%;
 `;
 
 const Card = styled.div`
   ${glassEffectStyle()}
-  padding: 1rem;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -83,10 +81,14 @@ const ThumbnailContainer = styled.div`
   aspect-ratio: 16 / 9;
   background-color: white;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px 5px 0 0;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* 비율 유지하며 컨테이너 내에 맞춤 */
   }
 `;

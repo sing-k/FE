@@ -38,6 +38,7 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   gap: 0.5rem;
+  padding: 0 0.5rem;
 `;
 
 const TitleDiv = styled.div`
