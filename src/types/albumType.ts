@@ -10,7 +10,7 @@ export interface AlbumImageType {
 }
 
 export interface AlbumStatisticsType {
-  id: string | number;
+  id: string;
   averageScore: number;
   count: number;
 }

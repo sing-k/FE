@@ -34,7 +34,7 @@ const PreviewPostModal = ({ isOpen, setIsOpen, type, values }: Props) => {
     like: { count: 0, like: false },
     comments: 0,
     writer: {
-      id: data.id,
+      id: String(data.id),
       nickname: data.nickname,
       imageUrl: data.imageUrl,
     },

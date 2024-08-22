@@ -68,7 +68,7 @@ export const useLikeRecommendComment = (postId: string) => {
         refetchType: "active",
       });
       queryClient.invalidateQueries({
-        queryKey: ["recommendPostComments", postId],
+        queryKey: ["recommendPostComments", String(postId)],
       });
     },
   });
