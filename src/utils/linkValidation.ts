@@ -1,7 +1,9 @@
 import { pathName } from "../App";
 
-export const isValidAlbumLink = (link: string): boolean => {
+export const isValidAlbumLink = (link?: string): boolean => {
   try {
+    if (!link) return false;
+
     const url = new URL(link);
     const { pathname } = url;
 
@@ -15,8 +17,8 @@ export const isValidAlbumLink = (link: string): boolean => {
   }
 };
 
-export const albumLinkToId = (link: string): string => {
-  if (!isValidAlbumLink(link)) return "";
+export const albumLinkToId = (link?: string): string => {
+  if (!link || !isValidAlbumLink(link)) return "";
 
   const url = new URL(link);
   const { pathname } = url;
@@ -27,8 +29,10 @@ export const albumLinkToId = (link: string): string => {
   return substrings[substrings.length - 1];
 };
 
-export const isValidYoutubeLink = (link: string): boolean => {
+export const isValidYoutubeLink = (link?: string): boolean => {
   try {
+    if (!link) return false;
+
     const url = new URL(link);
 
     const { hostname } = url;
@@ -52,4 +56,18 @@ export const youtubeLinkToId = (link: string): string => {
   if (!videoId) return "";
 
   return videoId;
+};
+
+export const parsingAlbumId = (link: string): string => {
+  const substrings = link.split("/");
+
+  return substrings[substrings.length - 1];
+};
+
+export const parsingAlbumImageSrc = (link: string): string => {
+  const albumId = "/" + parsingAlbumId(link);
+
+  const ret = link.replace(albumId, "").trim();
+
+  return ret;
 };

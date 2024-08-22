@@ -7,11 +7,11 @@ import YouTube from "react-youtube";
 import { youtubeLinkToId } from "../../../utils/linkValidation";
 
 type Props = {
-  youtubeLink: string;
+  youtubeLink?: string;
   style?: React.CSSProperties;
 };
 
-const RecommendYoutube = ({ youtubeLink, style = {} }: Props) => {
+const RecommendYoutube = ({ youtubeLink = "", style = {} }: Props) => {
   const [videoId, setVideoId] = useState<string>("");
 
   const onReady = (event: any) => {

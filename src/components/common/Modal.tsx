@@ -8,27 +8,36 @@ export type ModalProps = {
   isOpen: boolean;
   closeModal?: () => void;
   children?: React.ReactNode;
+  width?: string;
 };
 
-const Modal = ({ isOpen, closeModal, children }: ModalProps) => {
+const Modal = ({ isOpen, closeModal, children, width }: ModalProps) => {
   const { isPc, isTablet, isMobile } = useMediaQueries();
+
   return (
     <ModalWrapper $isOpen={isOpen} onClick={closeModal}>
-      {isOpen && (
-        <ModalContent
-          style={{
-            width: isPc ? "30%" : isTablet ? "60%" : isMobile ? "90%" : "90%",
-          }}
-          onClick={e => {
-            e.stopPropagation();
-          }}
-        >
-          <CloseButton onClick={closeModal}>
-            <IoClose size="1.2rem" />
-          </CloseButton>
-          {children}
-        </ModalContent>
-      )}
+      <ModalContent
+        style={{
+          width: width
+            ? width
+            : isPc
+              ? "30%"
+              : isTablet
+                ? "60%"
+                : isMobile
+                  ? "90%"
+                  : "90%",
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <CloseButton onClick={closeModal}>
+          <IoClose />
+        </CloseButton>
+
+        {children}
+      </ModalContent>
     </ModalWrapper>
   );
 };
@@ -36,13 +45,13 @@ const Modal = ({ isOpen, closeModal, children }: ModalProps) => {
 export default Modal;
 
 const ModalWrapper = styled.div<{ $isOpen: boolean }>`
-  display: ${props => (props.$isOpen ? "flex" : "none")};
+  display: ${(props) => (props.$isOpen ? "flex" : "none")};
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(57, 57, 57, 0.5);
+  background-color: rgba(57, 57, 57, 0.3);
   z-index: 100;
   justify-content: center;
   align-items: center;
@@ -50,15 +59,17 @@ const ModalWrapper = styled.div<{ $isOpen: boolean }>`
 `;
 
 const ModalContent = styled.div`
-  position: absolute;
+  position: relative;
   background-color: white;
-  padding: 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
+  padding: 1.5rem;
+
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
   ::-webkit-scrollbar {
@@ -66,12 +77,12 @@ const ModalContent = styled.div`
   }
 `;
 
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 2%;
-  border: none;
-  background-color: transparent;
+const CloseButton = styled.div`
+  width: max-content;
+  align-self: flex-end;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
 `;

@@ -34,11 +34,17 @@ const AlbumReviewInput = ({ albumId }: Props) => {
   const onClickButton = async () => {
     if (!checkValidation()) return;
 
-    postAlbumReviewMutation.mutate({
+    const res = await postAlbumReviewMutation.mutateAsync({
       albumId,
       content: input,
       score: stars,
     });
+
+    if (res) {
+      alert("감상평이 등록되었습니다.");
+      setInput("");
+      setStars(0);
+    }
   };
 
   return (
