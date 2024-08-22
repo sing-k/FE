@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 import color from "../../../styles/color";
-import { dateFormat } from "../../../utils/date";
+import { dateTimeFormat } from "../../../utils/date";
 
 type Props = {
   createdAt: string;
 };
 
 const PostDay = ({ createdAt }: Props) => {
-  return <Text>{dateFormat(createdAt)}</Text>;
+  return <Text>{dateTimeFormat(createdAt)}</Text>;
 };
 
 export default PostDay;
