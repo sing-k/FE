@@ -24,3 +24,7 @@ export interface AlbumType {
   images: AlbumImageType[];
   statistics: AlbumStatisticsType;
 }
+
+export interface SearchAlbumPageParam {
+  offset: number;
+}
