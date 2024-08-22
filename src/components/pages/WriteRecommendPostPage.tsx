@@ -75,19 +75,17 @@ const WriteRecommendPostPage = () => {
       navigate(`${pathName.musicRecommendationBoard}`);
     }
   };
-
   return (
     <WritePostLayout
       type="recommend"
       previewPost={{
-        title: fieldValues.getValues("title"),
-        content: fieldValues.getValues("content"),
-        genre: fieldValues.getValues("genre"),
-        recommend: fieldValues.getValues("type"),
-        link: getLinkFromRecommendValues(fieldValues.getValues()),
+        title: watch("title"),
+        content: watch("content"),
+        genre: watch("genre"),
+        recommend: watch("type"),
+        link: getLinkFromRecommendValues(watch()),
       }}
       headerText="음악 추천 게시글 작성"
-      onClickPreview={() => console.log("preview")}
       onClickSubmit={handleSubmit(onSubmit)}
     >
       <PostForm fieldValues={fieldValues}>

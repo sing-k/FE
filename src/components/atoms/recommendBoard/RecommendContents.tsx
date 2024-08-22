@@ -50,7 +50,9 @@ const RecommendContents = ({ recommend, link }: Props) => {
   return (
     <Container>
       <Contents>
-        {recommend === "IMAGE" ? (
+        {!link ? (
+          <EmptyContents>추천 정보가 필요합니다</EmptyContents>
+        ) : recommend === "IMAGE" ? (
           <Image src={link} />
         ) : recommend === "YOUTUBE" ? (
           <RecommendYoutube youtubeLink={link} />
@@ -71,6 +73,16 @@ const Container = styled.div`
 const Contents = styled.div`
   width: 50%;
   margin: 0 auto;
+`;
+
+const EmptyContents = styled.div`
+  background-color: ${color.COLOR_LIGHTGRAY_BACKGROUND};
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 `;
 
 const Image = styled.img`

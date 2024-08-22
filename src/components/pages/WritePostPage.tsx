@@ -13,7 +13,7 @@ const WritePostPage = () => {
   const fieldValues: UseFormReturn<WritePostValues> =
     useForm<WritePostValues>();
 
-  const { handleSubmit } = fieldValues;
+  const { handleSubmit, watch } = fieldValues;
   const navigate = useNavigate();
 
   const freePostMutation = useFreePostMutation();
@@ -39,8 +39,11 @@ const WritePostPage = () => {
   return (
     <WritePostLayout
       headerText="자유 게시글 작성"
-      onClickPreview={() => console.log("preview")}
       onClickSubmit={handleSubmit(onSubmit)}
+      type="free"
+      previewPost={{
+        ...watch(),
+      }}
     >
       <PostForm fieldValues={fieldValues} />
     </WritePostLayout>

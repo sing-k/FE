@@ -18,6 +18,8 @@ import {
 import { WritePostValues } from "../../types/writePostType";
 import { checkPostBody } from "../../utils/writePost";
 
+import { parsingAlbumImageSrc } from "../../utils/linkValidation";
+
 import WritePostLayout from "../common/WritePostLayout";
 import PostForm from "../organisms/board/PostForm";
 import Loading from "../common/Loading";
@@ -36,7 +38,7 @@ const UpdateRecommendPostPage = () => {
 
   const fieldValues: UseFormReturn<WritePostValues> =
     useForm<WritePostValues>();
-  const { handleSubmit } = fieldValues;
+  const { handleSubmit, watch } = fieldValues;
 
   const updateRecommendPostMutation = useUpdateRecommendPostMutation(postId);
 
@@ -75,8 +77,17 @@ const UpdateRecommendPostPage = () => {
   return (
     <WritePostLayout
       headerText="음악 추천 게시글 수정"
-      onClickPreview={() => console.log("preview")}
       onClickSubmit={handleSubmit(onSubmit)}
+      type="recommend"
+      previewPost={{
+        ...watch(),
+        recommend: data.recommend,
+        genre: data.genre,
+        link:
+          data.recommend === "ALBUM"
+            ? parsingAlbumImageSrc(data.link)
+            : data.link,
+      }}
     >
       <PostForm fieldValues={fieldValues}>
         <RecommendContentsWrapper>

@@ -11,21 +11,18 @@ import WritePostFooter from "../molecules/board/WritePostFooter";
 type Props = {
   headerText: string;
   children?: React.ReactNode;
-  onClickPreview?: () => void;
   onClickSubmit?: () => void;
-  type?: PostType;
-  previewPost?: PreviewPostType;
+  type: PostType;
+  previewPost: PreviewPostType;
 };
 
 const WritePostLayout = ({
   headerText,
   children,
-  onClickPreview,
   onClickSubmit,
   type,
   previewPost,
 }: Props) => {
-  console.log(previewPost);
   return (
     <Layout>
       <WritePostHeader headerText={headerText} />
@@ -35,7 +32,6 @@ const WritePostLayout = ({
       <WritePostFooter
         type={type}
         previewPost={previewPost}
-        onClickPreview={onClickPreview}
         onClickSubmit={onClickSubmit}
       />
     </Layout>

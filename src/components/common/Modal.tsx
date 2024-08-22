@@ -66,7 +66,8 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
   padding: 1.5rem;
 
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
