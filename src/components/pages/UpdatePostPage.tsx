@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 
-import {
-  FieldValues,
-  SubmitHandler,
-  useForm,
-  UseFormReturn,
-} from "react-hook-form";
+import { SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
@@ -15,6 +10,10 @@ import {
 
 import { pathName } from "../../App";
 
+import { WritePostValues } from "../../types/writePostType";
+
+import { checkPostBody } from "../../utils/writePost";
+
 import WritePostLayout from "../common/WritePostLayout";
 import PostForm from "../organisms/board/PostForm";
 import Loading from "../common/Loading";
@@ -23,29 +22,35 @@ import ErrorMessage from "../common/ErrorMessage";
 const UpdatePostPage = () => {
   const params = useParams();
 
-  if (!params?.id) return <>path에 자유 게시글 id 누락</>;
+  if (!params?.id) return;
 
-  const { data, isLoading, isError, error } = useFreePostQuery(params.id);
+  const postId = params.id;
+  const { data, isLoading, isError, error } = useFreePostQuery(postId);
 
-  const fieldValues: UseFormReturn = useForm<FieldValues>();
+  const fieldValues: UseFormReturn<WritePostValues> =
+    useForm<WritePostValues>();
   const { handleSubmit } = fieldValues;
 
-  const updateFreePostMutation = useUpdateFreePostMutation(params.id);
+  const updateFreePostMutation = useUpdateFreePostMutation(postId);
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    if (!data?.title || !data?.content || !params?.id) return;
+  const onSubmit: SubmitHandler<WritePostValues> = async (
+    data: WritePostValues
+  ) => {
+    const { title, content } = data;
+
+    if (!checkPostBody(data)) return;
 
     const res = await updateFreePostMutation.mutateAsync({
-      postId: params.id,
-      title: data.title,
-      content: data.content,
+      postId,
+      title,
+      content,
     });
 
     if (res) {
       alert("자유 게시글이 수정되었습니다!");
-      navigate(`${pathName.board}/${params.id}`);
+      navigate(`${pathName.board}/${postId}`);
     }
   };
 

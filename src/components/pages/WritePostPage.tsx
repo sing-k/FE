@@ -1,9 +1,4 @@
-import {
-  useForm,
-  FieldValues,
-  UseFormReturn,
-  SubmitHandler,
-} from "react-hook-form";
+import { useForm, UseFormReturn, SubmitHandler } from "react-hook-form";
 
 import WritePostLayout from "../common/WritePostLayout";
 import PostForm from "../organisms/board/PostForm";
@@ -11,22 +6,28 @@ import PostForm from "../organisms/board/PostForm";
 import { useNavigate } from "react-router-dom";
 import { pathName } from "../../App";
 import { useFreePostMutation } from "../../hooks/queries/freePost";
+import { WritePostValues } from "../../types/writePostType";
+import { checkPostBody } from "../../utils/writePost";
 
 const WritePostPage = () => {
-  const fieldValues: UseFormReturn = useForm<FieldValues>();
+  const fieldValues: UseFormReturn<WritePostValues> =
+    useForm<WritePostValues>();
 
   const { handleSubmit } = fieldValues;
   const navigate = useNavigate();
 
   const freePostMutation = useFreePostMutation();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    if (!data?.title) return;
-    if (!data?.content) return;
+  const onSubmit: SubmitHandler<WritePostValues> = async (
+    data: WritePostValues
+  ) => {
+    const { title, content } = data;
+
+    if (!checkPostBody(data)) return;
 
     const res = await freePostMutation.mutateAsync({
-      title: data.title,
-      content: data.content,
+      title,
+      content,
     });
 
     if (res) {

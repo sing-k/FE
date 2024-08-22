@@ -1,6 +1,5 @@
 import {
   useForm,
-  FieldValues,
   UseFormReturn,
   SubmitHandler,
   Controller,
@@ -15,7 +14,6 @@ import SelectYoutubeForm from "../molecules/board/SelectYoutubeForm";
 
 import {
   recommendGenreType,
-  RecommendType,
   recommendType,
 } from "../../types/recommendPostType";
 
@@ -23,47 +21,40 @@ import { albumLinkToId, isValidYoutubeLink } from "../../utils/linkValidation";
 import { useNavigate } from "react-router-dom";
 import { pathName } from "../../App";
 import { useRecommendPostMutation } from "../../hooks/queries/recommendPost";
-
-const fieldKeys = {
-  title: "title",
-  content: "content",
-  genre: "genre",
-  type: "type",
-  albumLink: "albumLink",
-  youtubeLink: "youtubeLink",
-  selectedFile: "selectedFile",
-};
-
-const defaultValues = {
-  title: "",
-  content: "",
-  genre: Object.keys(recommendGenreType)[0],
-  type: Object.keys(recommendType)[0],
-  albumLink: "",
-  youtubeLink: "",
-  selectedFile: undefined,
-};
+import { WriteRecommendValues } from "../../types/writePostType";
+import { checkPostBody } from "../../utils/writePost";
 
 const WriteRecommendPostPage = () => {
-  const fieldValues: UseFormReturn = useForm<FieldValues>({
-    defaultValues,
-  });
+  const fieldValues: UseFormReturn<WriteRecommendValues> =
+    useForm<WriteRecommendValues>({
+      defaultValues: {
+        title: "",
+        content: "",
+        genre: "BALLAD",
+        type: "IMAGE",
+        albumLink: "",
+        youtubeLink: "",
+        selectedFile: undefined,
+      },
+    });
 
   const { register, handleSubmit, control, watch } = fieldValues;
 
-  const type: RecommendType = watch(fieldKeys.type) as RecommendType;
-  const selectedFile = watch(fieldKeys.selectedFile);
-  const albumLink = watch(fieldKeys.albumLink);
-  const youtubeLink = watch(fieldKeys.youtubeLink);
+  const type = watch("type");
+  const selectedFile = watch("selectedFile");
+  const albumLink = watch("albumLink");
+  const youtubeLink = watch("youtubeLink");
 
   const recommendPostMutation = useRecommendPostMutation();
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    if (!data.title || !data.content || !data.type || !data.genre) return;
-
+  const onSubmit: SubmitHandler<WriteRecommendValues> = async (
+    data: WriteRecommendValues
+  ) => {
     const { title, content, type, genre } = data;
+
+    if (!checkPostBody({ title, content }) || !type || !genre) return;
 
     const link =
       type === "ALBUM"
@@ -95,29 +86,25 @@ const WriteRecommendPostPage = () => {
     >
       <PostForm fieldValues={fieldValues}>
         <Controller
-          name={fieldKeys.genre}
+          name={"genre"}
           control={control}
           render={({ field }) => (
             <SelectBtnForm
-              name={fieldKeys.genre}
               label={"장르"}
               items={recommendGenreType}
               field={field}
-              register={register}
             />
           )}
         />
 
         <Controller
-          name={fieldKeys.type}
+          name={"type"}
           control={control}
           render={({ field }) => (
             <SelectBtnForm
-              name={fieldKeys.type}
               label={"추천 정보"}
               items={recommendType}
               field={field}
-              register={register}
             />
           )}
         />

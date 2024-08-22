@@ -1,13 +1,15 @@
-import { UseFormRegister, FieldValues } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 
 import styled from "styled-components";
+
+import { WriteRecommendValues } from "../../../types/writePostType";
 
 import LinkInput from "./LinkInput";
 import RecommendYoutube from "../../atoms/recommendBoard/RecommendYoutube";
 
 type Props = {
-  register: UseFormRegister<FieldValues>;
-  youtubeLink: string;
+  register: UseFormRegister<WriteRecommendValues>;
+  youtubeLink?: string;
 };
 
 const SelectYoutubeForm = ({ register, youtubeLink }: Props) => {

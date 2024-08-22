@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
-import {
-  // ControllerRenderProps,
-  FieldValues,
-  UseFormRegister,
-} from "react-hook-form";
+import { ControllerRenderProps } from "react-hook-form";
+
+import { WriteRecommendValues } from "../../../types/writePostType";
+
 import SelectBtn from "../../atoms/recommendBoard/SelectBtn";
 import SelectBtnLabel from "../../atoms/recommendBoard/SelectBtnLabel";
 
@@ -13,21 +12,17 @@ interface Item {
 }
 
 type Props = {
-  name: string;
   label: string;
   items: Item;
-  field: any;
-  register: UseFormRegister<FieldValues>;
+  field: ControllerRenderProps<WriteRecommendValues>;
 };
 
-const SelectBtnForm = ({ name, register, label, items, field }: Props) => {
+const SelectBtnForm = ({ label, items, field }: Props) => {
   const { onChange, value } = field;
 
   return (
     <Container>
       <SelectBtnLabel label={label} />
-
-      <input type="hidden" {...register(name, { required: true })} />
 
       <ItemWrapper>
         {Object.keys(items).map((itemKey, idx) => (

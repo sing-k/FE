@@ -3,13 +3,14 @@ import React from "react";
 import styled from "styled-components";
 
 import { Controller, UseFormReturn } from "react-hook-form";
+
 import ReactQuill from "react-quill";
 
 import { modules, formats } from "../../../styles/quillStyle";
 import color from "../../../styles/color";
 
 type Props = {
-  fieldValues: UseFormReturn;
+  fieldValues: UseFormReturn<any>;
   children?: React.ReactNode;
 };
 
@@ -18,12 +19,7 @@ const PostForm = ({ fieldValues, children }: Props) => {
 
   return (
     <Container>
-      <TitleInput
-        {...register("title", {
-          required: "게시글 제목을 입력해주세요",
-        })}
-        placeholder="제목"
-      />
+      <TitleInput {...register("title")} placeholder="제목" />
 
       {/* 음악 추천 게시판 작성 페이지에서 추가 입력 사항 부분 */}
       {children && children}
@@ -31,7 +27,6 @@ const PostForm = ({ fieldValues, children }: Props) => {
       <Controller
         name="content"
         control={control}
-        rules={{ required: "게시글 내용을 작성해주세요" }}
         render={({ field }) => {
           return (
             <StyledReactQuill
