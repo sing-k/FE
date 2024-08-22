@@ -19,3 +19,17 @@ export interface GeneralPostType extends FreePostType {
   genre?: RecommendGenreType;
   link?: string;
 }
+
+export const postFilterType = {
+  TITLE: "제목",
+  CONTENT: "내용",
+  WRITER: "글쓴이",
+} as const;
+
+export type PostFilterType = keyof typeof postFilterType;
+
+export type SearchPostContext = {
+  sort?: "LATEST";
+  filter?: PostFilterType;
+  keyword?: string;
+};

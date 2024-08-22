@@ -1,22 +1,27 @@
 import { useState } from "react";
 
-import { TbMusicSearch } from "react-icons/tb";
-
-import styled from "styled-components";
-
 import { useInfiniteRecommendPostListQuery } from "../../hooks/queries/recommendPost";
+import { useMediaQueries } from "../../hooks";
+
+import { PostFilterType, postFilterType } from "../../types/postType";
 
 import BoardListTemplate from "../templates/board/BoardListTemplate";
-import PostSelection from "../atoms/post/PostSelection";
-import Input from "../common/Input";
 import EmptyMessage from "../common/EmptyMessage";
 import InfiniteScrollList from "../common/InfiniteScrollList";
 import RecommendBoardItem from "../molecules/recommendBoard/RecommendBoardItem";
-import { useMediaQueries } from "../../hooks";
+import SearchPost from "../organisms/board/SearchPost";
 
 const MusicRecommendationBoardPage = () => {
-  const [input, setInput] = useState<string>("");
-  const queryResult = useInfiniteRecommendPostListQuery();
+  const [keyword, setKeyword] = useState<string>("");
+  const [filter, setFilter] = useState<PostFilterType>(
+    Object.keys(postFilterType)[0] as PostFilterType
+  );
+
+  const queryResult = useInfiniteRecommendPostListQuery({
+    sort: "LATEST",
+    keyword,
+    filter,
+  });
 
   const { isPc, isTablet } = useMediaQueries();
 
@@ -24,18 +29,7 @@ const MusicRecommendationBoardPage = () => {
 
   return (
     <BoardListTemplate>
-      <Container>
-        <PostSelection />
-        <Input
-          input={input}
-          setInput={setInput}
-          width="0.2rem"
-          placeholder="검색어 입력"
-          button={{
-            icon: <TbMusicSearch size="1.2rem" />,
-          }}
-        />
-      </Container>
+      <SearchPost setFilter={setFilter} setKeyword={setKeyword} />
 
       {queryResult?.data?.pages[0]?.length === 0 ? (
         <EmptyMessage message="음악추천게시글이 없습니다." />
@@ -57,9 +51,3 @@ const MusicRecommendationBoardPage = () => {
 };
 
 export default MusicRecommendationBoardPage;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem; /* Optional: add some space between elements */
-`;

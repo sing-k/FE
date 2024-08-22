@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
+
 import {
   useForm,
-  FieldValues,
   UseFormReturn,
   SubmitHandler,
   Controller,
@@ -15,150 +16,140 @@ import SelectYoutubeForm from "../molecules/board/SelectYoutubeForm";
 
 import {
   recommendGenreType,
-  RecommendPostRequestType,
-  RecommendType,
   recommendType,
 } from "../../types/recommendPostType";
-import client from "../../config/axios";
-import { albumLinkToId, isValidYoutubeLink } from "../../utils/linkValidation";
+
 import { useNavigate } from "react-router-dom";
 import { pathName } from "../../App";
-
-const fieldKeys = {
-  title: "title",
-  content: "content",
-  genre: "genre",
-  type: "type",
-  albumLink: "albumLink",
-  youtubeLink: "youtubeLink",
-  selectedFile: "selectedFile",
-};
-
-const defaultValues = {
-  title: "",
-  content: "",
-  genre: Object.keys(recommendGenreType)[0],
-  type: Object.keys(recommendType)[0],
-  albumLink: "",
-  youtubeLink: "",
-  selectedFile: null,
-};
+import { useRecommendPostMutation } from "../../hooks/queries/recommendPost";
+import { WriteRecommendValues } from "../../types/writePostType";
+import {
+  checkPostBody,
+  getLinkFromRecommendValues,
+} from "../../utils/writePost";
+import {
+  clearTemporaryPost,
+  getLoginState,
+  getTemporaryRecommendPost,
+} from "../../utils/auth/tokenStorage";
 
 const WriteRecommendPostPage = () => {
-  const fieldValues: UseFormReturn = useForm<FieldValues>({
-    defaultValues,
-  });
+  const [savedPost, setSavedPost] = useState<WriteRecommendValues | undefined>(
+    undefined
+  );
 
-  const { register, handleSubmit, control, watch } = fieldValues;
+  const fieldValues: UseFormReturn<WriteRecommendValues> =
+    useForm<WriteRecommendValues>({
+      defaultValues: {
+        title: "",
+        content: "",
+        genre: "BALLAD",
+        type: "IMAGE",
+        albumLink: "",
+        youtubeLink: "",
+        selectedFile: undefined,
+      },
+    });
 
-  const type: RecommendType = watch(fieldKeys.type) as RecommendType;
-  const selectedFile = watch(fieldKeys.selectedFile);
-  const albumLink = watch(fieldKeys.albumLink);
-  const youtubeLink = watch(fieldKeys.youtubeLink);
+  const { register, handleSubmit, control, watch, reset } = fieldValues;
+
+  const type = watch("type");
+
+  const recommendPostMutation = useRecommendPostMutation();
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    try {
-      const body: RecommendPostRequestType = {
-        title: data?.title,
-        content: data?.content,
-        genre: data?.genre,
-        type,
-      };
+  const onSubmit: SubmitHandler<WriteRecommendValues> = async (
+    data: WriteRecommendValues
+  ) => {
+    const { title, content, type, genre, selectedFile } = data;
 
-      const formData = new FormData();
+    if (!checkPostBody({ title, content }) || !type || !genre) return;
 
-      if (type === "ALBUM") {
-        const albumId = albumLinkToId(albumLink);
-        if (!albumId) {
-          alert("앨범 링크 주소를 확인해주세요!");
-          return;
-        }
-        body.link = albumId;
-      } else if (type === "YOUTUBE") {
-        if (!isValidYoutubeLink(youtubeLink)) {
-          alert("유튜브 링크 주소를 확인해주세요!");
-          return;
-        }
-        body.link = youtubeLink;
-      } else {
-        if (!selectedFile) {
-          alert("이미지를 선택해주세요!");
-          return;
-        }
-        formData.append("image", selectedFile);
-      }
+    const link =
+      type === "IMAGE" ? undefined : getLinkFromRecommendValues(data);
 
-      formData.append(
-        "post",
-        new Blob([JSON.stringify(body)], {
-          type: "application/json",
-        })
-      );
+    const res = await recommendPostMutation.mutateAsync({
+      title,
+      content,
+      genre,
+      type,
+      link,
+      file: selectedFile,
+    });
 
-      const res = await client.post("/api/posts/recommend", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      const { statusCode } = res.data;
-
-      console.log(res);
-
-      if (String(statusCode).startsWith("2")) {
-        alert("음악 추천 게시글이 등록되었습니다!");
-        navigate(`${pathName.musicRecommendationBoard}`);
-      } else {
-        throw new Error(res.data?.message || "Unknown Error");
-      }
-    } catch (err) {
-      console.log(err);
+    if (res) {
+      alert("음악 추천 게시글이 등록되었습니다!");
+      navigate(`${pathName.musicRecommendationBoard}`);
+      clearTemporaryPost("recommend");
     }
   };
 
+  useEffect(() => {
+    if (savedPost) {
+      if (confirm("임시 저장된 음악 추천 게시글을 불러오시겠습니까?")) {
+        reset(savedPost);
+      }
+    }
+  }, [savedPost]);
+
+  useEffect(() => {
+    if (getLoginState() && !savedPost) {
+      const tmpPost = getTemporaryRecommendPost();
+
+      if (tmpPost) {
+        setSavedPost({ ...tmpPost });
+      } else {
+        setSavedPost(undefined);
+      }
+    }
+  }, []);
+
   return (
     <WritePostLayout
+      type="recommend"
+      values={watch()}
       headerText="음악 추천 게시글 작성"
-      onClickPreview={() => console.log("preview")}
       onClickSubmit={handleSubmit(onSubmit)}
+      temporarySave={true}
     >
       <PostForm fieldValues={fieldValues}>
         <Controller
-          name={fieldKeys.genre}
+          name={"genre"}
           control={control}
           render={({ field }) => (
             <SelectBtnForm
-              name={fieldKeys.genre}
               label={"장르"}
               items={recommendGenreType}
               field={field}
-              register={register}
             />
           )}
         />
 
         <Controller
-          name={fieldKeys.type}
+          name={"type"}
           control={control}
           render={({ field }) => (
             <SelectBtnForm
-              name={fieldKeys.type}
               label={"추천 정보"}
               items={recommendType}
               field={field}
-              register={register}
             />
           )}
         />
 
         {type === "IMAGE" ? (
-          <SelectImageForm selectedFile={selectedFile} control={control} />
+          <SelectImageForm
+            selectedFile={watch("selectedFile")}
+            control={control}
+          />
         ) : type === "ALBUM" ? (
-          <SelectAlbumForm register={register} albumLink={albumLink} />
+          <SelectAlbumForm register={register} albumLink={watch("albumLink")} />
         ) : type === "YOUTUBE" ? (
-          <SelectYoutubeForm register={register} youtubeLink={youtubeLink} />
+          <SelectYoutubeForm
+            register={register}
+            youtubeLink={watch("youtubeLink")}
+          />
         ) : null}
       </PostForm>
     </WritePostLayout>

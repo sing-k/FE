@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FieldValues, Controller, Control } from "react-hook-form";
+import { Controller, Control } from "react-hook-form";
 
 import styled from "styled-components";
 
@@ -7,9 +7,11 @@ import color from "../../../styles/color";
 
 import { FaPlus } from "react-icons/fa";
 
+import { WriteRecommendValues } from "../../../types/writePostType";
+
 type Props = {
-  selectedFile: File | null;
-  control: Control<FieldValues>;
+  selectedFile?: File;
+  control: Control<WriteRecommendValues>;
 };
 
 const SelectImageForm = ({ selectedFile, control }: Props) => {

@@ -76,7 +76,11 @@ const AlbumReviewList = ({ albumId }: Props) => {
         ) : (
           <>
             {data?.items.map((data: AlbumReviewType) => (
-              <AlbumReview key={`review${data.id}`} data={data} />
+              <AlbumReview
+                key={`review${data.id}`}
+                data={data}
+                albumId={albumId}
+              />
             ))}
           </>
         )}

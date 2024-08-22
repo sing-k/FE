@@ -2,14 +2,24 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
+import { useMemberInfoQuery } from "../../../hooks/queries/user";
+
 import LogoImage from "../../common/LogoImage";
 import UserInfo from "../../common/UserInfo";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
 
 type Props = {
   headerText: string;
 };
 
 const WritePostHeader = ({ headerText }: Props) => {
+  const { data, isLoading, isError, error } = useMemberInfoQuery();
+
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+  if (!data) return <></>;
+
   return (
     <Container>
       <Header>
@@ -19,7 +29,11 @@ const WritePostHeader = ({ headerText }: Props) => {
           <HeaderText>{headerText}</HeaderText>
         </Wrapper>
 
-        <UserInfo nickname="영벨롭" size="M" />
+        <UserInfo
+          nickname={data.nickname}
+          profileImage={data.imageUrl}
+          size="M"
+        />
       </Header>
 
       <Border />

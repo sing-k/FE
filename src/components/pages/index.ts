@@ -14,3 +14,5 @@ export { default as MusicRMPostPage } from "./MusicRMPostPage";
 export { default as FreePostPage } from "./FreePostPage";
 export { default as Mypage } from "./Mypage";
 export { default as OauthSignUpPage } from "./OauthSignUpPage";
+export { default as UpdatePostPage } from "./UpdatePostPage";
+export { default as UpdateRecommendPostPage } from "./UpdateRecommendPostPage";

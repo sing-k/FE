@@ -18,9 +18,6 @@ export const RECOMMEND_POST_LIMIT = 10;
 
 export type RecommendPostPageParam = {
   offset: number;
-  sort?: "LATEST";
-  filter?: "TITLE" | "CONTENT" | "WRITER";
-  keyword?: string;
 };
 
 export type RecommendType = keyof typeof recommendType;
@@ -39,4 +36,5 @@ export interface RecommendPostRequestType {
   type: RecommendType;
   genre: RecommendGenreType;
   link?: string;
+  file?: File;
 }

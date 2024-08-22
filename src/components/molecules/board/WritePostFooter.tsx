@@ -1,22 +1,73 @@
+import { useState } from "react";
+
 import styled from "styled-components";
 
 import color from "../../../styles/color";
 
+import { PostType } from "../../../types/postType";
+import {
+  WritePostValues,
+  WriteRecommendValues,
+} from "../../../types/writePostType";
+
+import {
+  saveTemporaryFreePost,
+  saveTemporaryRecommendPost,
+} from "../../../utils/auth/tokenStorage";
+
+import PreviewPostModal from "../../organisms/board/PreviewPostModal";
+
 type Props = {
-  onClickPreview?: () => void;
+  type: PostType;
   onClickSubmit?: () => void;
+  values: WritePostValues | WriteRecommendValues;
+  temporarySave?: boolean;
 };
 
-const WritePostFooter = ({ onClickPreview, onClickSubmit }: Props) => {
+const WritePostFooter = ({
+  onClickSubmit,
+  type,
+  values,
+  temporarySave,
+}: Props) => {
+  const [preview, setPreview] = useState<boolean>(false);
+
+  const onClickSaveTemporary = () => {
+    if (type === "free") {
+      saveTemporaryFreePost(values);
+    } else {
+      saveTemporaryRecommendPost(values as WriteRecommendValues);
+    }
+    alert("임시 저장 되었습니다.");
+  };
+
   return (
-    <Container>
-      <Inner>
-        <Btn onClick={onClickPreview}>미리보기</Btn>
-        <Btn className="submit" onClick={onClickSubmit}>
-          등록
-        </Btn>
-      </Inner>
-    </Container>
+    <>
+      <Container>
+        <Inner>
+          <Btn onClick={() => setPreview(true)}>미리보기</Btn>
+
+          <Wrapper>
+            {temporarySave && (
+              <Btn onClick={onClickSaveTemporary}>임시저장</Btn>
+            )}
+
+            <Btn className="submit" onClick={onClickSubmit}>
+              등록
+            </Btn>
+          </Wrapper>
+        </Inner>
+      </Container>
+
+      {preview && (
+        <PreviewPostModal
+          type={type}
+          isOpen={preview}
+          setIsOpen={setPreview}
+          values={values}
+        />
+      )}
+    </>
   );
 };
 
@@ -38,7 +89,13 @@ const Inner = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
 `;
 

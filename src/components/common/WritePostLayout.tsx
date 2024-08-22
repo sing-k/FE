@@ -2,21 +2,31 @@ import React from "react";
 
 import styled from "styled-components";
 
+import { PostType } from "../../types/postType";
+import {
+  WritePostValues,
+  WriteRecommendValues,
+} from "../../types/writePostType";
+
 import WritePostHeader from "../molecules/board/WritePostHeader";
 import WritePostFooter from "../molecules/board/WritePostFooter";
 
 type Props = {
   headerText: string;
   children?: React.ReactNode;
-  onClickPreview?: () => void;
   onClickSubmit?: () => void;
+  type: PostType;
+  values: WritePostValues | WriteRecommendValues;
+  temporarySave?: boolean;
 };
 
 const WritePostLayout = ({
   headerText,
   children,
-  onClickPreview,
   onClickSubmit,
+  type,
+  values,
+  temporarySave,
 }: Props) => {
   return (
     <Layout>
@@ -25,8 +35,10 @@ const WritePostLayout = ({
       <Contents>{children}</Contents>
 
       <WritePostFooter
-        onClickPreview={onClickPreview}
+        type={type}
         onClickSubmit={onClickSubmit}
+        values={values}
+        temporarySave={temporarySave}
       />
     </Layout>
   );

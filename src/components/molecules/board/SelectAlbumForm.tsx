@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { UseFormRegister, FieldValues } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 
 import styled from "styled-components";
 
@@ -8,13 +8,14 @@ import color from "../../../styles/color";
 import { albumLinkToId } from "../../../utils/linkValidation";
 import { getAlbumDetail } from "../../../api/albumDetail";
 import { AlbumDetailType } from "../../../types/albumDetailType";
+import { WriteRecommendValues } from "../../../types/writePostType";
 
 import LinkInput from "./LinkInput";
 import AlbumDetailCard from "../../organisms/albumDetail/AlbumDetailCard";
 
 type Props = {
-  register: UseFormRegister<FieldValues>;
-  albumLink: string;
+  register: UseFormRegister<WriteRecommendValues>;
+  albumLink?: string;
 };
 
 const SelectAlbumForm = ({ register, albumLink }: Props) => {

@@ -17,23 +17,46 @@ import PostLikeComments from "../../atoms/post/PostLikeComments";
 import RecommendTypeLabel from "../../atoms/recommendBoard/RecommendTypeLabel";
 import OptionsMenu from "../../common/OptionsMenu";
 
+import { pathName } from "../../../App";
+import { useDeleteFreePostMutation } from "../../../hooks/queries/freePost";
+import { useDeleteRecommendPostMutation } from "../../../hooks/queries/recommendPost";
+
 type Props = {
   type: PostType;
   post: GeneralPostType;
 };
 
 const PostInfo = ({ type, post }: Props) => {
-  const { title, writer, like, comments, createdAt } = post;
+  const { title, writer, like, comments, createdAt, id } = post;
+
+  const mutation =
+    type === "free"
+      ? useDeleteFreePostMutation(id)
+      : useDeleteRecommendPostMutation(id);
 
   const navigate = useNavigate();
 
   const handleUpdate = () => {
     if (type === "free") {
+      navigate(`${pathName.updatePost}/${id}`);
     } else {
+      navigate(`${pathName.updateRecommendPost}/${id}`);
     }
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    if (!window.confirm("게시글을 삭제하시겠습니까?")) return;
+
+    const res = await mutation.mutateAsync(id);
+
+    if (res) {
+      if (type === "free") {
+        navigate(`${pathName.board}`);
+      } else {
+        navigate(`${pathName.musicRecommendationBoard}`);
+      }
+    }
+  };
 
   return (
     <>

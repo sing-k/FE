@@ -21,7 +21,7 @@ type Props = {
 const AlbumGenderPercentage = ({ data }: Props) => {
   const { genderStatistics, count } = data;
 
-  genderStatistics.sort((a, _) => (a.gender === "남성" ? -1 : 1));
+  genderStatistics.sort((a, _) => (a.gender === "남성" ? 1 : -1));
 
   const { isMobile } = useMediaQueries();
   const doughnutData = useMemo(
@@ -45,7 +45,12 @@ const AlbumGenderPercentage = ({ data }: Props) => {
               {
                 label: "# of Percentages",
                 data: genderStatistics.map((el) => el.ratio),
-                backgroundColor: [color.COLOR_MALE, color.COLOR_FEMALE],
+                backgroundColor:
+                  genderStatistics[0].ratio == 0
+                    ? [color.COLOR_MALE]
+                    : genderStatistics[1].ratio == 0
+                      ? [color.COLOR_FEMALE]
+                      : [color.COLOR_FEMALE, color.COLOR_MALE],
                 borderColor: ["#ffffff", "#ffffff"],
                 borderWidth: 1,
               },
@@ -83,10 +88,10 @@ const AlbumGenderPercentage = ({ data }: Props) => {
           ) : (
             <>
               <CenterText className="male">
-                남성 {genderStatistics[0].ratio}%
+                남성 {genderStatistics[1].ratio}%
               </CenterText>
               <CenterText className="female">
-                여성 {genderStatistics[1].ratio}%
+                여성 {genderStatistics[0].ratio}%
               </CenterText>
             </>
           )}

@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldValues } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 
 import styled from "styled-components";
 
@@ -8,7 +8,7 @@ import { FaLink } from "react-icons/fa";
 
 type Props = {
   placeholder?: string;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<any>;
   name: string;
 };
 
