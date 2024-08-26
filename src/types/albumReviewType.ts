@@ -6,7 +6,7 @@ interface ReviewerStatisticsType {
 }
 
 interface ReviewerType {
-  id: string | number;
+  id: string;
   imageUrl?: null | string;
   nickname?: null | string;
   gender: "남성" | "여성" | string;
@@ -14,7 +14,7 @@ interface ReviewerType {
 }
 
 export interface AlbumReviewType {
-  id: string | number;
+  id: string;
   content: string;
   score: number;
   pros: number;

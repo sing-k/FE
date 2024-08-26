@@ -4,20 +4,20 @@ import {
   useForm,
   UseFormReturn,
   SubmitHandler,
-  Controller,
+  // Controller,
 } from "react-hook-form";
 
 import WritePostLayout from "../common/WritePostLayout";
 import PostForm from "../organisms/board/PostForm";
-import SelectBtnForm from "../molecules/board/SelectBtnForm";
+// import SelectBtnForm from "../molecules/board/SelectBtnForm";
 import SelectImageForm from "../molecules/board/SelectImageForm";
 import SelectAlbumForm from "../molecules/board/SelectAlbumForm";
 import SelectYoutubeForm from "../molecules/board/SelectYoutubeForm";
 
-import {
-  recommendGenreType,
-  recommendType,
-} from "../../types/recommendPostType";
+// import {
+//   recommendGenreType,
+//   recommendType,
+// } from "../../types/recommendPostType";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { pathName } from "../../App";
@@ -127,7 +127,7 @@ const WriteRecommendPostPage = () => {
       temporarySave={true}
     >
       <PostForm fieldValues={fieldValues}>
-        <Controller
+        {/* <Controller
           name={"genre"}
           control={control}
           render={({ field }) => (
@@ -137,9 +137,9 @@ const WriteRecommendPostPage = () => {
               field={field}
             />
           )}
-        />
+        /> */}
 
-        <Controller
+        {/* <Controller
           name={"type"}
           control={control}
           render={({ field }) => (
@@ -149,7 +149,7 @@ const WriteRecommendPostPage = () => {
               field={field}
             />
           )}
-        />
+        /> */}
 
         {type === "IMAGE" ? (
           <SelectImageForm
