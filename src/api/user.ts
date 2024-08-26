@@ -4,7 +4,7 @@ import { getDefaultDates } from "../utils/date";
 import { ActivityListType } from "../types/activityHistoryType";
 import { UserDataType, OauthFormType } from "../types/authTypes";
 import { checkAPIResponseValidation } from ".";
-
+import { saveLoginState } from "../utils/auth/tokenStorage";
 //회원 정보 조회
 export const getMemberInfo = async (): Promise<UserDataType | null> => {
   try {
@@ -42,12 +42,16 @@ export const updateNickname = ({ newNickname }: { newNickname: string }) => {
 
 //회원 수정
 export const updateMemberData = (data: OauthFormType) => {
-  return client.put("/api/members/me", {
-    name: data.name,
-    nickname: data.nickname,
-    birthday: data.birthday,
-    gender: data.gender,
-  });
+  return client
+    .put("/api/members/me", {
+      name: data.name,
+      nickname: data.nickname,
+      birthday: data.birthday,
+      gender: data.gender,
+    })
+    .then(() => {
+      saveLoginState();
+    });
 };
 
 export const getHistoryGraph = async (
