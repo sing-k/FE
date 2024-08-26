@@ -39,9 +39,12 @@ const Pagination = ({
 
   return (
     <Container>
-      <Button onClick={handlePrevGroup} disabled={startPage === 0}>
-        <IoIosArrowBack />
-      </Button>
+      {totalPages !== 0 ? (
+        <Button onClick={handlePrevGroup} disabled={startPage === 0}>
+          <IoIosArrowBack />
+        </Button>
+      ) : undefined}
+
       {Array.from({ length: endPage - startPage }, (_, index) => (
         <Button
           key={startPage + index}
@@ -58,9 +61,11 @@ const Pagination = ({
           {startPage + index + 1}
         </Button>
       ))}
-      <Button onClick={handleNextGroup} disabled={endPage >= totalPages}>
-        <IoIosArrowForward />
-      </Button>
+      {totalPages !== 0 ? (
+        <Button onClick={handleNextGroup} disabled={endPage >= totalPages}>
+          <IoIosArrowForward />
+        </Button>
+      ) : undefined}
     </Container>
   );
 };
@@ -82,7 +87,7 @@ const Button = styled.button`
   border-radius: 5px;
   width: 1.5rem;
   height: 1.5rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin: 0 4px;
   box-shadow: 1px 1px 1px ${color.COLOR_GRAY_BORDER};
   &:hover {

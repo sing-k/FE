@@ -48,6 +48,7 @@ const SignUpForm = () => {
       if (response && response.statusCode === 200) {
         setIsVerificationCodeSent(true); // 성공 시 상태 변경
         setEmailErrorMessage("");
+        alert("인증번호 전송이 완료되었습니다. 메일을 확인해주세요.");
       } else {
         setEmailErrorMessage(response.message);
       }

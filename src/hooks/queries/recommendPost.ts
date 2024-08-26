@@ -3,6 +3,7 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
+  keepPreviousData,
 } from "@tanstack/react-query";
 
 import {
@@ -11,6 +12,7 @@ import {
   getRecommendPostList,
   postRecommendPost,
   updateRecommendPost,
+  getMyRecommendPost,
 } from "../../api/recommendPost";
 import {
   RECOMMEND_POST_LIMIT,
@@ -27,7 +29,7 @@ export const useInfiniteRecommendPostListQuery = (ctx: SearchPostContext) => {
     getNextPageParam: (
       lastPage: RecommendPostType[],
       _: RecommendPostType[][],
-      lastPageParam: RecommendPostPageParam
+      lastPageParam: RecommendPostPageParam,
     ) => {
       if (lastPage.length < RECOMMEND_POST_LIMIT) {
         return undefined;
@@ -97,5 +99,13 @@ export const useDeleteRecommendPostMutation = (postId: string) => {
         refetchType: "none",
       });
     },
+  });
+};
+
+export const useMyRecommendPostsQuery = (offset: number, limit: number) => {
+  return useQuery({
+    queryKey: ["myFreePosts", offset, limit],
+    queryFn: () => getMyRecommendPost(offset, limit),
+    placeholderData: keepPreviousData,
   });
 };

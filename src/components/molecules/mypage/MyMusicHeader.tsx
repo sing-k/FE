@@ -1,12 +1,18 @@
 import styled from "styled-components";
-import { MyThumbnailType } from "../../atoms";
 import { Text } from "../../common";
-const MyMusicHeader = () => {
+import RecommendTypeLabel from "../../atoms/recommendBoard/RecommendTypeLabel";
+import { RecommendType } from "../../../types/recommendPostType";
+
+interface MyMusicHeaderProps {
+  title: string;
+  recommend: RecommendType;
+}
+const MyMusicHeader = ({ title, recommend }: MyMusicHeaderProps) => {
   return (
     <Container>
-      <MyThumbnailType type="youtube" />
+      <RecommendTypeLabel recommend={recommend} />
       <Text color="black" size="1rem" bold={700}>
-        글 제목 부분
+        {title}
       </Text>
     </Container>
   );
@@ -20,4 +26,5 @@ const Container = styled.div`
   align-items: center;
   justify-content: start;
   gap: 0.2rem;
+  padding: 0 0.5rem;
 `;

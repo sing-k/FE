@@ -2,12 +2,17 @@ import styled from "styled-components";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
 import { MyStarRating } from "../../atoms";
-const MyAverageRating = () => {
+import { UserDataStatistics } from "../../../types/authTypes";
+
+interface MyAverageRatingProps {
+  data: UserDataStatistics;
+}
+const MyAverageRating = ({ data }: MyAverageRatingProps) => {
   return (
     <Container>
       <Text>평균 별점</Text>
-      <Rating>4 / 5</Rating>
-      <MyStarRating rating={4} />
+      <Rating>{data.averageReviewScore} / 5</Rating>
+      <MyStarRating rating={data.averageReviewScore} />
     </Container>
   );
 };

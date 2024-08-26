@@ -15,6 +15,7 @@ import {
   MusicRMPostPage,
   FreePostPage,
   Mypage,
+  OauthSignUpPage,
   UpdatePostPage,
   UpdateRecommendPostPage,
 } from "./components/pages";
@@ -44,6 +45,7 @@ export const pathName = {
   updatePost: "/board/update",
   myPage: "/myPage",
   editProfile: "/editProfile",
+  OauthSignUp: "/oauth/signUp",
 } as const;
 
 export type PathType = (typeof pathName)[keyof typeof pathName];
@@ -96,6 +98,8 @@ function App() {
         {/* 회원가입 및 로그인 페이지 */}
         <Route path={pathName.signUp} element={<SignUpPage />} />
         <Route path={pathName.login} element={<LoginPage />} />
+        <Route path={pathName.OauthSignUp} element={<OauthSignUpPage />} />
+        <Route path={pathName.post} element={<WritePostPage />} />
 
         {/* 게시글 작성 및 수정 페이지 */}
         <Route path={`${pathName.post}`} element={<WritePostPage />} />

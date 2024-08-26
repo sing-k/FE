@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { MyAlbumReviewHeader, MyAlbumReviewFooter } from "../../molecules";
 import { Text } from "../../common";
 import { glassEffectStyle } from "../../../styles/style";
+
 const MyAlbumReview = () => {
   return (
     <Container>

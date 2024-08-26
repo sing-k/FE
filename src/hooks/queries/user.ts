@@ -17,10 +17,12 @@ import {
   getHistoryGraph,
   getActivityList,
   logoutRequest,
+  updateMemberData,
 } from "../../api/user";
 
 import { clearTokens, getLoginState } from "../../utils/auth/tokenStorage";
 import { pathName } from "../../App";
+import { OauthFormType } from "../../types/authTypes";
 
 //회원 정보 get
 export const useMemberInfoQuery = () => {
@@ -42,7 +44,7 @@ export const useUploadProfileImageMutation = () => {
       console.log("프로필 사진 업로드 성공");
       queryClient.invalidateQueries({ queryKey: ["memberInfo"] });
     },
-    onError: (error) => {
+    onError: error => {
       console.error("프로필 사진 업로드 실패:", error);
     },
   });
@@ -56,7 +58,7 @@ export const useDeleteProfileImageMutation = () => {
       console.log("프로필 사진 삭제 성공");
       queryClient.invalidateQueries({ queryKey: ["memberInfo"] });
     },
-    onError: (error) => {
+    onError: error => {
       console.error("프로필 사진 삭제 실패:", error);
     },
   });
@@ -71,8 +73,23 @@ export const useUpdateNicknameMutation = () => {
       console.log("닉네임 변경 성공");
       queryClient.invalidateQueries({ queryKey: ["memberInfo"] });
     },
-    onError: (error) => {
+    onError: error => {
       console.error("닉네임 변경 실패:", error);
+    },
+  });
+};
+// 회원 정보 수정
+export const useUpdateUserMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (newData: OauthFormType) => updateMemberData(newData),
+    onSuccess: () => {
+      console.log("회원정보 수정 성공");
+      queryClient.invalidateQueries({ queryKey: ["memberInfo"] });
+    },
+    onError: error => {
+      console.error("회원정보 변경 실패:", error);
     },
   });
 };
@@ -81,7 +98,7 @@ export const useUpdateNicknameMutation = () => {
 export const useActivityHistoryGraphQuery = (
   startDate?: string,
   endDate?: string,
-  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY"
+  type: "DAILY" | "WEEKLY" | "MONTHLY" = "DAILY",
 ) => {
   return useQuery<ActivityDataType[], Error>({
     queryKey: ["historyGraph", { startDate, endDate, type }],
