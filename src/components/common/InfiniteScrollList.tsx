@@ -8,13 +8,18 @@ import Loading from "./Loading";
 import ErrorMessage from "./ErrorMessage";
 import { glassEffectStyle } from "../../styles/style";
 
-interface ItemComponentProps {
+interface ItemProps {
+  [key: string]: any;
+}
+
+interface ItemComponentProps extends ItemProps {
   data: any;
 }
 
 type Props = {
   queryResult: UseInfiniteQueryResult<InfiniteData<any[], any>>;
-  ItemComponent: (props: ItemComponentProps) => React.ReactElement;
+  ItemComponent: (props: ItemComponentProps) => React.ReactElement | undefined;
+  itemProps?: ItemProps;
   containerStyle?: React.CSSProperties;
 };
 
@@ -22,6 +27,7 @@ const InfiniteScrollList = ({
   queryResult,
   ItemComponent,
   containerStyle,
+  itemProps,
 }: Props) => {
   const {
     data,
@@ -74,7 +80,7 @@ const InfiniteScrollList = ({
           <React.Fragment key={idx}>
             {page.map((itemData, idx) => (
               <React.Fragment key={idx}>
-                <ItemComponent data={itemData} />
+                <ItemComponent data={itemData} {...itemProps} />
               </React.Fragment>
             ))}
           </React.Fragment>

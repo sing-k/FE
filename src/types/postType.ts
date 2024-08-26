@@ -7,7 +7,7 @@ export type LikeType = {
 };
 
 export type WriterType = {
-  id: string | number;
+  id: string;
   imageUrl: null | string;
   nickname: string;
 };

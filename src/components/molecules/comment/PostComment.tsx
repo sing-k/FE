@@ -102,9 +102,9 @@ const Comment = ({
 
     if (confirm) {
       if (type === "free") {
-        deleteFreeCommentMutation.mutate(data.id);
+        await deleteFreeCommentMutation.mutateAsync(data.id);
       } else {
-        deleteRecommendCommentMutation.mutate(data.id);
+        await deleteRecommendCommentMutation.mutateAsync(data.id);
       }
     }
   };

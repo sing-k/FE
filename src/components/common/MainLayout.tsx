@@ -97,6 +97,6 @@ const HeaderWrapper = styled.div`
 `;
 
 const Contents = styled.div`
-  width: 80%;
+  width: 70%;
   padding: 2rem 2rem 150px;
 `;

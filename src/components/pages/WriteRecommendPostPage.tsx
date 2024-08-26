@@ -19,7 +19,7 @@ import {
   recommendType,
 } from "../../types/recommendPostType";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { pathName } from "../../App";
 import { useRecommendPostMutation } from "../../hooks/queries/recommendPost";
 import { WriteRecommendValues } from "../../types/writePostType";
@@ -51,13 +51,15 @@ const WriteRecommendPostPage = () => {
       },
     });
 
-  const { register, handleSubmit, control, watch, reset } = fieldValues;
+  const { register, handleSubmit, control, watch, reset, setValue } =
+    fieldValues;
 
   const type = watch("type");
 
   const recommendPostMutation = useRecommendPostMutation();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit: SubmitHandler<WriteRecommendValues> = async (
     data: WriteRecommendValues
@@ -94,16 +96,27 @@ const WriteRecommendPostPage = () => {
   }, [savedPost]);
 
   useEffect(() => {
-    if (getLoginState() && !savedPost) {
-      const tmpPost = getTemporaryRecommendPost();
+    const queryParams = new URLSearchParams(location.search);
+    const albmuId = queryParams.get("albumId");
 
-      if (tmpPost) {
-        setSavedPost({ ...tmpPost });
-      } else {
-        setSavedPost(undefined);
+    if (albmuId) {
+      setValue("type", "ALBUM");
+      setValue(
+        "albumLink",
+        `${window.location.origin}${pathName.albumDetail}/${albmuId}`
+      );
+    } else {
+      if (getLoginState() && !savedPost) {
+        const tmpPost = getTemporaryRecommendPost();
+
+        if (tmpPost) {
+          setSavedPost({ ...tmpPost });
+        } else {
+          setSavedPost(undefined);
+        }
       }
     }
-  }, []);
+  }, [location.search]);
 
   return (
     <WritePostLayout

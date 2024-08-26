@@ -13,7 +13,7 @@ import {
 
 export const useFreePostCommentsQuery = (postId: string) => {
   return useQuery({
-    queryKey: ["freePostComments", postId],
+    queryKey: ["freePostComments", String(postId)],
     queryFn: getFreePostComments,
     enabled: !!postId,
   });
@@ -21,7 +21,7 @@ export const useFreePostCommentsQuery = (postId: string) => {
 
 export const useRecommendPostCommentsQuery = (postId: string) => {
   return useQuery({
-    queryKey: ["recommendPostComments", postId],
+    queryKey: ["recommendPostComments", String(postId)],
     queryFn: getRecommendPostComments,
     enabled: !!postId,
   });
@@ -34,7 +34,16 @@ export const useFreeCommentMutation = (postId: string) => {
     mutationFn: postFreeComment,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["freePostComments", postId],
+        queryKey: ["freePostComments", String(postId)],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteFreePostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["freePost", String(postId)],
+        refetchType: "all",
       });
     },
   });
@@ -47,7 +56,16 @@ export const useRecommendCommentMutation = (postId: string) => {
     mutationFn: postRecommendComment,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["recommendPostComments", postId],
+        queryKey: ["recommendPostComments", String(postId)],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteRecommendPostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["recommendPost", String(postId)],
+        refetchType: "all",
       });
     },
   });
@@ -60,7 +78,8 @@ export const useUpdateFreeCommentMutation = (postId: string) => {
     mutationFn: updateFreePostComment,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["freePostComments", postId],
+        queryKey: ["freePostComments", String(postId)],
+        refetchType: "all",
       });
     },
   });
@@ -73,7 +92,8 @@ export const useUpdateRecommendCommentMutation = (postId: string) => {
     mutationFn: updateRecommendPostComment,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["recommendPostComments", postId],
+        queryKey: ["recommendPostComments", String(postId)],
+        refetchType: "all",
       });
     },
   });
@@ -86,7 +106,16 @@ export const useDeleteFreeCommentMutation = (postId: string) => {
     mutationFn: deleteFreePostComment,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["freePostComments", postId],
+        queryKey: ["freePostComments", String(postId)],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteFreePostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["freePost", String(postId)],
+        refetchType: "all",
       });
     },
   });
@@ -99,7 +128,16 @@ export const useDeleteRecommendCommentMutation = (postId: string) => {
     mutationFn: deleteRecommendPostComment,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["recommendPostComments", postId],
+        queryKey: ["recommendPostComments", String(postId)],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["infiniteRecommendPostList"],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["recommendPost", String(postId)],
+        refetchType: "all",
       });
     },
   });

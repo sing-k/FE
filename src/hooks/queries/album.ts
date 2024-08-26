@@ -1,12 +1,18 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  InfiniteData,
+  QueryKey,
+  useInfiniteQuery,
+  useQuery,
+} from "@tanstack/react-query";
 
 import {
   getAlbumList,
   AlbumRequestType,
   AlbumPageParam,
   ALBUM_LIST_LIMIT,
+  searchAlbumList,
 } from "../../api/album";
-import { AlbumType } from "../../types/albumType";
+import { AlbumType, SearchAlbumPageParam } from "../../types/albumType";
 
 export const useAlbumListQuery = (albumType: AlbumRequestType) => {
   return useQuery({
@@ -49,6 +55,34 @@ export const useInfiniteAlbumListQuery = (albumType: AlbumRequestType) => {
       }
 
       return nextPageParam;
+    },
+  });
+};
+
+export const useInfiniteSearchAlbumListQuery = (query: string) => {
+  return useInfiniteQuery<
+    AlbumType[],
+    Error,
+    InfiniteData<AlbumType[]>,
+    QueryKey,
+    SearchAlbumPageParam
+  >({
+    queryKey: ["infiniteSearchAlbumList", query],
+    queryFn: searchAlbumList,
+    enabled: !!query,
+    initialPageParam: { offset: 0 },
+    getNextPageParam: (
+      lastPage: AlbumType[],
+      _: AlbumType[][],
+      lastPageParam: SearchAlbumPageParam
+    ) => {
+      if (lastPage.length < ALBUM_LIST_LIMIT) {
+        return undefined;
+      }
+
+      return {
+        offset: lastPage.length + lastPageParam.offset,
+      };
     },
   });
 };

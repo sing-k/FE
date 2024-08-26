@@ -1,6 +1,7 @@
+import { checkAPIResponseValidation } from ".";
 import client from "../config/axios";
-import { AlbumType } from "../types/albumType";
-import { QueryFunctionContext } from "@tanstack/react-query";
+import { AlbumType, SearchAlbumPageParam } from "../types/albumType";
+import { QueryFunctionContext, QueryKey } from "@tanstack/react-query";
 
 export const ALBUM_LIST_LIMIT = 10;
 
@@ -84,6 +85,28 @@ export const getAlbumList = async ({
     if (res.data.statusCode !== 200) {
       throw new Error(res.data.message || "Album List Error");
     }
+
+    return res.data.data.items as AlbumType[];
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+export const searchAlbumList = async ({
+  queryKey,
+  pageParam,
+}: QueryFunctionContext<QueryKey, SearchAlbumPageParam>): Promise<
+  AlbumType[]
+> => {
+  try {
+    const query = queryKey[1];
+
+    let url = `/api/albums/search?limit=${ALBUM_LIST_LIMIT}&query=${query}&offset=${pageParam.offset}`;
+
+    const res = await client.get(url);
+
+    checkAPIResponseValidation(res);
 
     return res.data.data.items as AlbumType[];
   } catch (err) {
