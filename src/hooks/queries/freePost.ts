@@ -3,6 +3,7 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
+  keepPreviousData,
 } from "@tanstack/react-query";
 
 import {
@@ -12,6 +13,7 @@ import {
   postFreePost,
   updateFreePost,
   deleteFreePost,
+  getMyFreePost,
 } from "../../api/freePost";
 import { FreePostPageParam, FreePostType } from "../../types/freePostType";
 import { SearchPostContext } from "../../types/postType";
@@ -24,7 +26,7 @@ export const useInfiniteFreePostListQuery = (ctx: SearchPostContext) => {
     getNextPageParam: (
       lastPage: FreePostType[],
       _: FreePostType[][],
-      lastPageParam: FreePostPageParam
+      lastPageParam: FreePostPageParam,
     ) => {
       if (lastPage.length < FREE_POST_LIMIT) {
         return undefined;
@@ -94,5 +96,13 @@ export const useDeleteFreePostMutation = (postId: string) => {
         refetchType: "none",
       });
     },
+  });
+};
+
+export const useMyFreePostsQuery = (offset: number, limit: number) => {
+  return useQuery({
+    queryKey: ["myFreePosts", offset, limit],
+    queryFn: () => getMyFreePost(offset, limit),
+    placeholderData: keepPreviousData,
   });
 };

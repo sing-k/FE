@@ -2,21 +2,24 @@ import styled from "styled-components";
 import { MyDeleteBtn } from "../../atoms";
 import { Text } from "../../common";
 import color from "../../../styles/color";
-
+import { FaUser } from "react-icons/fa";
 type MyBoardHeaderProps = {
   showDeleteBtn?: boolean;
   nickname: string;
   createdAt: string;
+  imageUrl?: string | null;
 };
 
 const MyBoardHeader = ({
   nickname,
   createdAt,
+  imageUrl,
   showDeleteBtn = true,
 }: MyBoardHeaderProps) => {
   return (
     <Container>
       <TitleDiv>
+        {imageUrl ? <Img src={imageUrl} /> : <ImgIcon />}
         <Text color={color.COLOR_DARKGRAY_TEXT} size="1rem" bold="700">
           {nickname}
         </Text>
@@ -42,11 +45,25 @@ const Container = styled.div`
 `;
 
 const TitleDiv = styled.div`
-  width: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 0.5rem;
 `;
 const ColumnDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
   gap: 0.2rem;
+`;
+
+const Img = styled.img`
+  object-fit: cover;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+`;
+
+const ImgIcon = styled(FaUser)`
+  color: white;
 `;

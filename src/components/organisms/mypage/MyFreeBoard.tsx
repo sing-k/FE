@@ -3,23 +3,42 @@ import { Text } from "../../common";
 import { MyBoardHeader, MyFreeBoardFooter } from "../../molecules";
 import { glassEffectStyle } from "../../../styles/style";
 import color from "../../../styles/color";
+import { useMyFreePostsQuery } from "../../../hooks/queries/freePost";
+import { FreePostType } from "../../../types/freePostType";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
+
 const MyFreeBoard = () => {
+  let offset = 0;
+  let limit = 20;
+  const { data, isLoading, isError, error } = useMyFreePostsQuery(
+    offset,
+    limit,
+  );
+  console.log(data);
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
   return (
     <Container>
-      <Card>
-        <MyBoardHeader />
-        <Text color="black" size="1rem" bold={700}>
-          제목제목제목제목제목
-        </Text>
-        <MyFreeBoardFooter />
-      </Card>
-      <Card>
-        <MyBoardHeader />
-        <Text color="black" size="1rem" bold={700}>
-          제목제목제목제목제목
-        </Text>
-        <MyFreeBoardFooter />
-      </Card>
+      {data?.items.map((card: FreePostType) => (
+        <Card key={card.id}>
+          <MyBoardHeader
+            nickname={card.writer.nickname}
+            createdAt={card.createdAt}
+            imageUrl={card.writer.imageUrl}
+          />
+          <TextDiv>
+            <Text color="black" size="1rem" bold={700}>
+              {card.title}
+            </Text>
+          </TextDiv>
+          <MyFreeBoardFooter
+            content={card.content}
+            like={card.like}
+            commentCount={card.comments}
+          />
+        </Card>
+      ))}
     </Container>
   );
 };
@@ -47,4 +66,8 @@ const Card = styled.div`
       ${color.COLOR_GRADIENT_PINK}
     )
     1;
+`;
+
+const TextDiv = styled.div`
+  padding: 0 0.5rem;
 `;

@@ -123,3 +123,24 @@ export const deleteFreePost = async (postId: string): Promise<boolean> => {
     return false;
   }
 };
+
+export const getMyFreePost = async (offset: number, limit: number) => {
+  try {
+    const res = await client.get("/api/posts/free/me", {
+      params: {
+        offset,
+        limit,
+        sort: "LATEST",
+      },
+    });
+
+    if (res.data.statusCode !== 200) {
+      throw new Error(res.data.message || "Failed to fetch posts");
+    }
+
+    return res.data.data;
+  } catch (error) {
+    console.error("Error fetching my free posts:", error);
+    throw error;
+  }
+};
