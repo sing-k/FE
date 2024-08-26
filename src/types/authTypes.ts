@@ -58,7 +58,7 @@ export interface UserDataType {
   createdAt: string;
   email: string;
   gender: string;
-  id: number;
+  id: string;
   imageUrl: string;
   modifiedAt: string;
   name: string;

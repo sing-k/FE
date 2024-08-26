@@ -3,48 +3,77 @@ import styled from "styled-components";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-import { useMediaQueries } from "../../../hooks";
-
 import { glassEffectStyle } from "../../../styles/style";
 import { pathName } from "../../../App";
 
-import { AlbumType } from "../../../types/albumType";
+import { useInfiniteSearchAlbumListQuery } from "../../../hooks/queries/album";
 
 import AlbumCarousel from "./AlbumCarousel";
 import AlbumItem from "../../molecules/album/AlbumItem";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
+import EmptyMessage from "../../common/EmptyMessage";
+import InfiniteScrollList from "../../common/InfiniteScrollList";
+import { useEffect } from "react";
 
 type Props = {
-  data: AlbumType[];
   query: string;
 };
 
-const AlbumSearchList = ({ data, query }: Props) => {
-  if (!data) return <p>Loading...</p>;
+const AlbumSearchList = ({ query }: Props) => {
+  const queryResult = useInfiniteSearchAlbumListQuery(query);
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = queryResult;
 
-  const { isPc, isTablet } = useMediaQueries();
-  const numToShow = isPc ? 5 : isTablet ? 3 : 2;
-
-  const topItems = data.slice(0, numToShow);
-  const rest = data.slice(numToShow);
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`${pathName.album}`);
   };
 
+  useEffect(() => {
+    if (!isLoading && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [isLoading]);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+  if (!data) return;
+
   return (
     <Container>
       <SearchTitle>
-        <FaArrowLeft onClick={handleClick} /> '{query}'에 대한 검색 결과
+        <BackBtn onClick={handleClick} />'{query}'에 대한 검색 결과
       </SearchTitle>
 
-      <AlbumCarousel items={topItems} />
+      {data.pages.length > 0 ? (
+        <>
+          <AlbumCarousel items={data.pages[0]} />
 
-      <ListWrapper>
-        {rest.map((data) => (
-          <AlbumItem key={data.id} type="list" data={data} />
-        ))}
-      </ListWrapper>
+          {data.pages.length > 1 && (
+            <InfiniteScrollList
+              queryResult={queryResult}
+              ItemComponent={AlbumItem}
+              itemProps={{ type: "list" }}
+              containerStyle={{
+                background: "none",
+                backdropFilter: "none",
+                maxHeight: "60vh",
+              }}
+            />
+          )}
+        </>
+      ) : (
+        <EmptyMessage message={`'${query}' 에 대한 검색 결과가 없습니다.`} />
+      )}
     </Container>
   );
 };
@@ -53,22 +82,26 @@ export default AlbumSearchList;
 
 const Container = styled.div`
   ${glassEffectStyle()}
+  margin-top: 3rem;
   width: 100%;
-  padding: 1rem 1.5rem;
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  flex-wrap: wrap;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
   border-radius: 10px;
 `;
 
 const SearchTitle = styled.div`
-  font-size: 1.2rem;
-  font-weight: 900;
+  font-size: 1.4rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
-const ListWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const BackBtn = styled(FaArrowLeft)`
+  cursor: pointer;
+  font-size: 1.2rem;
 `;
