@@ -35,7 +35,7 @@ import {
 
 const WriteRecommendPostPage = () => {
   const [savedPost, setSavedPost] = useState<WriteRecommendValues | undefined>(
-    undefined
+    undefined,
   );
 
   const fieldValues: UseFormReturn<WriteRecommendValues> =
@@ -62,7 +62,7 @@ const WriteRecommendPostPage = () => {
   const location = useLocation();
 
   const onSubmit: SubmitHandler<WriteRecommendValues> = async (
-    data: WriteRecommendValues
+    data: WriteRecommendValues,
   ) => {
     const { title, content, type, genre, selectedFile } = data;
 
@@ -103,7 +103,7 @@ const WriteRecommendPostPage = () => {
       setValue("type", "ALBUM");
       setValue(
         "albumLink",
-        `${window.location.origin}${pathName.albumDetail}/${albmuId}`
+        `${window.location.origin}${pathName.albumDetail}/${albmuId}`,
       );
     } else {
       if (getLoginState() && !savedPost) {

@@ -10,13 +10,13 @@ export interface AlbumImageType {
 }
 
 export interface AlbumStatisticsType {
-  id: string;
+  id: string | number;
   averageScore: number;
   count: number;
 }
 
 export interface AlbumType {
-  id: string;
+  id: string | number;
   name: string;
   modifiedAt?: string;
   releasedAt: string;

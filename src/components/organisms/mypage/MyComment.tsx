@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import { Text } from "../../common";
-import { MyBoardHeader, MyCommentFooter } from "../../molecules";
+import { MyCommentFooter } from "../../molecules";
 import { glassEffectStyle } from "../../../styles/style";
 const MyComment = () => {
   return (
     <Container>
       <Card>
-        <MyBoardHeader />
+        {/* <MyBoardHeader /> */}
         <Text color="black" size="1rem">
           댓글내용 댓글 내용 댓글 내용 댓글 내용
         </Text>
         <MyCommentFooter />
       </Card>
       <Card>
-        <MyBoardHeader />
+        {/* <MyBoardHeader /> */}
         <Text color="black" size="1rem">
           댓글내용 댓글 내용 댓글 내용 댓글 내용
         </Text>

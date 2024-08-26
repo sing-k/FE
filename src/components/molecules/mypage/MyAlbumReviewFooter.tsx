@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MyStarRating, MyLikeRating, MyUnlikeRating } from "../../atoms";
+import { MyStarRating, MyUnlikeRating } from "../../atoms";
 const MyAlbumReviewFooter = () => {
   return (
     <Container>
@@ -8,7 +8,7 @@ const MyAlbumReviewFooter = () => {
         <RatingValue>{4}</RatingValue>
       </RatingDiv>
       <RatingDiv>
-        <MyLikeRating />
+        {/* <MyLikeRating /> 잠깐 빼놓음*/}
         <MyUnlikeRating />
       </RatingDiv>
     </Container>

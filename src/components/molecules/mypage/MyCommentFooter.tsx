@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Text } from "../../common";
 import color from "../../../styles/color";
-import { MyBoardType, MyLikeRating, MyUnlikeRating } from "../../atoms";
+import { MyBoardType, MyUnlikeRating } from "../../atoms";
 const MyCommentFooter = () => {
   return (
     <Container>
@@ -12,7 +12,7 @@ const MyCommentFooter = () => {
         </Text>
       </TypeDiv>
       <RatingDiv>
-        <MyLikeRating />
+        {/* <MyLikeRating /> 잠깐 빼놓음 */}
         <MyUnlikeRating />
       </RatingDiv>
     </Container>
