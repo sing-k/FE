@@ -29,7 +29,12 @@ const OauthSignUpForm = () => {
     watch,
     setValue,
     formState: { errors, isValid },
-  } = useForm<OauthFormType>({ mode: "onBlur" });
+  } = useForm<OauthFormType>({
+    mode: "onBlur",
+    defaultValues: {
+      gender: "MALE", // 남성을 기본값으로 설정
+    },
+  });
   const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState<string>("");
   const { isPc, isTablet, isMobile } = useMediaQueries();
