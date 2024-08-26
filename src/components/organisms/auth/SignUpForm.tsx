@@ -33,7 +33,12 @@ const SignUpForm = () => {
     watch,
     setValue,
     formState: { errors, isValid },
-  } = useForm<FormType>({ mode: "onBlur" });
+  } = useForm<FormType>({
+    mode: "onBlur",
+    defaultValues: {
+      gender: "MALE", // 남성을 기본값으로 설정
+    },
+  });
   const [isVerificationCodeSent, setIsVerificationCodeSent] =
     useState<boolean>(false);
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);

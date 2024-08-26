@@ -58,7 +58,6 @@ const OauthSignUpForm = () => {
     setValue("birthday", date);
   };
   const handleValid = (data: OauthFormType) => {
-    console.log(data);
     mutation.mutate(data, {
       onSuccess: () => {
         alert("회원가입이 성공적으로 완료되었습니다.");
