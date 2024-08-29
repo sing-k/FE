@@ -1,29 +1,43 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { MyAlbumReviewHeader, MyAlbumReviewFooter } from "../../molecules";
 import { Text } from "../../common";
 import { glassEffectStyle } from "../../../styles/style";
-
+import { AlbumReview } from "../../../types/myalbumReviewType";
+import { useMyAlbumReviewsQuery } from "../../../hooks/queries/albumDetail";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
+import { pathName } from "../../../App";
 const MyAlbumReview = () => {
+  const { data, isLoading, isError, error } = useMyAlbumReviewsQuery(0, 20);
+  const navigate = useNavigate();
+  if (isLoading || !data) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+
+  const handelClickLink = (id: string) => {
+    navigate(`${pathName.albumDetail}/${id}/?tab=review`);
+  };
+  console.log(data);
   return (
     <Container>
-      <Card>
-        <MyAlbumReviewHeader />
-        <Text size="1rem">
-          이 앨범은
-          킹갓제너럴엠페러마제스티골져스프레셔스뷰리풀하이클래스엘레강스럭셔리클래식지니어스원더풀러블리월드탑클래스입니다.
-          감사합니다
-        </Text>
-        <MyAlbumReviewFooter />
-      </Card>
-      <Card>
-        <MyAlbumReviewHeader />
-        <Text size="1rem">
-          이 앨범은
-          킹갓제너럴엠페러마제스티골져스프레셔스뷰리풀하이클래스엘레강스럭셔리클래식지니어스원더풀러블리월드탑클래스입니다.
-          감사합니다
-        </Text>
-        <MyAlbumReviewFooter />
-      </Card>
+      {data.items.map((review: AlbumReview) => (
+        <Card key={review.id} onClick={() => handelClickLink(review.album.id)}>
+          <MyAlbumReviewHeader
+            albumImage={review.album.images[0]}
+            albumName={review.album.name}
+            artistName={review.album.artists
+              .map(artist => artist.name)
+              .join(", ")}
+            createdAt={review.createdAt}
+          />
+          <Text size="1rem">{review.content}</Text>
+          <MyAlbumReviewFooter
+            prosCount={review.vote.prosCount}
+            consCount={review.vote.consCount}
+            score={review.score}
+          />
+        </Card>
+      ))}
     </Container>
   );
 };
@@ -43,4 +57,7 @@ const Card = styled.div`
   gap: 1.5rem;
   padding: 1rem;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `;

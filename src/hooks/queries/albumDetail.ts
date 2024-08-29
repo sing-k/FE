@@ -1,4 +1,9 @@
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  useMutation,
+  keepPreviousData,
+} from "@tanstack/react-query";
 
 import {
   getAlbumDetail,
@@ -7,6 +12,7 @@ import {
   AlbumReviewListArgs,
   postAlbumReivew,
   deleteAlbumReivew,
+  getMyAlbumReviews,
 } from "../../api/albumDetail";
 
 export const useAlbumDetailQuery = (albumId: string) => {
@@ -49,7 +55,7 @@ export const usePostAlbumReview = (albumId: string) => {
         queryKey: ["albumReviewList", { albumId }],
       });
     },
-    onError: (errorMessage) => {
+    onError: errorMessage => {
       alert(errorMessage);
     },
   });
@@ -71,8 +77,16 @@ export const useDeleteAlbumReviewMutation = (albumId: string) => {
         queryKey: ["albumReviewList", { albumId }],
       });
     },
-    onError: (errorMessage) => {
+    onError: errorMessage => {
       alert(errorMessage);
     },
+  });
+};
+
+export const useMyAlbumReviewsQuery = (offset: number, limit: number) => {
+  return useQuery({
+    queryKey: ["myAlbumReviews", offset, limit],
+    queryFn: () => getMyAlbumReviews(offset, limit),
+    placeholderData: keepPreviousData,
   });
 };

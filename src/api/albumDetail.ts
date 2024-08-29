@@ -31,7 +31,7 @@ export const getAlbumReviewList = async ({
   sort = "NEW",
 }: AlbumReviewListArgs) => {
   const res = await client.get(
-    `/api/reviews/albums/${albumId}?offset=${offset}&limit=${limit}&sort=${sort}`
+    `/api/reviews/albums/${albumId}?offset=${offset}&limit=${limit}&sort=${sort}`,
   );
 
   if (res.status === 200) {
@@ -81,7 +81,7 @@ export const deleteAlbumReivew = async ({
 }: DeleteAlbumReviewContext): Promise<boolean> => {
   try {
     const res = await client.delete(
-      `/api/reviews/${reviewId}/albums/${albumId}`
+      `/api/reviews/${reviewId}/albums/${albumId}`,
     );
 
     checkAPIResponseValidation(res);
@@ -90,5 +90,25 @@ export const deleteAlbumReivew = async ({
   } catch (err) {
     console.log(err);
     return false;
+  }
+};
+
+export const getMyAlbumReviews = async (offset: number, limit: number) => {
+  try {
+    const res = await client.get("/api/reviews/albums/me", {
+      params: {
+        offset,
+        limit,
+        sort: "NEW",
+      },
+    });
+
+    if (res.data.statusCode !== 200) {
+      throw new Error(res.data.message || "감상평을 가져오는데 실패했습니다.");
+    }
+    return res.data.data;
+  } catch (error) {
+    console.error("내 앨범 감상평을 가져오는 중 오류 발생:", error);
+    throw error;
   }
 };

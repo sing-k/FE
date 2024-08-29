@@ -1,11 +1,16 @@
 import MyIconRating from "./MyIconRating";
 import color from "../../../styles/color";
 import { AiFillDislike } from "react-icons/ai";
-const MyUnlikeRating = () => {
+
+interface MyUnLikeRatingProps {
+  unLikeCount: number;
+}
+
+const MyUnlikeRating = ({ unLikeCount }: MyUnLikeRatingProps) => {
   return (
     <MyIconRating
       icon={<AiFillDislike size={"1rem"} color={color.COLOR_GRAY_ICON} />}
-      count={10}
+      count={unLikeCount}
     />
   );
 };

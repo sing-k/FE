@@ -1,15 +1,25 @@
 import styled from "styled-components";
-import { MyStarRating, MyUnlikeRating } from "../../atoms";
-const MyAlbumReviewFooter = () => {
+import { MyStarRating, MyUnlikeRating, MyLikeRating } from "../../atoms";
+interface AlbumReviewFooterType {
+  prosCount: number;
+  consCount: number;
+  score: number;
+}
+
+const MyAlbumReviewFooter = ({
+  prosCount,
+  consCount,
+  score,
+}: AlbumReviewFooterType) => {
   return (
     <Container>
       <RatingDiv>
-        <MyStarRating rating={4} />
-        <RatingValue>{4}</RatingValue>
+        <MyStarRating rating={score} />
+        <RatingValue>{score}</RatingValue>
       </RatingDiv>
       <RatingDiv>
-        {/* <MyLikeRating /> 잠깐 빼놓음*/}
-        <MyUnlikeRating />
+        <MyLikeRating likeCount={prosCount} />
+        <MyUnlikeRating unLikeCount={consCount} />
       </RatingDiv>
     </Container>
   );

@@ -3,22 +3,38 @@ import { MyDeleteBtn, MyIcon } from "../../atoms";
 import { Text } from "../../common";
 import color from "../../../styles/color";
 import IconImage from "../../../assets/img/singk-logo.png";
+import { Image } from "../../../types/myalbumReviewType";
+interface AlbumReviewHeaderType {
+  albumImage: Image;
+  albumName: string;
+  artistName: string;
+  createdAt: string;
+}
 
-const MyAlbumReviewHeader = () => {
+const MyAlbumReviewHeader = ({
+  albumImage,
+  albumName,
+  artistName,
+  createdAt,
+}: AlbumReviewHeaderType) => {
   return (
     <Container>
-      <MyIcon src={IconImage} $rounded={false} />
+      {albumImage ? (
+        <MyIcon src={albumImage.imageUrl} $rounded={false} />
+      ) : (
+        <IconImage />
+      )}
       <TitleDiv>
         <Text color="black" size="1rem" bold="700">
-          Discord(TAK Remix)
+          {albumName}
         </Text>
         <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
-          QWER
+          {artistName}
         </Text>
       </TitleDiv>
       <ColumnDiv>
         <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
-          2024.06.25
+          {createdAt}
         </Text>
         <MyDeleteBtn />
       </ColumnDiv>
