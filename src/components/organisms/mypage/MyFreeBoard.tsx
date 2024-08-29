@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { Text } from "../../common";
 import { MyBoardHeader, MyFreeBoardFooter } from "../../molecules";
 import { glassEffectStyle } from "../../../styles/style";
@@ -7,7 +8,7 @@ import { useMyFreePostsQuery } from "../../../hooks/queries/freePost";
 import { FreePostType } from "../../../types/freePostType";
 import Loading from "../../common/Loading";
 import ErrorMessage from "../../common/ErrorMessage";
-
+import { pathName } from "../../../App";
 const MyFreeBoard = () => {
   let offset = 0;
   let limit = 20;
@@ -15,13 +16,17 @@ const MyFreeBoard = () => {
     offset,
     limit,
   );
-  console.log(data);
-  if (isLoading) return <Loading />;
+  const navigate = useNavigate();
+  if (isLoading || !data) return <Loading />;
   if (isError) return <ErrorMessage message={error.message} />;
+
+  const handelClickLink = (id: string) => {
+    navigate(`${pathName.board}/${id}`);
+  };
   return (
     <Container>
       {data?.items.map((card: FreePostType) => (
-        <Card key={card.id}>
+        <Card key={card.id} onClick={() => handelClickLink(card.id)}>
           <MyBoardHeader
             nickname={card.writer.nickname}
             createdAt={card.createdAt}
@@ -66,6 +71,9 @@ const Card = styled.div`
       ${color.COLOR_GRADIENT_PINK}
     )
     1;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const TextDiv = styled.div`

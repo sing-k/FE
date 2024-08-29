@@ -104,7 +104,7 @@ export const useDeleteRecommendPostMutation = (postId: string) => {
 
 export const useMyRecommendPostsQuery = (offset: number, limit: number) => {
   return useQuery({
-    queryKey: ["myFreePosts", offset, limit],
+    queryKey: ["myRecommendPost", offset, limit],
     queryFn: () => getMyRecommendPost(offset, limit),
     placeholderData: keepPreviousData,
   });

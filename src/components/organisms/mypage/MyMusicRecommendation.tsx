@@ -12,7 +12,7 @@ const MyMusicRecommendation = () => {
   const navigate = useNavigate();
   const { isPc, isTablet } = useMediaQueries();
   const { data, isLoading, error } = useMyRecommendPostsQuery(0, 20);
-  if (isLoading) return <Loading />;
+  if (isLoading || !data) return <Loading />;
   if (error) return <div>Error loading recommendations</div>;
 
   const cols = isPc ? 3 : isTablet ? 2 : 1;
