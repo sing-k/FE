@@ -82,7 +82,7 @@ export default AlbumSearchList;
 
 const Container = styled.div`
   ${glassEffectStyle()}
-  margin-top: 3rem;
+  margin-top: 2rem;
   width: 100%;
   box-sizing: border-box;
   display: flex;
