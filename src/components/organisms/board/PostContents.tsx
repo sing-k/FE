@@ -78,6 +78,8 @@ const GrayLine = styled.div`
 const ContentsWrapper = styled.div`
   width: 100%;
   margin-bottom: 50px;
+  font-size: 1rem;
+  line-height: 1.5;
 `;
 
 const LikeBtnWrapper = styled.div`
