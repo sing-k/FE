@@ -11,11 +11,9 @@ import { AlbumReviewType } from "../../../types/albumReviewType";
 
 import { dateTimeFormat } from "../../../utils/date";
 
-import { useDeleteAlbumReviewMutation } from "../../../hooks/queries/albumDetail";
-
 import StarRating from "../../atoms/albumDetail/StarRating";
-import OptionsMenu from "../../common/OptionsMenu";
 import AlbumVotingBtns from "./AlbumVotingBtns";
+import AlbumReviewOptionsMenu from "../optionsMenu/AlbumReviewOptionsMenu";
 
 type Props = {
   data: AlbumReviewType;
@@ -23,17 +21,6 @@ type Props = {
 };
 
 const AlbumReview = ({ data, albumId }: Props) => {
-  const deleteAlbumReviewMutation = useDeleteAlbumReviewMutation(albumId);
-
-  const handleDelete = async () => {
-    if (!window.confirm("앨범 감상평을 삭제하시겠습니까?")) return;
-
-    await deleteAlbumReviewMutation.mutateAsync({
-      reviewId: data.id,
-      albumId,
-    });
-  };
-
   return (
     <Container>
       <Wrapper>
@@ -45,9 +32,10 @@ const AlbumReview = ({ data, albumId }: Props) => {
         <SmallWrapper>
           {dateTimeFormat(data.createdAt)}
 
-          <OptionsMenu
+          <AlbumReviewOptionsMenu
             writerId={data.reviewer.id as string}
-            handleDelete={handleDelete}
+            reviewId={data.id}
+            albumId={albumId}
           />
         </SmallWrapper>
       </Wrapper>

@@ -17,16 +17,15 @@ import {
 } from "../../../hooks/queries/like";
 
 import UserInfo from "../../common/UserInfo";
-import OptionsMenu from "../../common/OptionsMenu";
 import LikeBtn from "../../atoms/common/LikeBtn";
 import Input from "../../common/Input";
 import {
-  useDeleteFreeCommentMutation,
-  useDeleteRecommendCommentMutation,
   useUpdateFreeCommentMutation,
   useUpdateRecommendCommentMutation,
 } from "../../../hooks/queries/comment";
 import { UpdateCommentContext } from "../../../api/comment";
+import FreeCommentOptionsMenu from "../optionsMenu/FreeCommentOptionsMenu";
+import RecommendCommentOptionsMenu from "../optionsMenu/RecommendCommentOptionsMenu";
 
 interface Props {
   data: CommentType;
@@ -56,16 +55,15 @@ const Comment = ({
   const [updateMode, setUpdateMode] = useState<boolean>(false);
   const [input, setInput] = useState<string>(data.content);
 
-  const likeFreeCommentMutation = useLikeFreeComment(postId);
-  const likeRecommendCommentMutation = useLikeRecommendComment(postId);
+  const likeCommentMutation =
+    type === "free"
+      ? useLikeFreeComment(postId)
+      : useLikeRecommendComment(postId);
 
-  const updateFreeCommentMutation = useUpdateFreeCommentMutation(postId);
-  const updateRecommendCommentMutation =
-    useUpdateRecommendCommentMutation(postId);
-
-  const deleteFreeCommentMutation = useDeleteFreeCommentMutation(postId);
-  const deleteRecommendCommentMutation =
-    useDeleteRecommendCommentMutation(postId);
+  const updateCommentMutation =
+    type === "free"
+      ? useUpdateFreeCommentMutation(postId)
+      : useUpdateRecommendCommentMutation(postId);
 
   const onClickRecomment = () => {
     if (parentId === commentId) {
@@ -90,39 +88,15 @@ const Comment = ({
         postId,
       };
 
-      let res = false;
+      if (!updateCommentMutation.isPending) {
+        const res = await updateCommentMutation.mutateAsync(ctx);
 
-      if (type === "free" && !updateFreeCommentMutation.isPending) {
-        res = await updateFreeCommentMutation.mutateAsync(ctx);
-      } else if (
-        type === "recommend" &&
-        !updateRecommendCommentMutation.isPending
-      ) {
-        res = await updateRecommendCommentMutation.mutateAsync(ctx);
-      }
-
-      if (res) {
-        alert("댓글이 수정되었습니다!");
+        if (res) {
+          alert("댓글이 수정되었습니다!");
+        }
       }
 
       setUpdateMode(false);
-    }
-  };
-
-  const handleDelete = async () => {
-    const confirm = window.confirm("댓글을 삭제하시겠습니까?");
-
-    if (confirm) {
-      const ctx: UpdateCommentContext = {
-        commentId: data.id,
-        postId,
-      };
-
-      if (type === "free") {
-        await deleteFreeCommentMutation.mutateAsync(ctx);
-      } else {
-        await deleteRecommendCommentMutation.mutateAsync(ctx);
-      }
     }
   };
 
@@ -139,11 +113,29 @@ const Comment = ({
           {dateTimeFormat(data.createdAt)}
         </UserWrapper>
 
-        <OptionsMenu
-          writerId={data.writer.id}
-          handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
-        />
+        {type === "free" ? (
+          <FreeCommentOptionsMenu
+            writerId={data.writer.id}
+            commentId={data.id}
+            postId={postId}
+            updateData={{
+              content: input,
+              updateMode,
+              setUpdateMode,
+            }}
+          />
+        ) : (
+          <RecommendCommentOptionsMenu
+            writerId={data.writer.id}
+            commentId={data.id}
+            postId={postId}
+            updateData={{
+              content: input,
+              updateMode,
+              setUpdateMode,
+            }}
+          />
+        )}
       </Wrapper>
 
       {updateMode ? (
@@ -184,11 +176,7 @@ const Comment = ({
             like={data.like.like}
             id={data.id}
             writerId={data.writer.id}
-            mutate={
-              type === "free"
-                ? likeFreeCommentMutation.mutate
-                : likeRecommendCommentMutation.mutate
-            }
+            mutate={likeCommentMutation.mutate}
           />
         </Wrapper>
       )}
