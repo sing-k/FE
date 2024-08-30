@@ -42,9 +42,10 @@ const AlbumReviewInput = ({ albumId }: Props) => {
 
     if (res) {
       alert("감상평이 등록되었습니다.");
-      setInput("");
-      setStars(0);
     }
+
+    setInput("");
+    setStars(0);
   };
 
   return (

@@ -105,6 +105,7 @@ const SmallWrapper = styled.div`
 const ReviewText = styled.p`
   line-height: 1.5rem;
   font-size: 1rem;
+  white-space: pre-line;
 `;
 
 const WriterDiv = styled.div`

@@ -82,6 +82,7 @@ const Comment = ({
       const ctx: UpdateCommentContext = {
         commentId: data.id,
         content: input,
+        postId,
       };
 
       const res =
@@ -101,10 +102,15 @@ const Comment = ({
     const confirm = window.confirm("댓글을 삭제하시겠습니까?");
 
     if (confirm) {
+      const ctx: UpdateCommentContext = {
+        commentId: data.id,
+        postId,
+      };
+
       if (type === "free") {
-        await deleteFreeCommentMutation.mutateAsync(data.id);
+        await deleteFreeCommentMutation.mutateAsync(ctx);
       } else {
-        await deleteRecommendCommentMutation.mutateAsync(data.id);
+        await deleteRecommendCommentMutation.mutateAsync(ctx);
       }
     }
   };
