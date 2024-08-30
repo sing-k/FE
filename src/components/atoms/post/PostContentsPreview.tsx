@@ -30,5 +30,6 @@ const Container = styled.div`
     color: ${color.COLOR_GRAY_TEXT} !important;
     font-weight: normal !important;
     font-size: 0.8rem !important;
+    line-height: calc(0.8 * 1.5rem) !important;
   }
 `;

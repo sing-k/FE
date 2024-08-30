@@ -8,11 +8,11 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export const dateFormat = (date: string) => {
-  return dayjs.utc(date).tz("Asia/Seoul").format("YYYY-MM-DD");
+  return dayjs.utc(date).tz("Asia/Seoul").format("YYYY.MM.DD");
 };
 
 export const dateTimeFormat = (date: string) => {
-  return dayjs.utc(date).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm");
+  return dayjs.utc(date).tz("Asia/Seoul").format("YYYY.MM.DD HH:mm");
 };
 
 export const getDefaultDates = () => {

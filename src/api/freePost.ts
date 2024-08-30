@@ -7,6 +7,21 @@ import { SearchPostContext } from "../types/postType";
 
 export const FREE_POST_LIMIT = 10;
 
+export const getHomeFreePostList = async (): Promise<FreePostType[]> => {
+  try {
+    const res = await client.get(
+      "/api/posts/free?offset=0&limit=8&sort=LATEST"
+    );
+
+    checkAPIResponseValidation(res);
+
+    return res.data.data.items as FreePostType[];
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
 export const getFreePostList = async ({
   queryKey,
   pageParam,

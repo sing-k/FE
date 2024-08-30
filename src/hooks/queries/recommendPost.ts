@@ -13,6 +13,7 @@ import {
   postRecommendPost,
   updateRecommendPost,
   getMyRecommendPost,
+  getHomeRecommendPostList,
 } from "../../api/recommendPost";
 import {
   RECOMMEND_POST_LIMIT,
@@ -20,6 +21,13 @@ import {
   RecommendPostType,
 } from "../../types/recommendPostType";
 import { SearchPostContext } from "../../types/postType";
+
+export const useHomeRecommendPostListQuery = () => {
+  return useQuery({
+    queryKey: ["homeRecommendPostList"],
+    queryFn: getHomeRecommendPostList,
+  });
+};
 
 export const useInfiniteRecommendPostListQuery = (ctx: SearchPostContext) => {
   return useInfiniteQuery({
@@ -29,7 +37,7 @@ export const useInfiniteRecommendPostListQuery = (ctx: SearchPostContext) => {
     getNextPageParam: (
       lastPage: RecommendPostType[],
       _: RecommendPostType[][],
-      lastPageParam: RecommendPostPageParam,
+      lastPageParam: RecommendPostPageParam
     ) => {
       if (lastPage.length < RECOMMEND_POST_LIMIT) {
         return undefined;
