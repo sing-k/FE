@@ -22,7 +22,7 @@ const HomePostListTemplate = ({ listHeaderText, children }: Props) => {
 export default HomePostListTemplate;
 
 const Container = styled.div`
-  width: calc(50% - 1rem);
+  width: calc(50% - 0.5rem);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
