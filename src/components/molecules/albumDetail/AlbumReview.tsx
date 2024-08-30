@@ -11,10 +11,11 @@ import { AlbumReviewType } from "../../../types/albumReviewType";
 
 import { dateTimeFormat } from "../../../utils/date";
 
+import { useDeleteAlbumReviewMutation } from "../../../hooks/queries/albumDetail";
+
 import StarRating from "../../atoms/albumDetail/StarRating";
 import OptionsMenu from "../../common/OptionsMenu";
-import { useDeleteAlbumReviewMutation } from "../../../hooks/queries/albumDetail";
-// import AlbumVotingBtns from "./AlbumVotingBtns";
+import AlbumVotingBtns from "./AlbumVotingBtns";
 
 type Props = {
   data: AlbumReviewType;
@@ -61,12 +62,11 @@ const AlbumReview = ({ data, albumId }: Props) => {
           {data.reviewer.nickname ? data.reviewer.nickname : "닉네임없음"}
         </WriterDiv>
 
-        {/* <AlbumVotingBtns
+        <AlbumVotingBtns
           albumId={albumId}
           reviewId={data.id}
-          pros={data.pros}
-          cons={data.cons}
-        /> */}
+          vote={data.vote}
+        />
       </Wrapper>
     </Container>
   );

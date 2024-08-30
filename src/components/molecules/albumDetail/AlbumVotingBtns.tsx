@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { glassEffectStyle } from "../../../styles/style";
 
@@ -6,52 +6,75 @@ import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 
 import { useVoteMutation } from "../../../hooks/queries/vote";
 
-import { VoteType } from "../../../api/vote";
+import { VoteDataType, VoteType } from "../../../types/voteType";
+import color from "../../../styles/color";
 
-interface Props {
-  albumId: string;
-  reviewId: string;
-  pros: number;
-  cons: number;
-}
+type ClickVotingBtnContext = {
+  type: VoteType;
+  isVoted: boolean;
+};
 
 interface BtnProps {
   type: VoteType;
   count: number;
-  albumId: string;
-  reviewId: string;
+  isVoted: boolean;
+  onClickVotingBtn: (ctx: ClickVotingBtnContext) => void;
 }
 
-const AlbumVotingBtn = ({ type, count, albumId, reviewId }: BtnProps) => {
-  const voteMutation = useVoteMutation(albumId);
+interface Props {
+  albumId: string;
+  reviewId: string;
+  vote: VoteDataType;
+}
 
-  const onClick = async () => {
-    voteMutation.mutate({ type, reviewId });
-  };
-
+const AlbumVotingBtn = ({
+  type,
+  count,
+  isVoted,
+  onClickVotingBtn,
+}: BtnProps) => {
   return (
-    <Btn onClick={onClick}>
+    <Btn
+      onClick={onClickVotingBtn.bind(this, { type, isVoted })}
+      $isVoted={isVoted}
+    >
       {type === "PROS" ? <FaRegThumbsUp /> : <FaRegThumbsDown />}
+
       {count}
     </Btn>
   );
 };
 
-const AlbumVotingBtns = ({ albumId, reviewId, pros, cons }: Props) => {
+const AlbumVotingBtns = ({ albumId, reviewId, vote }: Props) => {
+  const voteMutation = useVoteMutation(albumId);
+
+  const onClickVotingBtn = async ({ type, isVoted }: ClickVotingBtnContext) => {
+    const otherType: VoteType = type === "PROS" ? "CONS" : "PROS";
+    const isOtherVoted: boolean = type === "PROS" ? vote.cons : vote.pros;
+
+    await voteMutation.mutateAsync({
+      type,
+      reviewId,
+      isVoted,
+      otherType,
+      isOtherVoted,
+    });
+  };
+
   return (
     <Container>
       <AlbumVotingBtn
-        albumId={albumId}
-        reviewId={reviewId}
-        count={pros}
+        count={vote.prosCount}
+        isVoted={vote.pros}
         type="PROS"
+        onClickVotingBtn={onClickVotingBtn}
       />
 
       <AlbumVotingBtn
-        albumId={albumId}
-        reviewId={reviewId}
-        count={cons}
+        count={vote.consCount}
+        isVoted={vote.cons}
         type="CONS"
+        onClickVotingBtn={onClickVotingBtn}
       />
     </Container>
   );
@@ -66,7 +89,7 @@ const Container = styled.div`
   font-size: 0.8rem;
 `;
 
-const Btn = styled.div`
+const Btn = styled.div<{ $isVoted: boolean }>`
   ${glassEffectStyle()}
   cursor: pointer;
   padding: 0.5rem 0.8rem;
@@ -75,4 +98,13 @@ const Btn = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
+
+  ${({ $isVoted }) => {
+    if ($isVoted) {
+      return css`
+        background-color: ${color.COLOR_MAIN};
+        color: white;
+      `;
+    }
+  }}
 `;
