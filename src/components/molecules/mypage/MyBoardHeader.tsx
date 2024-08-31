@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { MyDeleteBtn } from "../../atoms";
 import { Text } from "../../common";
 import color from "../../../styles/color";
-import { FaUser } from "react-icons/fa";
+import UserInfo from "../../common/UserInfo";
 type MyBoardHeaderProps = {
   showDeleteBtn?: boolean;
   nickname: string;
@@ -18,12 +18,7 @@ const MyBoardHeader = ({
 }: MyBoardHeaderProps) => {
   return (
     <Container>
-      <TitleDiv>
-        {imageUrl ? <Img src={imageUrl} /> : <ImgIcon />}
-        <Text color={color.COLOR_DARKGRAY_TEXT} size="1rem" bold="700">
-          {nickname}
-        </Text>
-      </TitleDiv>
+      <UserInfo profileImage={imageUrl} nickname={nickname} />
       <ColumnDiv>
         <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
           {createdAt}
@@ -38,16 +33,8 @@ export default MyBoardHeader;
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
-  gap: 0.5rem;
-  padding: 0 0.5rem;
-`;
-
-const TitleDiv = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: start;
   gap: 0.5rem;
 `;
 const ColumnDiv = styled.div`
@@ -55,15 +42,4 @@ const ColumnDiv = styled.div`
   flex-direction: column;
   justify-content: end;
   gap: 0.2rem;
-`;
-
-const Img = styled.img`
-  object-fit: cover;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-`;
-
-const ImgIcon = styled(FaUser)`
-  color: white;
 `;

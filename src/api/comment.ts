@@ -4,8 +4,13 @@ import { checkAPIResponseValidation } from ".";
 
 import { QueryFunctionContext } from "@tanstack/react-query";
 
-import { CommentContext, CommentType } from "../types/commentType";
+import {
+  CommentContext,
+  CommentType,
+  MyCommentType,
+} from "../types/commentType";
 
+import { FilterKey } from "../components/organisms/mypage/MyComment";
 export const postFreeComment = async ({
   postId,
   parentId,
@@ -124,7 +129,7 @@ export const updateRecommendPostComment = async ({
 };
 
 export const deleteFreePostComment = async (
-  commentId: string
+  commentId: string,
 ): Promise<boolean> => {
   try {
     const res = await client.delete(`/api/posts/free/comments/${commentId}`);
@@ -138,11 +143,11 @@ export const deleteFreePostComment = async (
   }
 };
 export const deleteRecommendPostComment = async (
-  commentId: string
+  commentId: string,
 ): Promise<boolean> => {
   try {
     const res = await client.delete(
-      `/api/posts/recommend/comments/${commentId}`
+      `/api/posts/recommend/comments/${commentId}`,
     );
 
     checkAPIResponseValidation(res);
@@ -152,4 +157,16 @@ export const deleteRecommendPostComment = async (
     console.log(err);
     return false;
   }
+};
+
+export const getMyComments = async (
+  filter: FilterKey,
+): Promise<MyCommentType[]> => {
+  const response = await client.get(`/api/posts/${filter}/comments/me`);
+
+  if (response.status !== 200) {
+    throw new Error("댓글을 가져오는데 실패했습니다.");
+  }
+
+  return response.data.data;
 };

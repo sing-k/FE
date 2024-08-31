@@ -1,19 +1,23 @@
 import styled from "styled-components";
-import { Text } from "../../common";
-import color from "../../../styles/color";
-import { MyBoardType, MyUnlikeRating } from "../../atoms";
-const MyCommentFooter = () => {
+import { MyBoardType, MyLikeRating } from "../../atoms";
+
+interface MyCommentFooterType {
+  type: string;
+  likeCount: number;
+  // unLikeCount?: number;
+}
+const MyCommentFooter = ({ type, likeCount }: MyCommentFooterType) => {
   return (
     <Container>
       <TypeDiv>
-        <MyBoardType type={"자유글"} />
-        <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
+        <MyBoardType type={type} />
+        {/* <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
           해당 게시글 제목
-        </Text>
+        </Text> */}
       </TypeDiv>
       <RatingDiv>
-        {/* <MyLikeRating /> 잠깐 빼놓음 */}
-        <MyUnlikeRating />
+        <MyLikeRating likeCount={likeCount} />
+        {/* <MyUnlikeRating unLikeCount={unLikeCount} /> */}
       </RatingDiv>
     </Container>
   );

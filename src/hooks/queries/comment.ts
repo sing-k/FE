@@ -9,7 +9,9 @@ import {
   postRecommendComment,
   updateFreePostComment,
   updateRecommendPostComment,
+  getMyComments,
 } from "../../api/comment";
+import { FilterKey } from "../../components/organisms/mypage/MyComment";
 
 export const useFreePostCommentsQuery = (postId: string) => {
   return useQuery({
@@ -140,5 +142,12 @@ export const useDeleteRecommendCommentMutation = (postId: string) => {
         refetchType: "all",
       });
     },
+  });
+};
+
+export const useMyCommentsQuery = (filter: FilterKey) => {
+  return useQuery({
+    queryKey: ["MyComments", filter],
+    queryFn: () => getMyComments(filter),
   });
 };

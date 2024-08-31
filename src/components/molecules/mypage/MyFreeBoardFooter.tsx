@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { Text } from "../../common";
-import color from "../../../styles/color";
 import { MyCommentRating, MyLikeRating } from "../../atoms";
 import { LikeType } from "../../../types/postType";
-import { stripHtmlTags } from "../../../utils/stripHtmlTag";
+import PostContentsPreview from "../../atoms/post/PostContentsPreview";
 interface MyFreeBoardFooterType {
   content: string;
   like: LikeType;
@@ -16,9 +14,7 @@ const MyFreeBoardFooter = ({
 }: MyFreeBoardFooterType) => {
   return (
     <Container>
-      <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
-        {stripHtmlTags(content)}
-      </Text>
+      <PostContentsPreview contents={content} />
       <RatingDiv>
         <MyLikeRating likeCount={like.count} />
         <MyCommentRating commentCount={commentCount} />
