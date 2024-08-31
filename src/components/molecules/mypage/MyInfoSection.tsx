@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { UserDataType } from "../../../types/authTypes";
 import color from "../../../styles/color";
-import GenreTag from "../../atoms/navbar/NavbarTag";
 import { MyInfoButton } from "../../atoms";
 import { useMediaQueries } from "../../../hooks";
 interface MyInfoProps {
@@ -20,9 +19,7 @@ const MyInfoSection = ({ data, openModal }: MyInfoProps) => {
         <SmallText>{data?.name}</SmallText>
         <SmallText>{data?.email}</SmallText>
       </div>
-      <div>
-        <GenreTag />
-      </div>
+      <div>{/* <GenreTag /> */}</div>
     </Container>
   );
 };
