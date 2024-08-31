@@ -53,7 +53,6 @@ const MyComment = () => {
     }
   }, [location]);
 
-  console.log(data);
   if (isLoading) return <Loading />;
   if (isError) return <ErrorMessage message={error.message} />;
 
