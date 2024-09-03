@@ -2,15 +2,16 @@ import client from "../config/axios";
 
 import { checkAPIResponseValidation } from ".";
 
-import { QueryFunctionContext } from "@tanstack/react-query";
+import { QueryFunctionContext, QueryKey } from "@tanstack/react-query";
 
 import {
   CommentContext,
   CommentType,
   MyCommentType,
+  CommentPageParam,
 } from "../types/commentType";
 
-import { FilterKey } from "../components/organisms/mypage/MyComment";
+export const COMMENT_LIST_LIMIT = 10;
 export const postFreeComment = async ({
   postId,
   parentId,
@@ -159,14 +160,29 @@ export const deleteRecommendPostComment = async (
   }
 };
 
-export const getMyComments = async (
-  filter: FilterKey,
-): Promise<MyCommentType[]> => {
-  const response = await client.get(`/api/posts/${filter}/comments/me`);
+export const getMyComments = async ({
+  queryKey,
+  pageParam,
+}: QueryFunctionContext<QueryKey, CommentPageParam>): Promise<
+  MyCommentType[]
+> => {
+  try {
+    const filter = queryKey[1]; // queryKey에서 filter 값을 추출
 
-  if (response.status !== 200) {
-    throw new Error("댓글을 가져오는데 실패했습니다.");
+    const response = await client.get(`/api/posts/${filter}/comments/me`, {
+      params: {
+        offset: pageParam.offset,
+        limit: COMMENT_LIST_LIMIT,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error("댓글을 가져오는데 실패했습니다.");
+    }
+
+    return response.data.data as MyCommentType[];
+  } catch (error) {
+    console.error("내 댓글을 가져오는 중 오류 발생:", error);
+    return []; // 오류가 발생하면 빈 배열을 반환
   }
-
-  return response.data.data;
 };

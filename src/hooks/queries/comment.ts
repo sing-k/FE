@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 
 import {
   deleteFreePostComment,
@@ -10,9 +15,10 @@ import {
   updateFreePostComment,
   updateRecommendPostComment,
   getMyComments,
+  COMMENT_LIST_LIMIT,
 } from "../../api/comment";
 import { FilterKey } from "../../components/organisms/mypage/MyComment";
-
+import { MyCommentType, CommentPageParam } from "../../types/commentType";
 export const useFreePostCommentsQuery = (postId: string) => {
   return useQuery({
     queryKey: ["freePostComments", String(postId)],
@@ -145,9 +151,23 @@ export const useDeleteRecommendCommentMutation = (postId: string) => {
   });
 };
 
-export const useMyCommentsQuery = (filter: FilterKey) => {
-  return useQuery({
-    queryKey: ["MyComments", filter],
-    queryFn: () => getMyComments(filter),
+export const useInfiniteMyCommentsQuery = (filter: FilterKey) => {
+  return useInfiniteQuery({
+    queryKey: ["myComments", filter],
+    queryFn: getMyComments,
+    initialPageParam: { offset: 0 },
+    getNextPageParam: (
+      lastPage: MyCommentType[],
+      _: MyCommentType[][],
+      lastPageParam: CommentPageParam,
+    ) => {
+      if (lastPage.length < COMMENT_LIST_LIMIT) {
+        return undefined;
+      }
+
+      return {
+        offset: lastPageParam.offset + COMMENT_LIST_LIMIT,
+      };
+    },
   });
 };

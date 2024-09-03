@@ -31,3 +31,7 @@ export interface MyCommentType extends CommentType {
   postId: string;
   children: MyCommentType[];
 }
+
+export interface CommentPageParam {
+  offset: number;
+}
