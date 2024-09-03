@@ -10,6 +10,8 @@ import {
 import { checkAPIResponseValidation } from ".";
 import { SearchPostContext } from "../types/postType";
 
+export const POST_LIST_LIMIT = 10;
+
 export const getRecommendPostList = async ({
   queryKey,
   pageParam,
@@ -160,23 +162,27 @@ export const deleteRecommendPost = async (postId: string): Promise<boolean> => {
   }
 };
 
-export const getMyRecommendPost = async (offset: number, limit: number) => {
+export const getMyRecommendPost = async ({
+  pageParam,
+}: QueryFunctionContext<string[], RecommendPostPageParam>): Promise<
+  RecommendPostType[]
+> => {
   try {
     const res = await client.get("/api/posts/recommend/me", {
       params: {
-        offset,
-        limit,
+        offset: pageParam?.offset ?? 0,
+        limit: POST_LIST_LIMIT,
         sort: "LATEST",
       },
     });
 
     if (res.data.statusCode !== 200) {
-      throw new Error(res.data.message || "Failed to fetch posts");
+      throw new Error(res.data.message || "게시글을 가져오는데 실패했습니다.");
     }
 
-    return res.data.data;
+    return res.data.data.items as RecommendPostType[]; // 데이터 구조에 따라 필요한 수정
   } catch (error) {
-    console.error("Error fetching my free posts:", error);
-    throw error;
+    console.error("추천 게시글을 가져오는 중 오류 발생:", error);
+    return []; // 오류가 발생하면 빈 배열을 반환
   }
 };

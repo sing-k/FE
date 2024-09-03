@@ -1,75 +1,104 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMediaQueries } from "../../../hooks";
 import styled from "styled-components";
-import RecommendThumbnail from "../../atoms/recommendBoard/RecommendThumbnail";
 import { MyMusicHeader, MyMusicFooter, MyBoardHeader } from "../../molecules";
 import { glassEffectStyle } from "../../../styles/style";
-import { useMyRecommendPostsQuery } from "../../../hooks/queries/recommendPost";
+import { useInfiniteMyRecommendPostsQuery } from "../../../hooks/queries/recommendPost";
+import InfiniteScrollList from "../../common/InfiniteScrollList";
 import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
+import EmptyMessage from "../../common/EmptyMessage";
 import { RecommendPostType } from "../../../types/recommendPostType";
-import { useMediaQueries } from "../../../hooks";
-import { useNavigate } from "react-router-dom";
 import { pathName } from "../../../App";
+import RecommendThumbnail from "../../atoms/recommendBoard/RecommendThumbnail";
+
 const MyMusicRecommendation = () => {
+  const result = useInfiniteMyRecommendPostsQuery();
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = result;
   const navigate = useNavigate();
   const { isPc, isTablet } = useMediaQueries();
-  const { data, isLoading, error } = useMyRecommendPostsQuery(0, 20);
-  if (isLoading || !data) return <Loading />;
-  if (error) return <div>Error loading recommendations</div>;
 
   const cols = isPc ? 3 : isTablet ? 2 : 1;
+  useEffect(() => {
+    if (!isLoading && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [isLoading]);
 
-  const handelClickLink = (id: string) => {
+  if (isLoading || !data) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+
+  const handleClickLink = (id: string) => {
     navigate(`${pathName.musicRecommendationBoard}/${id}`);
   };
+  console.log(data);
   return (
-    <OuterContainer>
-      <Container cols={cols}>
-        {data?.items.map((post: RecommendPostType) => (
-          <Card key={post.id} onClick={() => handelClickLink(post.id)}>
-            <ThumbnailContainer>
-              <RecommendThumbnail link={post.link} recommend={post.recommend} />
-            </ThumbnailContainer>
-            <MyMusicHeader title={post.title} recommend={post.recommend} />
-            <MyBoardHeader
-              nickname={post.writer.nickname}
-              createdAt={post.createdAt}
-            />
-            <MyMusicFooter
-              genre={post.genre}
-              likeCount={post.like.count}
-              commentCount={post.comments}
-            />
-          </Card>
-        ))}
-      </Container>
-    </OuterContainer>
+    <Container>
+      {data.pages[0].length > 0 ? (
+        <InfiniteScrollList
+          queryResult={result}
+          ItemComponent={({ data }: { data: RecommendPostType }) => (
+            <Card key={data.id} onClick={() => handleClickLink(data.id)}>
+              <ThumbnailContainer>
+                <RecommendThumbnail
+                  link={data.link}
+                  recommend={data.recommend}
+                />
+              </ThumbnailContainer>
+              <MiddleDiv>
+                <MyMusicHeader title={data.title} recommend={data.recommend} />
+                <MyBoardHeader
+                  nickname={data.writer.nickname}
+                  createdAt={data.createdAt}
+                />
+                <MyMusicFooter
+                  genre={data.genre}
+                  likeCount={data.like.count}
+                  commentCount={data.comments}
+                />
+              </MiddleDiv>
+            </Card>
+          )}
+          containerStyle={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${cols}, 1fr)`,
+            gap: "1rem",
+            background: "none",
+            backdropFilter: "none",
+            maxHeight: "80vh",
+          }}
+        />
+      ) : (
+        <EmptyMessage message={"추천된 게시글이 없습니다."} />
+      )}
+    </Container>
   );
 };
 
 export default MyMusicRecommendation;
 
-const OuterContainer = styled.div`
+const Container = styled.div`
   display: flex;
-  justify-content: center;
-  width: 100%;
-`;
-
-interface ContainerProps {
-  cols: number;
-}
-
-const Container = styled.div<ContainerProps>`
-  display: grid;
-  grid-template-columns: repeat(${props => props.cols}, 1fr);
-  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 5px;
 `;
 
 const Card = styled.div`
   ${glassEffectStyle()}
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin: 0.5rem;
+  gap: 0.5rem;
+  border-radius: 5px;
   &:hover {
     cursor: pointer;
   }
@@ -88,6 +117,12 @@ const ThumbnailContainer = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 비율 유지하며 컨테이너 내에 맞춤 */
+    object-fit: contain;
   }
+`;
+const MiddleDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 0.5rem;
 `;
