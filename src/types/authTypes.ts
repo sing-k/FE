@@ -71,4 +71,8 @@ export interface UserDataStatistics {
   totalActivityScore: number;
   totalReview: number;
   totalReviewScore: number;
+  totalFreePost: number;
+  totalFreeComment: number;
+  totalRecommendPost: number;
+  totalRecommendComment: number;
 }
