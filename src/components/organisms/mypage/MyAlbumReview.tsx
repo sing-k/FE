@@ -39,7 +39,7 @@ const MyAlbumReview = () => {
 
   return (
     <Container>
-      {data.pages.length > 0 ? (
+      {data.pages[0].length > 0 ? (
         <InfiniteScrollList
           queryResult={result}
           ItemComponent={({ data }: { data: AlbumReview }) => (
