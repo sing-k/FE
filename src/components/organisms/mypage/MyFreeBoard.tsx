@@ -39,7 +39,6 @@ const MyFreeBoard = () => {
   const handelClickLink = (id: string) => {
     navigate(`${pathName.board}/${id}`);
   };
-  console.log(data);
   return (
     <Container>
       {data.pages[0].length > 0 ? (

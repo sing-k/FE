@@ -23,7 +23,7 @@ const MyAlbumReview = () => {
     isFetchingNextPage,
   } = result;
   const navigate = useNavigate();
-  console.log(data);
+
   useEffect(() => {
     if (!isLoading && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();

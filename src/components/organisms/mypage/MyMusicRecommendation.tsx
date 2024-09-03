@@ -40,7 +40,6 @@ const MyMusicRecommendation = () => {
   const handleClickLink = (id: string) => {
     navigate(`${pathName.musicRecommendationBoard}/${id}`);
   };
-  console.log(data);
   return (
     <Container>
       {data.pages[0].length > 0 ? (
