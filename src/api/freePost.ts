@@ -124,23 +124,27 @@ export const deleteFreePost = async (postId: string): Promise<boolean> => {
   }
 };
 
-export const getMyFreePost = async (offset: number, limit: number) => {
+export const getMyFreePost = async ({
+  pageParam,
+}: QueryFunctionContext<string[], FreePostPageParam>): Promise<
+  FreePostType[]
+> => {
   try {
     const res = await client.get("/api/posts/free/me", {
       params: {
-        offset,
-        limit,
+        offset: pageParam?.offset ?? 0,
+        limit: FREE_POST_LIMIT,
         sort: "LATEST",
       },
     });
 
     if (res.data.statusCode !== 200) {
-      throw new Error(res.data.message || "Failed to fetch posts");
+      throw new Error(res.data.message || "게시글을 가져오는데 실패했습니다.");
     }
 
-    return res.data.data;
+    return res.data.data.items as FreePostType[];
   } catch (error) {
-    console.error("Error fetching my free posts:", error);
-    throw error;
+    console.error("내 자유 게시글을 가져오는 중 오류 발생:", error);
+    return []; // 오류가 발생하면 빈 배열을 반환
   }
 };

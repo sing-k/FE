@@ -14,13 +14,13 @@ const MyBoardHeader = ({
   nickname,
   createdAt,
   imageUrl,
-  showDeleteBtn = true,
+  showDeleteBtn = false,
 }: MyBoardHeaderProps) => {
   return (
     <Container>
       <UserInfo profileImage={imageUrl} nickname={nickname} />
       <ColumnDiv>
-        <Text color={color.COLOR_GRAY_TEXT} size="0.7rem">
+        <Text color={color.COLOR_GRAY_TEXT} size="0.5rem">
           {createdAt}
         </Text>
         {showDeleteBtn && <MyDeleteBtn />}
@@ -40,6 +40,6 @@ const Container = styled.div`
 const ColumnDiv = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  /* justify-content: end; */
   gap: 0.2rem;
 `;
