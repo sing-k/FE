@@ -9,7 +9,7 @@ import { glassEffectStyle } from "../../../styles/style";
 
 const ActivityHistoryList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const limit = 20;
+  const limit = 10;
 
   const offset = currentPage * limit;
   const { data, isLoading, isError } = useActivityListQuery(offset, limit);
