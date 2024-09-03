@@ -38,3 +38,7 @@ export interface AlbumReviewResponse {
   total: number;
   items: AlbumReview[];
 }
+
+export interface AlbumReviewPageParam {
+  offset: number;
+}

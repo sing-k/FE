@@ -1,5 +1,8 @@
 import { checkAPIResponseValidation } from ".";
 import client from "../config/axios";
+import { AlbumReview, AlbumReviewPageParam } from "../types/myalbumReviewType";
+import { QueryFunctionContext } from "@tanstack/react-query";
+export const ALBUM_LIST_LIMIT = 3;
 
 export const getAlbumDetail = async (albumId: string) => {
   const res = await client.get(`/api/albums/${albumId}`);
@@ -92,13 +95,16 @@ export const deleteAlbumReivew = async ({
     return false;
   }
 };
-
-export const getMyAlbumReviews = async (offset: number, limit: number) => {
+export const getMyAlbumReviews = async ({
+  pageParam,
+}: QueryFunctionContext<string[], AlbumReviewPageParam>): Promise<
+  AlbumReview[]
+> => {
   try {
     const res = await client.get("/api/reviews/albums/me", {
       params: {
-        offset,
-        limit,
+        offset: pageParam?.offset ?? 0, // pageParam이 없으면 기본값으로 0 사용
+        limit: ALBUM_LIST_LIMIT,
         sort: "NEW",
       },
     });
@@ -106,9 +112,10 @@ export const getMyAlbumReviews = async (offset: number, limit: number) => {
     if (res.data.statusCode !== 200) {
       throw new Error(res.data.message || "감상평을 가져오는데 실패했습니다.");
     }
-    return res.data.data;
+
+    return res.data.data.items as AlbumReview[];
   } catch (error) {
     console.error("내 앨범 감상평을 가져오는 중 오류 발생:", error);
-    throw error;
+    return []; // 오류가 발생하면 빈 배열을 반환
   }
 };
