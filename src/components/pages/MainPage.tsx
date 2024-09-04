@@ -13,6 +13,8 @@ import { useAlbumListQuery } from "../../hooks/queries/album";
 import { AlbumCarousel } from "../organisms/album";
 import Loading from "../common/Loading";
 import ErrorMessage from "../common/ErrorMessage";
+import HomeFreePostList from "../organisms/home/HomeFreePostList";
+import HomeRecommendPostList from "../organisms/home/HomeRecommendPostList";
 
 const MainPage = () => {
   const { isPc } = useMediaQueries();
@@ -23,8 +25,8 @@ const MainPage = () => {
   if (!data) return;
 
   return (
-    <>
-      <AlbumContainer>
+    <Container>
+      <Wrapper>
         <TextWrapper>
           <FaMusic />
           <Text>평점 높은 앨범</Text>
@@ -32,33 +34,34 @@ const MainPage = () => {
         </TextWrapper>
 
         <AlbumCarousel items={data} />
-      </AlbumContainer>
+      </Wrapper>
 
-      <PostListWrapper style={isPc ? { flexDirection: "row" } : {}}>
+      <Wrapper style={{ flexDirection: isPc ? "row" : "column" }}>
         {/* 자유게시글, 음악추천게시글 목록 */}
-      </PostListWrapper>
+        <HomeRecommendPostList />
+
+        <HomeFreePostList />
+      </Wrapper>
 
       <Outlet />
-    </>
+    </Container>
   );
 };
 
 export default MainPage;
 
-const PostListWrapper = styled.div`
-  margin-top: 3rem;
+const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 3rem;
+  gap: 1rem;
 `;
 
-const AlbumContainer = styled.div`
+const Wrapper = styled.div`
   ${glassEffectStyle()}
   width: 100%;
-  padding: 1rem 1.5rem;
-  border-radius: 10px;
+  padding: 1rem;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

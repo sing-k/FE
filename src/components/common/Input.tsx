@@ -36,16 +36,24 @@ const Input = ({
     setInput(value);
 
     if (tagName === "TEXTAREA") {
-      if (e.target.scrollHeight < 200)
+      if (e.target.scrollHeight < 200) {
+        e.target.style.height = "auto";
         e.target.style.height = `${e.target.scrollHeight}px`; // 실제 내용에 맞게 높이 설정
+      }
     }
   };
 
   const handleKeyDown = (
     e: KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    if (e.key === "Enter" && button?.onClickButton) {
-      button.onClickButton();
+    if (e.key === "Enter") {
+      if (e.shiftKey) return;
+
+      e.preventDefault();
+
+      if (button?.onClickButton) {
+        button.onClickButton();
+      }
     }
   };
 
@@ -59,6 +67,8 @@ const Input = ({
               onChange={handleChange}
               placeholder={placeholder}
               onKeyDown={handleKeyDown}
+              rows={1}
+              style={!input ? { height: "auto" } : {}}
             />
           ) : (
             <StyledInput

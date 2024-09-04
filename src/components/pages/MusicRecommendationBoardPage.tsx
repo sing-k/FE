@@ -6,7 +6,6 @@ import { useMediaQueries } from "../../hooks";
 import { PostFilterType, postFilterType } from "../../types/postType";
 
 import BoardListTemplate from "../templates/board/BoardListTemplate";
-import EmptyMessage from "../common/EmptyMessage";
 import InfiniteScrollList from "../common/InfiniteScrollList";
 import RecommendBoardItem from "../molecules/recommendBoard/RecommendBoardItem";
 import SearchPost from "../organisms/board/SearchPost";
@@ -31,21 +30,18 @@ const MusicRecommendationBoardPage = () => {
     <BoardListTemplate>
       <SearchPost setFilter={setFilter} setKeyword={setKeyword} />
 
-      {queryResult?.data?.pages[0]?.length === 0 ? (
-        <EmptyMessage message="음악추천게시글이 없습니다." />
-      ) : (
-        <InfiniteScrollList
-          queryResult={queryResult}
-          ItemComponent={RecommendBoardItem}
-          containerStyle={{
-            display: "grid",
-            gridTemplateColumns: `repeat(${cols}, 1fr)`,
-            gap: "1rem",
-            background: "none",
-            backdropFilter: "none",
-          }}
-        />
-      )}
+      <InfiniteScrollList
+        queryResult={queryResult}
+        ItemComponent={RecommendBoardItem}
+        containerStyle={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gap: "1rem",
+          background: "none",
+          backdropFilter: "none",
+        }}
+        emptyMessage="음악 추천 게시글이 없습니다."
+      />
     </BoardListTemplate>
   );
 };

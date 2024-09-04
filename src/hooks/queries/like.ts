@@ -51,7 +51,8 @@ export const useLikeFreeComment = (postId: string) => {
         refetchType: "active",
       });
       queryClient.invalidateQueries({
-        queryKey: ["freePostComments", postId],
+        queryKey: ["freePostComments", String(postId)],
+        refetchType: "active",
       });
     },
   });
@@ -69,6 +70,7 @@ export const useLikeRecommendComment = (postId: string) => {
       });
       queryClient.invalidateQueries({
         queryKey: ["recommendPostComments", String(postId)],
+        refetchType: "active",
       });
     },
   });

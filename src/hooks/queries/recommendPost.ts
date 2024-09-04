@@ -13,6 +13,7 @@ import {
   updateRecommendPost,
   getMyRecommendPost,
   POST_LIST_LIMIT,
+  getHomeRecommendPostList,
 } from "../../api/recommendPost";
 import {
   RECOMMEND_POST_LIMIT,
@@ -20,6 +21,13 @@ import {
   RecommendPostType,
 } from "../../types/recommendPostType";
 import { SearchPostContext } from "../../types/postType";
+
+export const useHomeRecommendPostListQuery = () => {
+  return useQuery({
+    queryKey: ["homeRecommendPostList"],
+    queryFn: getHomeRecommendPostList,
+  });
+};
 
 export const useInfiniteRecommendPostListQuery = (ctx: SearchPostContext) => {
   return useInfiniteQuery({
