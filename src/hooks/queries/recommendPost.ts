@@ -3,7 +3,6 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-  keepPreviousData,
 } from "@tanstack/react-query";
 
 import {
@@ -13,6 +12,7 @@ import {
   postRecommendPost,
   updateRecommendPost,
   getMyRecommendPost,
+  POST_LIST_LIMIT,
   getHomeRecommendPostList,
 } from "../../api/recommendPost";
 import {
@@ -37,7 +37,7 @@ export const useInfiniteRecommendPostListQuery = (ctx: SearchPostContext) => {
     getNextPageParam: (
       lastPage: RecommendPostType[],
       _: RecommendPostType[][],
-      lastPageParam: RecommendPostPageParam
+      lastPageParam: RecommendPostPageParam,
     ) => {
       if (lastPage.length < RECOMMEND_POST_LIMIT) {
         return undefined;
@@ -110,10 +110,23 @@ export const useDeleteRecommendPostMutation = (postId: string) => {
   });
 };
 
-export const useMyRecommendPostsQuery = (offset: number, limit: number) => {
-  return useQuery({
-    queryKey: ["myFreePosts", offset, limit],
-    queryFn: () => getMyRecommendPost(offset, limit),
-    placeholderData: keepPreviousData,
+export const useInfiniteMyRecommendPostsQuery = () => {
+  return useInfiniteQuery({
+    queryKey: ["myRecommendPosts"],
+    queryFn: getMyRecommendPost,
+    initialPageParam: { offset: 0 },
+    getNextPageParam: (
+      lastPage: RecommendPostType[],
+      _: RecommendPostType[][],
+      lastPageParam: { offset: number },
+    ) => {
+      if (lastPage.length < POST_LIST_LIMIT) {
+        return undefined;
+      }
+
+      return {
+        offset: lastPage.length + lastPageParam.offset,
+      };
+    },
   });
 };

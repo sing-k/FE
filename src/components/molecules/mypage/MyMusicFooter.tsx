@@ -30,7 +30,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 `;
 const RatingDiv = styled.div`
   display: flex;

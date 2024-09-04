@@ -67,6 +67,7 @@ const OauthSignUpForm = () => {
       onSuccess: () => {
         alert("회원가입이 성공적으로 완료되었습니다.");
         navigate(`${pathName.home}`);
+        window.location.reload(); //새로고침 추가
       },
       onError: error => {
         alert("입력사항을 확인해주세요");

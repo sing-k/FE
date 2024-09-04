@@ -17,7 +17,7 @@ import { pathName } from "../../App";
 import useModal from "../../hooks/useModal";
 import { useMediaQueries } from "../../hooks";
 import Loading from "../common/Loading";
-const tabObj = {
+const initialTabObj = {
   activityHistory: "활동 히스토리",
   albumReview: "평가한앨범",
   recommendMusic: "음악추천글",
@@ -25,7 +25,7 @@ const tabObj = {
   comment: "댓글",
 } as const;
 
-type TabKey = keyof typeof tabObj;
+type TabKey = keyof typeof initialTabObj;
 
 const Mypage = () => {
   const { data, isLoading } = useMemberInfoQuery();
@@ -36,11 +36,33 @@ const Mypage = () => {
   );
   const { isOpen, openModal, closeModal } = useModal();
   const { isMobile } = useMediaQueries();
+
+  const generateTabObj = (counts: { [key in TabKey]: number }) =>
+    Object.entries(initialTabObj).reduce(
+      (acc, [key, value]) => {
+        acc[key as TabKey] = `${value} | ${counts[key as TabKey]}`;
+        return acc;
+      },
+      {} as { [key in TabKey]: string },
+    );
+
+  const tabCounts = {
+    activityHistory: data?.statistics.totalActivityScore || 0,
+    albumReview: data?.statistics.totalReview || 0,
+    recommendMusic: data?.statistics.totalRecommendPost || 0,
+    freeBoard: data?.statistics.totalFreePost || 0,
+    comment:
+      (data?.statistics.totalFreeComment || 0) +
+      (data?.statistics.totalRecommendComment || 0),
+  };
+
+  const tabObj = generateTabObj(tabCounts);
+
   const onClickTab = (key?: string) => {
     const path = `?tab=${key}`;
     navigate(`${pathName.myPage}/${path}`);
   };
-
+  console.log(data);
   useEffect(() => {
     const currentTab = new URLSearchParams(location.search).get("tab");
 

@@ -1,4 +1,9 @@
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  useMutation,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 
 import {
   getAlbumDetail,
@@ -7,7 +12,13 @@ import {
   AlbumReviewListArgs,
   postAlbumReivew,
   deleteAlbumReivew,
+  getMyAlbumReviews,
+  ALBUM_LIST_LIMIT,
 } from "../../api/albumDetail";
+import {
+  AlbumReviewPageParam,
+  AlbumReview,
+} from "../../types/myalbumReviewType";
 
 export const useAlbumDetailQuery = (albumId: string) => {
   return useQuery({
@@ -49,7 +60,7 @@ export const usePostAlbumReview = (albumId: string) => {
         queryKey: ["albumReviewList", { albumId }],
       });
     },
-    onError: (errorMessage) => {
+    onError: errorMessage => {
       alert(errorMessage);
     },
   });
@@ -71,8 +82,29 @@ export const useDeleteAlbumReviewMutation = (albumId: string) => {
         queryKey: ["albumReviewList", { albumId }],
       });
     },
-    onError: (errorMessage) => {
+    onError: errorMessage => {
       alert(errorMessage);
+    },
+  });
+};
+
+export const useInfiniteMyAlbumReviewsQuery = () => {
+  return useInfiniteQuery({
+    queryKey: ["myAlbumReviews"],
+    queryFn: getMyAlbumReviews,
+    initialPageParam: { offset: 0 } as AlbumReviewPageParam,
+    getNextPageParam: (
+      lastPage: AlbumReview[],
+      _: AlbumReview[][],
+      lastPageParam: AlbumReviewPageParam,
+    ) => {
+      if (lastPage.length < ALBUM_LIST_LIMIT) {
+        return undefined;
+      }
+
+      return {
+        offset: lastPage.length + lastPageParam.offset,
+      };
     },
   });
 };

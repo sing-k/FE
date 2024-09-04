@@ -6,7 +6,7 @@ import { glassEffectStyle } from "../../../styles/style";
 import NavbarProfileImg from "../../atoms/navbar/NavbarProfileImg";
 import NavbarRating from "../../atoms/navbar/NavbarRating";
 import NavbarNickname from "../../atoms/navbar/NavbarNickname";
-import NavbarTag from "../../atoms/navbar/NavbarTag";
+// import NavbarTag from "../../atoms/navbar/NavbarTag";
 import NavProfileBtn from "../../atoms/navbar/NavProfileBtn";
 
 import { FaBell, FaUserCog } from "react-icons/fa";
@@ -26,7 +26,7 @@ const NavProfile = ({ data }: any) => {
         <NavbarNickname data={data} />
       </NickNameRating>
 
-      <NavbarTag />
+      {/* <NavbarTag /> */}
 
       <BtnWrapper>
         <NavProfileBtn

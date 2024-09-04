@@ -26,3 +26,12 @@ export interface CommentContext {
   parentId?: string;
   content: string;
 }
+
+export interface MyCommentType extends CommentType {
+  postId: string;
+  children: MyCommentType[];
+}
+
+export interface CommentPageParam {
+  offset: number;
+}

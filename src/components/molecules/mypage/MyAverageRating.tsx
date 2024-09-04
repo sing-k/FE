@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
-import { MyStarRating } from "../../atoms";
 import { UserDataStatistics } from "../../../types/authTypes";
-
+import StarRating from "../../atoms/albumDetail/StarRating";
 interface MyAverageRatingProps {
   data: UserDataStatistics;
 }
@@ -12,7 +11,7 @@ const MyAverageRating = ({ data }: MyAverageRatingProps) => {
     <Container>
       <Text>평균 별점</Text>
       <Rating>{data.averageReviewScore} / 5</Rating>
-      <MyStarRating rating={data.averageReviewScore} />
+      <StarRating rating={data.averageReviewScore} />
     </Container>
   );
 };

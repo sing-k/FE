@@ -1,29 +1,77 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MyAlbumReviewHeader, MyAlbumReviewFooter } from "../../molecules";
 import { Text } from "../../common";
 import { glassEffectStyle } from "../../../styles/style";
-
+import { AlbumReview } from "../../../types/myalbumReviewType";
+import { useInfiniteMyAlbumReviewsQuery } from "../../../hooks/queries/albumDetail";
+import InfiniteScrollList from "../../common/InfiniteScrollList";
+import Loading from "../../common/Loading";
+import ErrorMessage from "../../common/ErrorMessage";
+import { pathName } from "../../../App";
+import EmptyMessage from "../../common/EmptyMessage";
 const MyAlbumReview = () => {
+  const result = useInfiniteMyAlbumReviewsQuery();
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = result;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [isLoading]);
+
+  if (isLoading || !data) return <Loading />;
+  if (isError) return <ErrorMessage message={error.message} />;
+
+  const handleClickLink = (id: string) => {
+    navigate(`${pathName.albumDetail}/${id}/?tab=review`);
+  };
+
   return (
     <Container>
-      <Card>
-        <MyAlbumReviewHeader />
-        <Text size="1rem">
-          이 앨범은
-          킹갓제너럴엠페러마제스티골져스프레셔스뷰리풀하이클래스엘레강스럭셔리클래식지니어스원더풀러블리월드탑클래스입니다.
-          감사합니다
-        </Text>
-        <MyAlbumReviewFooter />
-      </Card>
-      <Card>
-        <MyAlbumReviewHeader />
-        <Text size="1rem">
-          이 앨범은
-          킹갓제너럴엠페러마제스티골져스프레셔스뷰리풀하이클래스엘레강스럭셔리클래식지니어스원더풀러블리월드탑클래스입니다.
-          감사합니다
-        </Text>
-        <MyAlbumReviewFooter />
-      </Card>
+      {data.pages[0].length > 0 ? (
+        <InfiniteScrollList
+          queryResult={result}
+          ItemComponent={({ data }: { data: AlbumReview }) => (
+            <Card key={data.id} onClick={() => handleClickLink(data.album.id)}>
+              <MyAlbumReviewHeader
+                albumImage={data.album.images[0]}
+                albumName={data.album.name}
+                artistName={data.album.artists
+                  .map(artist => artist.name)
+                  .join(", ")}
+                createdAt={data.createdAt}
+              />
+              <Text size="1rem">{data.content}</Text>
+              <MyAlbumReviewFooter
+                prosCount={data.vote.prosCount}
+                consCount={data.vote.consCount}
+                score={data.score}
+              />
+            </Card>
+          )}
+          containerStyle={{
+            background: "none",
+            backdropFilter: "none",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            maxHeight: "80vh",
+          }}
+        />
+      ) : (
+        <EmptyMessage message={"평가한 앨범이 없습니다."} />
+      )}
     </Container>
   );
 };
@@ -43,4 +91,7 @@ const Card = styled.div`
   gap: 1.5rem;
   padding: 1rem;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `;

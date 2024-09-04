@@ -3,7 +3,6 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-  keepPreviousData,
 } from "@tanstack/react-query";
 
 import {
@@ -107,10 +106,23 @@ export const useDeleteFreePostMutation = (postId: string) => {
   });
 };
 
-export const useMyFreePostsQuery = (offset: number, limit: number) => {
-  return useQuery({
-    queryKey: ["myFreePosts", offset, limit],
-    queryFn: () => getMyFreePost(offset, limit),
-    placeholderData: keepPreviousData,
+export const useInfiniteMyFreePostsQuery = () => {
+  return useInfiniteQuery({
+    queryKey: ["myFreePosts"],
+    queryFn: getMyFreePost,
+    initialPageParam: { offset: 0 },
+    getNextPageParam: (
+      lastPage: FreePostType[],
+      _: FreePostType[][],
+      lastPageParam: { offset: number },
+    ) => {
+      if (lastPage.length < FREE_POST_LIMIT) {
+        return undefined;
+      }
+
+      return {
+        offset: lastPage.length + lastPageParam.offset,
+      };
+    },
   });
 };
