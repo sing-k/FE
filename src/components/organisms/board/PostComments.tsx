@@ -38,7 +38,7 @@ const PostComments = ({ type, postId }: Props) => {
   const freeCommentMutation = useFreeCommentMutation(postId);
   const recommendCommentMutation = useRecommendCommentMutation(postId);
 
-  const onClickButton = async () => {
+  const onClickButton = async (input: string) => {
     if (!input) {
       alert("댓글 내용을 작성해주세요!");
       return;
@@ -61,6 +61,7 @@ const PostComments = ({ type, postId }: Props) => {
     if (res) {
       alert("댓글이 작성되었습니다.");
       setInput("");
+      setParentId("");
     }
   };
 
@@ -94,6 +95,7 @@ const PostComments = ({ type, postId }: Props) => {
             setParentId={setParentId}
             postId={postId}
             type={type}
+            onClickButton={onClickButton}
           />
         ))}
       </CommentWrapper>
@@ -103,7 +105,10 @@ const PostComments = ({ type, postId }: Props) => {
         setInput={setInput}
         placeholder="댓글을 입력해주세요"
         width="100%"
-        button={{ text: "등록", onClickButton }}
+        button={{
+          text: "등록",
+          onClickButton: onClickButton.bind(this, input),
+        }}
         textarea={false}
       />
     </Container>

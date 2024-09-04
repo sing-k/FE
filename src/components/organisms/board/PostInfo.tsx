@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 import color from "../../../styles/color";
 
-import { useNavigate } from "react-router-dom";
-
 import { PostType, GeneralPostType } from "../../../types/postType";
 import {
   RecommendGenreType,
@@ -15,11 +13,8 @@ import RecommendGenre from "../../atoms/recommendBoard/RecommendGenre";
 import PostDay from "../../atoms/post/PostDay";
 import PostLikeComments from "../../atoms/post/PostLikeComments";
 import RecommendTypeLabel from "../../atoms/recommendBoard/RecommendTypeLabel";
-import OptionsMenu from "../../common/OptionsMenu";
-
-import { pathName } from "../../../App";
-import { useDeleteFreePostMutation } from "../../../hooks/queries/freePost";
-import { useDeleteRecommendPostMutation } from "../../../hooks/queries/recommendPost";
+import FreePostOptionsMenu from "../../molecules/optionsMenu/FreePostOptionsMenu";
+import RecommendPostOptionsMenu from "../../molecules/optionsMenu/RecommendPostOptionsMenu";
 
 type Props = {
   type: PostType;
@@ -28,35 +23,6 @@ type Props = {
 
 const PostInfo = ({ type, post }: Props) => {
   const { title, writer, like, comments, createdAt, id } = post;
-
-  const mutation =
-    type === "free"
-      ? useDeleteFreePostMutation(id)
-      : useDeleteRecommendPostMutation(id);
-
-  const navigate = useNavigate();
-
-  const handleUpdate = () => {
-    if (type === "free") {
-      navigate(`${pathName.updatePost}/${id}`);
-    } else {
-      navigate(`${pathName.updateRecommendPost}/${id}`);
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm("게시글을 삭제하시겠습니까?")) return;
-
-    const res = await mutation.mutateAsync(id);
-
-    if (res) {
-      if (type === "free") {
-        navigate(`${pathName.board}`);
-      } else {
-        navigate(`${pathName.musicRecommendationBoard}`);
-      }
-    }
-  };
 
   return (
     <>
@@ -78,11 +44,11 @@ const PostInfo = ({ type, post }: Props) => {
           <Title>{title}</Title>
         </Wrapper>
 
-        <OptionsMenu
-          writerId={writer.id as string}
-          handleUpdate={handleUpdate}
-          handleDelete={handleDelete}
-        />
+        {type === "free" ? (
+          <FreePostOptionsMenu writerId={writer.id} postId={id} />
+        ) : (
+          <RecommendPostOptionsMenu writerId={writer.id} postId={id} />
+        )}
       </Wrapper>
 
       <InfoWrapper>

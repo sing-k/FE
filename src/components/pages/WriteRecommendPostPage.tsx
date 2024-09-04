@@ -4,20 +4,21 @@ import {
   useForm,
   UseFormReturn,
   SubmitHandler,
-  // Controller,
+  Controller,
+  ControllerRenderProps,
 } from "react-hook-form";
 
 import WritePostLayout from "../common/WritePostLayout";
 import PostForm from "../organisms/board/PostForm";
-// import SelectBtnForm from "../molecules/board/SelectBtnForm";
+import SelectBtnForm from "../molecules/board/SelectBtnForm";
 import SelectImageForm from "../molecules/board/SelectImageForm";
 import SelectAlbumForm from "../molecules/board/SelectAlbumForm";
 import SelectYoutubeForm from "../molecules/board/SelectYoutubeForm";
 
-// import {
-//   recommendGenreType,
-//   recommendType,
-// } from "../../types/recommendPostType";
+import {
+  recommendGenreType,
+  recommendType,
+} from "../../types/recommendPostType";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { pathName } from "../../App";
@@ -35,7 +36,7 @@ import {
 
 const WriteRecommendPostPage = () => {
   const [savedPost, setSavedPost] = useState<WriteRecommendValues | undefined>(
-    undefined,
+    undefined
   );
 
   const fieldValues: UseFormReturn<WriteRecommendValues> =
@@ -62,7 +63,7 @@ const WriteRecommendPostPage = () => {
   const location = useLocation();
 
   const onSubmit: SubmitHandler<WriteRecommendValues> = async (
-    data: WriteRecommendValues,
+    data: WriteRecommendValues
   ) => {
     const { title, content, type, genre, selectedFile } = data;
 
@@ -103,7 +104,7 @@ const WriteRecommendPostPage = () => {
       setValue("type", "ALBUM");
       setValue(
         "albumLink",
-        `${window.location.origin}${pathName.albumDetail}/${albmuId}`,
+        `${window.location.origin}${pathName.albumDetail}/${albmuId}`
       );
     } else {
       if (getLoginState() && !savedPost) {
@@ -127,29 +128,33 @@ const WriteRecommendPostPage = () => {
       temporarySave={true}
     >
       <PostForm fieldValues={fieldValues}>
-        {/* <Controller
-          name={"genre"}
+        <Controller
+          name="genre"
           control={control}
           render={({ field }) => (
             <SelectBtnForm
               label={"장르"}
               items={recommendGenreType}
-              field={field}
+              field={
+                field as ControllerRenderProps<WriteRecommendValues, "genre">
+              }
             />
           )}
-        /> */}
+        />
 
-        {/* <Controller
+        <Controller
           name={"type"}
           control={control}
           render={({ field }) => (
             <SelectBtnForm
               label={"추천 정보"}
               items={recommendType}
-              field={field}
+              field={
+                field as ControllerRenderProps<WriteRecommendValues, "type">
+              }
             />
           )}
-        /> */}
+        />
 
         {type === "IMAGE" ? (
           <SelectImageForm

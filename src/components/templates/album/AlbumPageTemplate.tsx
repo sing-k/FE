@@ -1,5 +1,3 @@
-import React, { useEffect, useRef } from "react";
-
 import styled from "styled-components";
 import color from "../../../styles/color";
 import { glassEffectStyle } from "../../../styles/style";
@@ -14,8 +12,7 @@ import { pathName } from "../../../App";
 import { useInfiniteAlbumListQuery } from "../../../hooks/queries/album";
 
 import AlbumItem from "../../molecules/album/AlbumItem";
-import Loading from "../../common/Loading";
-import ErrorMessage from "../../common/ErrorMessage";
+import InfiniteScrollList from "../../common/InfiniteScrollList";
 
 type Props = {
   category: string;
@@ -23,47 +20,7 @@ type Props = {
 };
 
 const AlbumPageTemplate = ({ category, albumType }: Props) => {
-  const {
-    data,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error,
-  } = useInfiniteAlbumListQuery(albumType);
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-
-    const { clientHeight, scrollHeight, scrollTop } = scrollRef.current;
-
-    // 스크롤 마지막 도달 endReached
-    if (clientHeight + scrollTop >= scrollHeight - 5) {
-      if (hasNextPage && !isFetchingNextPage) {
-        // 다음 페이지가 있고, 데이터 패칭 중이 아니라면
-        fetchNextPage();
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      handleScroll();
-      scrollRef.current.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (scrollRef.current) {
-        scrollRef.current.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, [hasNextPage, fetchNextPage, isFetchingNextPage]);
-
-  if (isLoading) return <Loading />;
-  if (isError) return <ErrorMessage message={error.message} />;
+  const queryResult = useInfiniteAlbumListQuery(albumType);
 
   return (
     <Container>
@@ -74,17 +31,18 @@ const AlbumPageTemplate = ({ category, albumType }: Props) => {
         <AlbumCategory>{category}</AlbumCategory>
       </Header>
 
-      <CardContainer ref={scrollRef}>
-        {data?.pages.map((page, idx) => (
-          <React.Fragment key={idx}>
-            {page.map((data) => (
-              <AlbumItem key={data.id} data={data} type="card" />
-            ))}
-          </React.Fragment>
-        ))}
-      </CardContainer>
-
-      {isFetchingNextPage && <Loading />}
+      <InfiniteScrollList
+        queryResult={queryResult}
+        ItemComponent={AlbumItem}
+        containerStyle={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+          gap: "1rem",
+          background: "none",
+          backdropFilter: "none",
+        }}
+        emptyMessage="앨범 목록이 없습니다."
+      />
     </Container>
   );
 };
@@ -127,13 +85,4 @@ const BackBtn = styled(Link)`
     background-color: ${color.COLOR_MAIN};
     color: white;
   }
-`;
-
-const CardContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-  width: 100%;
-  max-height: 100vh;
-  overflow-y: scroll;
 `;

@@ -14,9 +14,17 @@ import {
   updateFreePost,
   deleteFreePost,
   getMyFreePost,
+  getHomeFreePostList,
 } from "../../api/freePost";
 import { FreePostPageParam, FreePostType } from "../../types/freePostType";
 import { SearchPostContext } from "../../types/postType";
+
+export const useHomeFreePostListQuery = () => {
+  return useQuery({
+    queryKey: ["homeFreePostList"],
+    queryFn: getHomeFreePostList,
+  });
+};
 
 export const useInfiniteFreePostListQuery = (ctx: SearchPostContext) => {
   return useInfiniteQuery({
@@ -26,7 +34,7 @@ export const useInfiniteFreePostListQuery = (ctx: SearchPostContext) => {
     getNextPageParam: (
       lastPage: FreePostType[],
       _: FreePostType[][],
-      lastPageParam: FreePostPageParam,
+      lastPageParam: FreePostPageParam
     ) => {
       if (lastPage.length < FREE_POST_LIMIT) {
         return undefined;

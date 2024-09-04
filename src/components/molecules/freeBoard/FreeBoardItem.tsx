@@ -14,9 +14,10 @@ import PostContentsPreview from "../../atoms/post/PostContentsPreview";
 
 type Props = {
   data: FreePostType;
+  viewContent?: boolean;
 };
 
-const FreeBoardItem = ({ data }: Props) => {
+const FreeBoardItem = ({ data, viewContent = true }: Props) => {
   const { title, writer, createdAt, like, comments, id, content } = data;
 
   const navigate = useNavigate();
@@ -39,9 +40,11 @@ const FreeBoardItem = ({ data }: Props) => {
           <PostLikeComments like={like.count} comments={comments} />
         </Wrapper>
 
-        <Wrapper>
-          <PostContentsPreview contents={content} />
-        </Wrapper>
+        {viewContent && (
+          <Wrapper>
+            <PostContentsPreview contents={content} />
+          </Wrapper>
+        )}
       </Contents>
 
       <Border />
@@ -61,7 +64,7 @@ const Contents = styled.div`
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem;
 `;
 
 const Border = styled.div`

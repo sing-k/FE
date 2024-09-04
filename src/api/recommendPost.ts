@@ -10,6 +10,23 @@ import {
 import { checkAPIResponseValidation } from ".";
 import { SearchPostContext } from "../types/postType";
 
+export const getHomeRecommendPostList = async (): Promise<
+  RecommendPostType[]
+> => {
+  try {
+    const res = await client.get(
+      `/api/posts/recommend?offset=0&limit=6&sort=LATEST`
+    );
+
+    checkAPIResponseValidation(res);
+
+    return res.data.data.items as RecommendPostType[];
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
 export const getRecommendPostList = async ({
   queryKey,
   pageParam,
@@ -103,7 +120,7 @@ export const postRecommendPost = async ({
       "post",
       new Blob([JSON.stringify(body)], {
         type: "application/json",
-      }),
+      })
     );
 
     const res = await client.post("/api/posts/recommend", formData, {

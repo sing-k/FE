@@ -1,3 +1,5 @@
+import { VoteDataType } from "./voteType";
+
 interface ReviewerStatisticsType {
   averageReviewScore: number;
   totalActivityScore: number;
@@ -17,8 +19,7 @@ export interface AlbumReviewType {
   id: string;
   content: string;
   score: number;
-  pros: number;
-  cons: number;
   createdAt: string;
   reviewer: ReviewerType;
+  vote: VoteDataType;
 }

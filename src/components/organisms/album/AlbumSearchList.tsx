@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import styled from "styled-components";
 
 import { FaArrowLeft } from "react-icons/fa6";
@@ -14,7 +16,6 @@ import Loading from "../../common/Loading";
 import ErrorMessage from "../../common/ErrorMessage";
 import EmptyMessage from "../../common/EmptyMessage";
 import InfiniteScrollList from "../../common/InfiniteScrollList";
-import { useEffect } from "react";
 
 type Props = {
   query: string;
@@ -68,6 +69,7 @@ const AlbumSearchList = ({ query }: Props) => {
                 backdropFilter: "none",
                 maxHeight: "60vh",
               }}
+              emptyMessage={`'${query}' 에 대한 검색 결과가 없습니다.`}
             />
           )}
         </>
@@ -82,7 +84,7 @@ export default AlbumSearchList;
 
 const Container = styled.div`
   ${glassEffectStyle()}
-  margin-top: 3rem;
+  margin-top: 2rem;
   width: 100%;
   box-sizing: border-box;
   display: flex;

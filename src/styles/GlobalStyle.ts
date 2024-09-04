@@ -23,6 +23,24 @@ const GlobalStyle = createGlobalStyle`
       font-weight: bold;
     }
 
+    h1 {
+      font-size: 2rem;       /* 브라우저 기본 설정에 따라 다름 */
+      font-weight: bold;    /* 기본적으로 볼드체 */
+      line-height: 1.5;     /* 줄 높이 설정 */
+    }
+
+    h2 {
+      font-size: 1.5rem;     /* 브라우저 기본 설정에 따라 다름 */
+      font-weight: bold;    /* 기본적으로 볼드체 */
+      line-height: 1.5;     /* 줄 높이 설정 */
+    }
+
+    h3 {
+      font-size: 1.17rem;    /* 브라우저 기본 설정에 따라 다름 */
+      font-weight: bold;    /* 기본적으로 볼드체 */
+      line-height: 1.5;     /* 줄 높이 설정 */
+    }
+
     em {
       font-style: italic;
     }

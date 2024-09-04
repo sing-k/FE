@@ -13,6 +13,7 @@ export default PostTitle;
 const Title = styled.p`
   font-weight: bold;
   font-size: 1rem;
+  line-height: 1.5rem;
   flex: 1;
   overflow: hidden;
   white-space: nowrap;
