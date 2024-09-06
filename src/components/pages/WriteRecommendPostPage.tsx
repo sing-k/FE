@@ -147,9 +147,7 @@ const WriteRecommendPostPage = () => {
             <SelectBtnForm
               label={"추천 정보"}
               items={recommendType}
-              field={
-                field as ControllerRenderProps<WriteRecommendValues, "type">
-              }
+              field={field as ControllerRenderProps<WriteRecommendValues>}
             />
           )}
         />
