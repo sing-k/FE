@@ -18,7 +18,7 @@ import {
 import {
   AlbumReviewPageParam,
   AlbumReview,
-} from "../../types/myalbumReviewType";
+} from "../../types/myAlbumReviewType";
 
 export const useAlbumDetailQuery = (albumId: string) => {
   return useQuery({

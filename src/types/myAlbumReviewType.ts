@@ -1,4 +1,4 @@
-export interface Vote {
+interface Vote {
   prosCount: number;
   consCount: number;
   pros: boolean;

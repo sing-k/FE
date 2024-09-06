@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MyAlbumReviewHeader, MyAlbumReviewFooter } from "../../molecules";
 import { Text } from "../../common";
 import { glassEffectStyle } from "../../../styles/style";
-import { AlbumReview, Artist } from "../../../types/myalbumReviewType";
+import { AlbumReview, Artist } from "../../../types/myAlbumReviewType";
 import { useInfiniteMyAlbumReviewsQuery } from "../../../hooks/queries/albumDetail";
 import InfiniteScrollList from "../../common/InfiniteScrollList";
 import Loading from "../../common/Loading";

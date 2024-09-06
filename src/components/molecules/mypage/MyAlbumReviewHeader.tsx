@@ -3,7 +3,7 @@ import { MyDeleteBtn, MyIcon } from "../../atoms";
 import { Text } from "../../common";
 import color from "../../../styles/color";
 import IconImage from "../../../assets/img/singk-logo.png";
-import { Image } from "../../../types/myalbumReviewType";
+import { Image } from "../../../types/myAlbumReviewType";
 interface AlbumReviewHeaderType {
   albumImage: Image;
   albumName: string;
