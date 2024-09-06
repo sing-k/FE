@@ -1,6 +1,6 @@
 import { checkAPIResponseValidation } from ".";
 import client from "../config/axios";
-import { AlbumReview, AlbumReviewPageParam } from "../types/myalbumReviewType";
+import { AlbumReviewPageParam, AlbumReview } from "../types/myalbumReviewType";
 import { QueryFunctionContext } from "@tanstack/react-query";
 export const ALBUM_LIST_LIMIT = 10;
 

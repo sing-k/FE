@@ -75,9 +75,10 @@ const MyMusicRecommendation = () => {
             backdropFilter: "none",
             maxHeight: "80vh",
           }}
+          emptyMessage={"추천한 게시글이 없습니다."}
         />
       ) : (
-        <EmptyMessage message={"추천된 게시글이 없습니다."} />
+        <EmptyMessage message={"추천한 게시글이 없습니다."} />
       )}
     </Container>
   );

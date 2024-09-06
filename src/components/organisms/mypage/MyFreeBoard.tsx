@@ -64,6 +64,7 @@ const MyFreeBoard = () => {
             </Card>
           )}
           containerStyle={containerStyle}
+          emptyMessage={"게시된 자유글이 없습니다."}
         />
       ) : (
         <EmptyMessage message={"게시된 자유글이 없습니다."} />

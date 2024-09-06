@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MyAlbumReviewHeader, MyAlbumReviewFooter } from "../../molecules";
 import { Text } from "../../common";
 import { glassEffectStyle } from "../../../styles/style";
-import { AlbumReview } from "../../../types/myalbumReviewType";
+import { AlbumReview, Artist } from "../../../types/myalbumReviewType";
 import { useInfiniteMyAlbumReviewsQuery } from "../../../hooks/queries/albumDetail";
 import InfiniteScrollList from "../../common/InfiniteScrollList";
 import Loading from "../../common/Loading";
@@ -48,7 +48,7 @@ const MyAlbumReview = () => {
                 albumImage={data.album.images[0]}
                 albumName={data.album.name}
                 artistName={data.album.artists
-                  .map(artist => artist.name)
+                  .map((artist: Artist) => artist.name)
                   .join(", ")}
                 createdAt={data.createdAt}
               />
@@ -68,6 +68,7 @@ const MyAlbumReview = () => {
             gap: "1rem",
             maxHeight: "80vh",
           }}
+          emptyMessage={"평가한 앨범이 없습니다."}
         />
       ) : (
         <EmptyMessage message={"평가한 앨범이 없습니다."} />

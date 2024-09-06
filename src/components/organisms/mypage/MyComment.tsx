@@ -128,6 +128,7 @@ const MyComment = () => {
               </div>
             )}
             containerStyle={containerStyle}
+            emptyMessage={"게시된 댓글이 없습니다."}
           />
         ) : (
           <EmptyMessage message={"게시된 댓글이 없습니다."} />
