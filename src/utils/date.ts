@@ -18,8 +18,9 @@ export const dateTimeFormat = (date: string) => {
 export const getDefaultDates = () => {
   const endDate = dayjs();
   const startDate = endDate.subtract(7, "day");
+
   return {
-    startDate: dateFormat(startDate.toISOString()),
-    endDate: dateFormat(endDate.toISOString()),
+    startDate: startDate.format("YYYY-MM-DD"),
+    endDate: endDate.format("YYYY-MM-DD"),
   };
 };
