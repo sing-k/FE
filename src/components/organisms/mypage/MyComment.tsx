@@ -57,7 +57,7 @@ const MyComment = () => {
 
   if (isLoading && !data) return <Loading />;
   if (isError) return <ErrorMessage message={error?.message || "Error"} />;
-  console.log(data);
+
   return (
     <>
       <TabMenu
