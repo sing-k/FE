@@ -38,11 +38,17 @@ const DropDownNavigation = ({ isLogin, data }: any) => {
             ) : (
               <NavSignUpBtn />
             )}
-            <NavMenuList />
+            {isLogin === "true" && data ? (
+              <>
+                <NavMenuList />
+                <LogoutDiv>
+                  <LogoutBtn />
+                </LogoutDiv>
+              </>
+            ) : (
+              <NavMenuList />
+            )}
           </Menu>
-          <LogoutDiv>
-            {isLogin === "true" ? <LogoutBtn /> : undefined}
-          </LogoutDiv>
         </>
       )}
     </Container>

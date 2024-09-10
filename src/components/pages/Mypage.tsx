@@ -62,7 +62,6 @@ const Mypage = () => {
     const path = `?tab=${key}`;
     navigate(`${pathName.myPage}/${path}`);
   };
-  console.log(data);
   useEffect(() => {
     const currentTab = new URLSearchParams(location.search).get("tab");
 
