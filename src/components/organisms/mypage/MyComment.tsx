@@ -67,54 +67,50 @@ const MyComment = () => {
       />
       <Container>
         {data && data.length > 0 ? (
-          data.map((comment: MyCommentType) => (
-            <div key={comment.id}>
-              <Card
-                onClick={() => handelClickLink(comment.postId, comment.type)}
-              >
-                <MyBoardHeader
-                  nickname={comment.writer.nickname}
-                  createdAt={comment.createdAt}
-                  imageUrl={comment.writer.imageUrl}
-                />
-                <Text color="black" size="1rem">
-                  {comment.content}
-                </Text>
-                <MyCommentFooter
-                  type={comment.type}
-                  likeCount={comment.like.count}
-                />
-              </Card>
-              {comment.children.length > 0 && (
-                <>
-                  {comment.children.map((childComment: MyCommentType) => (
-                    <Card
-                      key={childComment.id}
-                      onClick={() =>
-                        handelClickLink(comment.postId, comment.type)
-                      }
-                    >
-                      <MyBoardHeader
-                        nickname={childComment.writer.nickname}
-                        createdAt={childComment.createdAt}
-                        imageUrl={childComment.writer.imageUrl}
-                      />
-                      <Text color="black" size="1rem">
-                        {childComment.content}
-                      </Text>
-                      <TypeContainder>
-                        <MyBoardType type={"대댓글"} />
-                        <MyCommentFooter
-                          type={childComment.type}
-                          likeCount={childComment.like.count}
-                        />
-                      </TypeContainder>
-                    </Card>
-                  ))}
-                </>
-              )}
-            </div>
-          ))
+          data.map((comment: MyCommentType) =>
+            comment.parentId === null ? (
+              <div key={comment.id}>
+                <Card
+                  onClick={() => handelClickLink(comment.postId, comment.type)}
+                >
+                  <MyBoardHeader
+                    nickname={comment.writer.nickname}
+                    createdAt={comment.createdAt}
+                    imageUrl={comment.writer.imageUrl}
+                  />
+                  <Text color="black" size="1rem">
+                    {comment.content}
+                  </Text>
+                  <MyCommentFooter
+                    type={comment.type}
+                    likeCount={comment.like.count}
+                  />
+                </Card>
+              </div>
+            ) : (
+              <div key={comment.id}>
+                <Card
+                  onClick={() => handelClickLink(comment.postId, comment.type)}
+                >
+                  <MyBoardHeader
+                    nickname={comment.writer.nickname}
+                    createdAt={comment.createdAt}
+                    imageUrl={comment.writer.imageUrl}
+                  />
+                  <Text color="black" size="1rem">
+                    {comment.content}
+                  </Text>
+                  <TypeContainder>
+                    <MyBoardType type={"대댓글"} />
+                    <MyCommentFooter
+                      type={comment.type}
+                      likeCount={comment.like.count}
+                    />
+                  </TypeContainder>
+                </Card>
+              </div>
+            ),
+          )
         ) : (
           <EmptyMessage message={"게시된 댓글이 없습니다."} />
         )}
