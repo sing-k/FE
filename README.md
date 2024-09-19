@@ -443,3 +443,78 @@ Atomic design을 통해 컴포넌트 재사용성을 극대화하고, UI 개발�
 
 <h2>프로젝트 주요 기능 </h2>
 
+### 1.회원가입 
+- 이름, 이메일, 비밀번호, 닉네임, 생년월일, 성별을 필드로 가지며 프론트와 백 양쪽에서 모두 유효성 검사를 실시합니다.
+- 이메일 인증을 구현하였습니다.
+- 사용자는 모든 필드를 양식에 맞게 입력하면 회원가입을 할 수 있습니다. 
+
+1) 이메일 인증
+![회원가입이메일전송](https://github.com/user-attachments/assets/5cb2a323-bced-46c7-8481-e06415759073)
+2) 회원가입 
+![회원가입](https://github.com/user-attachments/assets/68e85e1b-a6c9-4fce-b590-0e6c5f338711)
+
+### 2.로그인
+- 이메일, 비밀번호를 필드로 가지며 프론트와 백 양쪽에서 모두 유효성 검사를 실시합니다. 자체로그인,소셜로그인으로 구현하였습니다.
+- 소셜로그인 시 추가 입력 폼을 작성해야합니다. 
+1) 자체 로그인
+![로그인](https://github.com/user-attachments/assets/a5db0368-3851-453b-9569-92c2dd47e5bb)
+2) 소셜 로그인
+![소셜로그인](https://github.com/user-attachments/assets/05966a6b-3a04-437e-a492-b9f2a9ab18d8)
+   
+### 3.회원 정보 수정 
+- 마이페이지 내 회원정보 수정 버튼을 통해 프로필 이미지와 닉네임을 변경할 수 있습니다.
+- 이미지를 등록하기 전에는 기본 이미지로 표시됩니다.
+![회원정보수정](https://github.com/user-attachments/assets/03f51001-0276-4c3f-85d5-e4c2f940c14e)
+
+### 4.메인 페이지 
+- 메인페이지에는 네비게이션 바 , 앨범 검색창 ,평점 높은 앨범 캐러셀, 게시판이 존재합니다.
+- 네비게이션 바를 통해 마이페이지, 앨범 목록 게시판, 음악 추천 게시판 , 자유 게시판에 접근 할 수 있습니다.
+![메인페이지](https://github.com/user-attachments/assets/19bfc643-062e-43db-b769-94283b5b9d8e)
+
+### 5.앨범 검색
+- 앨범 검색 창을 통해 앨범을 검색 할 수 있습니다. 가수 이름, 앨범명으로 검색이 가능합니다.
+- 검색 결과로 앨범 목록을 확인 할 수 있습니다.
+- 각 앨범을 클릭 하면 앨범 상세 정보를 확인 할 수 있고 미리 듣기 기능도 제공합니다. 
+![앨범검색](https://github.com/user-attachments/assets/28e9bae3-588d-43cd-b6ea-0506a421a2ba)
+
+### 6.음악 감상평 작성
+- 감상평 탭을 클릭하면 감상평을 작성 할 수 있습니다.
+- 평가 된 결과는 즉시 대시보드로 확인 가능합니다. 평가한 사람의 수, 성별 , 평점을 확인 할 수 있습니다.
+![음악 평가 ](https://github.com/user-attachments/assets/96aee185-3adc-43ee-9e05-f1b4330ffe34)
+
+### 7.음악 추천 게시판 
+- 총 3가지 종류(이미지, 유튜브, 음악링크)로 음악 추천 게시판을 작성할 수 있습니다.
+- 게시판은 임시 저장, 미리보기, 텍스트 에디터 기능을 제공합니다.
+1) 음악 링크 
+![음악 추천 게시글 작성 ](https://github.com/user-attachments/assets/43206803-b118-46e6-9745-3c5acc32e516)
+2) 유튜브 링크
+![음악추천게시판글쓰기유튜브](https://github.com/user-attachments/assets/6a97a95e-639a-4494-8368-f2a2ff0c545d)
+
+### 8.게시판 검색 , 댓글 
+- 각 게시판은 검색기능을 제공합니다. 글쓴이 , 제목 ,내용으로 필터링 할 수 있습니다.
+- 각 게시판은 댓글 ,대댓글 기능을 제공합니다.
+1) 검색
+![게시판검색](https://github.com/user-attachments/assets/567fbc31-86c8-4cf0-a266-7dfcf2fd4dcc)
+2) 댓글 
+![댓글작성](https://github.com/user-attachments/assets/69a150ad-72a1-4466-a176-0aa201dbfc8b)
+
+### 9. 마이페이지
+- 총 5가지 탭으로 구분됩니다. (활동히스토리, 평가한앨범 ,음악 추천글, 자유게시글 ,댓글)
+- 활동 히스토리 그래프와 목록을 통해 획득한 점수를 확인 할 수 있습니다.
+- 내가 작성한 글과 댓글을 확인 가능합니다.
+1) 활동히스토리
+![마이페이지(1)활동히스토리](https://github.com/user-attachments/assets/a0159555-edfc-4fd1-99f5-ffae856047a3)   
+2) 내가 작성한 글, 댓글
+![마이페이지(2)](https://github.com/user-attachments/assets/7f2b01b9-3a9e-4d3e-902b-734645784769)
+
+<h2>추가 문서</h2>
+
+#### [피그마](https://www.figma.com/design/ua86Spw3vhPQgSzK1RBjuV/SingK-%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84?node-id=10-537&node-type=canvas&t=qwux3anEiokEhgQe-0) : 와이어프레임 및 디자인 
+#### [노션](https://www.notion.so/SingK-c7f009f987d74391ac9f1c3854f4ff52) : 프로젝트 회의록 및 프로젝트 산출물 관리 
+#### [스택 선정 이유](https://www.notion.so/8a7b377256f24604ad097e160821aaa5)
+#### [프론트엔드 코딩컨벤션](https://www.notion.so/60e05a36291e466692f0364db506a155)
+#### [브랜치 전략](https://www.notion.so/9e3a64febc024217a3cf54383d76dbcc)
+애자일 방식으로 프로젝트를 진행하였습니다. 
+매주 스프린트 플래닝과 스프린트가 끝나면 KPT회고를 진행하였습니다. 
+![image](https://github.com/user-attachments/assets/8be7563a-bcc4-44ed-8da2-ea25c49f2856)
+
